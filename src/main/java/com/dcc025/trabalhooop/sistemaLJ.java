@@ -4,7 +4,10 @@ import java.util.*;
 
 public class sistemaLJ {
 
+	private static Vector<Place> places = new Vector<Place>();
+
 	public static void main(String[] args) {
+
 		try (Scanner scan = new Scanner(System.in)) {
 			System.out.println("//----------------------------------------------------------------//");
 			System.out.println("			Bem vindo ao SistemaLJ, o que deseja fazer?");
@@ -14,6 +17,7 @@ public class sistemaLJ {
 			System.out.println("//----------------------------------------------------------------//");
 			int option = scan.nextInt();
 			seletor(option);
+			option = scan.nextInt();
 			while (option != -1) {
 				seletor(option);
 				option = scan.nextInt();
@@ -25,20 +29,26 @@ public class sistemaLJ {
 	public static void seletor(int option) {
 		switch (option) {
 			case 1:
-				NovoLJ();
+				novoLJ();
 				break;
 			case 2:
-				NovoProduto();
-			default:
+				novoProduto();
+			case -1:
 				break;
 		}
 	}
 
-	public static void NovoLJ() {
+	public static void novoLJ() {
+		try (Scanner scan = new Scanner(System.in)) {
+			System.out.println("Digite o nome do seu Lava Jato: ");
+			final String nome = scan.nextLine();
+			scan.close();
+			places.addElement(new Place(nome));
+		}
+	}
+
+	public static void novoProduto() {
 
 	}
 
-	public static void NovoProduto() {
-
-	}
 }
