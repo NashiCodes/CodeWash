@@ -42,7 +42,6 @@ public class sistemaLJ {
 		try (Scanner scan = new Scanner(System.in)) {
 			System.out.println("Digite o nome do seu Lava Jato: ");
 			final String nome = scan.nextLine();
-			scan.close();
 			places.addElement(new Place(nome));
 		}
 	}

@@ -1,14 +1,12 @@
 package com.dcc025.trabalhooop;
 
-public class Produtos {
+public class Servicos {
 
 	private String name;
-	private String description;
 	private int price;
 
-	public Produtos(String name, String description, int price) {
+	public Servicos(String name, int price) {
 		this.name = name;
-		this.description = description;
 		this.price = price;
 	}
 
@@ -18,14 +16,6 @@ public class Produtos {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public int getPrice() {

@@ -6,11 +6,11 @@ public class Place {
 
 	private String name;
 
-	private Vector<Produtos> produtos;
+	private Vector<Servicos> produtos;
 
 	public Place(String name) {
 		this.name = name;
-		this.produtos = new Vector<Produtos>();
+		this.produtos = new Vector<Servicos>();
 	}
 
 	public String getName() {
@@ -21,7 +21,7 @@ public class Place {
 		this.name = name;
 	}
 
-	public Vector<Produtos> getProdutos() {
+	public Vector<Servicos> getProdutos() {
 		return produtos;
 	}
 
