@@ -10,6 +10,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>19</maven.compiler.source>
 		<maven.compiler.target>19</maven.compiler.target>
-		<exec.mainClass>com.dcc025.trabalhooop.Projeto</exec.mainClass>
+		<exec.mainClass>com.dcc025.trabalhooop.sistemaLJ</exec.mainClass>
 	</properties>
 </project>
