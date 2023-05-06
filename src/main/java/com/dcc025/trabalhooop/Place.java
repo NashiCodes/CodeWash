@@ -25,4 +25,7 @@ public class Place {
 		return produtos;
 	}
 
+	public void addProdutos(Servicos produtos) {
+		this.produtos.add(produtos);
+	}
 }
