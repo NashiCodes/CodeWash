@@ -67,10 +67,13 @@ public class sistemaLJ {
 				String preço = leitor();
 				place.addProdutos(new Servicos(nome, Integer.parseInt(preço)));
 				break;
-			} else if (places.indexOf(place) == places.size() - 1)
+			} else if (places.indexOf(place) == places.size() - 1) {
 				System.out.println("Não foi possivel adicionar o Produto");
-			break;
+				break;
+			}
+
 		}
 
 	}
+
 }
