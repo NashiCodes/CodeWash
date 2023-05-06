@@ -54,9 +54,6 @@ public class sistemaLJ {
 		System.out.println("Digite o nome do seu Lava Jato:");
 		String nome = leitor();
 		places.add(new Place(nome));
-		for (Place place : places) {
-			System.out.println(place.getName());
-		}
 	}
 
 	public static void novoProduto() {
