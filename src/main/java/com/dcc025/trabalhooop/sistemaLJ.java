@@ -4,9 +4,9 @@ import java.util.*;
 
 public class sistemaLJ {
 
-	private static List<Place> places = new ArrayList<Place>();
+	private static final List<Place> places = new ArrayList<>();
 	private static String option;
-	private static Scanner scan = new Scanner(System.in);
+	private static final Scanner scan = new Scanner(System.in);
 
 	private static String leitor() {
 		String nome = scan.nextLine();
@@ -19,7 +19,7 @@ public class sistemaLJ {
 	}
 
 	private static void menu() {
-		while (option != "-1") {
+		while (!"-1".equals(option)) {
 			menuOptions();
 			option = leitor();
 			seletor();
@@ -45,7 +45,7 @@ public class sistemaLJ {
 				break;
 			case "2":
 				novoProduto();
-			case "-1":
+			default:
 				break;
 		}
 	}

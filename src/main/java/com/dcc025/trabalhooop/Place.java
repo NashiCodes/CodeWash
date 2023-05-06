@@ -6,7 +6,7 @@ public class Place {
 
 	private String name;
 
-	private List<Servicos> produtos;
+	private final List<Servicos> produtos;
 
 	public Place(String name) {
 		this.name = name;
@@ -35,4 +35,5 @@ public class Place {
 			System.out.println(servicos.getPrice() + "\n");
 		}
 	}
+
 }
