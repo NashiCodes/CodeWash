@@ -1,16 +1,16 @@
 package com.dcc025.trabalhooop;
 
-import java.util.Vector;
+import java.util.*;
 
 public class Place {
 
 	private String name;
 
-	private Vector<Servicos> produtos;
+	private List<Servicos> produtos;
 
 	public Place(String name) {
 		this.name = name;
-		this.produtos = new Vector<Servicos>();
+		this.produtos = new ArrayList<Servicos>();
 	}
 
 	public String getName() {
@@ -21,7 +21,7 @@ public class Place {
 		this.name = name;
 	}
 
-	public Vector<Servicos> getProdutos() {
+	public List<Servicos> getProdutos() {
 		return produtos;
 	}
 
