@@ -28,4 +28,11 @@ public class Place {
 	public void addProdutos(Servicos produtos) {
 		this.produtos.add(produtos);
 	}
+
+	public void printProdutos() {
+		for (Servicos servicos : produtos) {
+			System.out.println(servicos.getName());
+			System.out.println(servicos.getPrice() + "\n");
+		}
+	}
 }
