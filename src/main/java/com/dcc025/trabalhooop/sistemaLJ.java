@@ -4,49 +4,75 @@ import java.util.*;
 
 public class sistemaLJ {
 
-	private static Vector<Place> places = new Vector<Place>();
+	private static final List<Place> places = new ArrayList<>();
+	private static String option;
+	private static final Scanner scan = new Scanner(System.in);
 
-	public static void main(String[] args) {
-
-		try (Scanner scan = new Scanner(System.in)) {
-			System.out.println("//----------------------------------------------------------------//");
-			System.out.println("			Bem vindo ao SistemaLJ, o que deseja fazer?");
-			System.out.println("	(1) Cadastrar seu Lava Jato");
-			System.out.println("	(2) Cadastrar um novo serviço");
-			System.out.println("	(-1) Sair");
-			System.out.println("//----------------------------------------------------------------//");
-			int option = scan.nextInt();
-			seletor(option);
-			option = scan.nextInt();
-			while (option != -1) {
-				seletor(option);
-				option = scan.nextInt();
-			}
-		}
-
+	private static String leitor() {
+		String nome = scan.nextLine();
+		return nome;
 	}
 
-	public static void seletor(int option) {
+	public static void main(String[] args) {
+		option = "1";
+		menu();
+	}
+
+	private static void menu() {
+		while (!"-1".equals(option)) {
+			menuOptions();
+			option = leitor();
+			seletor();
+		}
+	}
+
+	private static void menuOptions() {
+		System.out.println("//----------------------------------------------------------------//");
+		System.out.println("		Bem vindo ao SistemaLJ, o que deseja fazer?");
+		System.out.println("	(1) Cadastrar seu Lava Jato");
+
+		if (!places.isEmpty())
+			System.out.println("	(2) Cadastrar um novo serviço");
+
+		System.out.println("	(-1) Sair");
+		System.out.println("//----------------------------------------------------------------//");
+	}
+
+	public static void seletor() {
 		switch (option) {
-			case 1:
+			case "1":
 				novoLJ();
 				break;
-			case 2:
+			case "2":
 				novoProduto();
-			case -1:
+			default:
 				break;
 		}
 	}
 
 	public static void novoLJ() {
-		try (Scanner scan = new Scanner(System.in)) {
-			System.out.println("Digite o nome do seu Lava Jato: ");
-			final String nome = scan.nextLine();
-			places.addElement(new Place(nome));
-		}
+		System.out.println("Digite o nome do seu Lava Jato:");
+		String nome = leitor();
+		places.add(new Place(nome));
 	}
 
 	public static void novoProduto() {
+		System.out.println("Digite o nome do seu Lava Jato:");
+		String nome = leitor();
+		for (Place place : places) {
+			if (place.getName().equals(nome)) {
+				System.out.println("Digite o nome do seu produto:");
+				nome = leitor();
+				System.out.println("Digite o preço do seu produto:");
+				String preço = leitor();
+				place.addProdutos(new Servicos(nome, Integer.parseInt(preço)));
+				break;
+			} else if (places.indexOf(place) == places.size() - 1) {
+				System.out.println("Não foi possivel adicionar o Produto");
+				break;
+			}
+
+		}
 
 	}
 
