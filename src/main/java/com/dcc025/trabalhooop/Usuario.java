@@ -1,11 +1,11 @@
 package com.dcc025.trabalhooop;
 
-public class Cliente {
+public class Usuario {
     private String nome;
     private String telefone;
     private String email;
 
-    public Cliente(String nome, String telefone, String email)
+    public Usuario(String nome, String telefone, String email)
     {
         this.nome = nome;
         this.telefone = telefone;
