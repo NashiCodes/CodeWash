@@ -39,19 +39,20 @@ public class Horario {
    }
 
    public String getHorario(int diaSemana, String horario) {
-      if (diaSemana >= 0 && diaSemana < this.Dias_de_Funcionamento) {//Se o dia selecionado for valido
+      if (diaSemana >= 0 && diaSemana < this.Dias_de_Funcionamento) {// Se o dia selecionado for valido
          HashMap<String, Integer> horariosDia = horarios.get(diaSemana);// pega todos os horarios desse dia
          if (horariosDia.containsKey(horario)) {// verifica se nesse dia pelo menos alguem ja seleciou tal horario
-            return horariosDia.get(horario) + " pessoas marcadas para este horário.";// retora o numeror de pessoas que selecionaram
+            return horariosDia.get(horario) + " pessoas marcadas para este horário.";// retora o numeror de pessoas que
+                                                                                     // selecionaram
          } else {
-            return "Nenhuma pessoa marcada para este horário.";//caso contrario retorna mensagem de erro
+            return "Nenhuma pessoa marcada para este horário.";// caso contrario retorna mensagem de erro
          }
       } else {
          return "Dia selecionado invalido!!";
       }
    }
 
-   public static class HorarioJaOcupadoException extends Exception { //classe estatica que retorna a mensagem de erro
+   public static class HorarioJaOcupadoException extends Exception { // classe estatica que retorna a mensagem de erro
       public HorarioJaOcupadoException(String mensagem) {
          super(mensagem);
       }
