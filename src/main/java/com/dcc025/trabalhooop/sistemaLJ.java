@@ -3,11 +3,14 @@ package com.dcc025.trabalhooop;
 import java.util.*;
 
 public class sistemaLJ {
-
+	private static final List<Place> places = new ArrayList<Place>();
 	private static final Scanner scan = new Scanner(System.in);
-	private static Usuario usuario;
 	private static final List<Cadastro> cadastro = new ArrayList<Cadastro>();
-	
+	private static Usuario user;
+	private static Client client;
+	private static Administrador adm;
+	private static Place LavaJato;
+
 	private static String option;
 
 	private static String leitor() {
@@ -38,20 +41,24 @@ public class sistemaLJ {
 	}
 
 	public static void seletor() {
-			switch (option) {
-				case "1":
-					cadastrar();
-					break;
-				case "2":
-					login();
-				default:
-					break;
-			}		
+		switch (option) {
+			case "1":
+				cadastrar();
+				break;
+			case "2":
+				login();
+			default:
+				break;
+		}
 	}
 
 	public static void cadastrar() {
 		menuCadastro();
-		cadastro.add(new Cadastro(usuario.getEmail(), usuario.getSenha(cadastro), usuario.getClass().getName()));
+		cadastro.add(new Cadastro(user.getEmail(), user.getSenha(cadastro), user.getClass().getName()));
+	}
+
+	public static void login() {
+
 	}
 
 	public static void menuCadastro() {
@@ -67,18 +74,71 @@ public class sistemaLJ {
 		String tipoUser = leitor();
 		switch (tipoUser) {
 			case "0":
-				usuario = new Client(nome, telefone, email, senha);
+				client = new Client(nome, telefone, email, senha);
+				user = client;
 				break;
 			case "1":
-				usuario = new Administrador(nome, telefone, email, senha);
+				adm = new Administrador(nome, telefone, email, senha);
+				user = adm;
+				cadastraAdm();
 				break;
 			default:
 				break;
 		}
 	}
 
-	public static void login() {
-
+	public static void cadastraAdm() {
+		limparTerminal();
+		System.out.println("Digite o nome do seu Lava Jato:");
+		String nome = leitor();
+		LavaJato = new Place(nome);
+		places.add(LavaJato);
+		limparTerminal();
+		loopADM();
 	}
 
+	public static void optionsAdm() {
+		System.out.println("//----------------------------------------------------------------//");
+		System.out.println("		        SistemaLJ, o que deseja fazer?");
+		System.out.println("(1) Modificar Dias de funcionamento");
+		if (adm.diasUteis() != 0) {
+			System.out.println("(2) Vizualizar horarios");
+			System.out.println("(-1) Sair");
+		}
+		System.out.println("//----------------------------------------------------------------//");
+	}
+
+	public static void loopADM() {
+		while (!"-1".equals(option)) {
+			optionsAdm();
+			option = leitor();
+			seletorAdm();
+		}
+	}
+
+	public static void seletorAdm() {
+		switch (option) {
+			case "1":
+				System.out.println("Digite quantos dias uteis seu Lava Jato irá Funcionar: ");
+				adm.Funcionamento(Integer.parseInt(leitor()));
+				break;
+			case "2":
+				adm.mostrarHorarios();
+			default:
+				break;
+		}
+	}
+
+	public static void limparTerminal() {
+		try {
+			if (System.getProperty("os.name").contains("Windows")) {
+				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+			} else {
+				System.out.print("\033[H\033[2J");
+				System.out.flush();
+			}
+		} catch (Exception e) {
+			// Handle any exceptions here.
+		}
+	}
 }
