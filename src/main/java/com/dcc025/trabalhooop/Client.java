@@ -2,8 +2,8 @@ package com.dcc025.trabalhooop;
 
 public class Client extends Usuario {
 
-    public Client(String nome, String telefone, String email) {
-        super(nome, telefone, email);
+    public Client(String nome, String telefone, String email, String senha) {
+        super(nome, telefone, email, senha);
     }
 
     public String getNome() {
@@ -28,6 +28,10 @@ public class Client extends Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    protected void setSenha(String novaSenha) {
+        this.senha = novaSenha;
     }
 
 }

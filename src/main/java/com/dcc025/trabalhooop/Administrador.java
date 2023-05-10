@@ -2,12 +2,12 @@ package com.dcc025.trabalhooop;
 
 import java.util.*;
 
-public class Administrador extends Usuario{
+public class Administrador extends Usuario {
     private HashMap<String, Double> produtos;
     private ArrayList<Client> clientes;
 
-    public Administrador(String nome, String telefone, String email) {
-        super(nome, telefone, email);
+    public Administrador(String nome, String telefone, String email, String senha) {
+        super(nome, telefone, email, senha);
         this.produtos = new HashMap<String, Double>();
     }
 
@@ -41,7 +41,8 @@ public class Administrador extends Usuario{
         System.out.println("Telefone: " + cliente.getTelefone());
     }
 
-    public void editarDadosCliente(Client cliente, String novoNome, String novoEmail, String novaSenha, String novoTelefone) {
+    public void editarDadosCliente(Client cliente, String novoNome, String novoEmail, String novaSenha,
+            String novoTelefone) {
         if (this.clientes.contains(cliente)) {
             cliente.setNome(novoNome);
             cliente.setEmail(novoEmail);
