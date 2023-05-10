@@ -32,6 +32,7 @@ public class sistemaLJ {
 	}
 
 	private static void menuOptions() {
+		limparTerminal();
 		System.out.println("//----------------------------------------------------------------//");
 		System.out.println("		Bem vindo ao SistemaLJ, o que deseja fazer?");
 		System.out.println("(1)Cadastre-se");
@@ -62,13 +63,14 @@ public class sistemaLJ {
 	}
 
 	public static void menuCadastro() {
+		limparTerminal();
 		System.out.println("Digite seu nome: ");
 		String nome = leitor();
 		System.out.println("Digite seu telefone: ");
 		String telefone = leitor();
-		System.out.println("Digite o nome do seu email:");
+		System.out.println("Digite seu email:");
 		String email = leitor();
-		System.out.println("Digite o nome do sua senha:");
+		System.out.println("Digite sua senha:");
 		String senha = leitor();
 		System.out.println("(0)Cliente ou (1)Administrador:");
 		String tipoUser = leitor();
@@ -98,11 +100,15 @@ public class sistemaLJ {
 	}
 
 	public static void optionsAdm() {
+		limparTerminal();
 		System.out.println("//----------------------------------------------------------------//");
 		System.out.println("		        SistemaLJ, o que deseja fazer?");
 		System.out.println("(1) Modificar Dias de funcionamento");
 		if (adm.diasUteis() != 0) {
 			System.out.println("(2) Vizualizar horarios");
+			System.out.println("(3) Adicionar Produtos");
+			System.out.println("(4) Editar preço de produto");
+			System.out.println("(5) Vizualizar produtos");
 			System.out.println("(-1) Sair");
 		}
 		System.out.println("//----------------------------------------------------------------//");
@@ -114,19 +120,47 @@ public class sistemaLJ {
 			option = leitor();
 			seletorAdm();
 		}
+		option = "0";
 	}
 
 	public static void seletorAdm() {
 		switch (option) {
 			case "1":
+				limparTerminal();
 				System.out.println("Digite quantos dias uteis seu Lava Jato irá Funcionar: ");
 				adm.Funcionamento(Integer.parseInt(leitor()));
 				break;
 			case "2":
 				adm.mostrarHorarios();
+				leitor();
+				break;
+			case "3":
+				novoProduto();
+				break;
+			case "4":
+				limparTerminal();
+				System.out.println("Digite o nome do produto que sera modificado : ");
+				String nome = leitor();
+				System.out.println("Digite seu novo preço: ");
+				Double preço = Double.parseDouble(leitor());
+				adm.editarPrecoProduto(nome, preço);
+				break;
+			case "5":
+				limparTerminal();
+				System.out.println("Não implementado ainda");
+				break;
 			default:
 				break;
 		}
+	}
+
+	public static void novoProduto() {
+		limparTerminal();
+		System.out.println("Digite o nome do seu produto:");
+		String nome = leitor();
+		System.out.println("Digite o preço do seu produto:");
+		Double preço = Double.parseDouble(leitor());
+		adm.adicionarProduto(nome, preço);
 	}
 
 	public static void limparTerminal() {
