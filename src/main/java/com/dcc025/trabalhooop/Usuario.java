@@ -14,15 +14,31 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public String getName() {
+    protected String getNome() {
         return nome;
     }
 
-    public String getPhone() {
+    protected String getTelefone() {
         return telefone;
     }
 
-    public String getEmail() {
+    protected String getEmail() {
         return email;
+    }
+
+    protected void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    protected void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    protected void setEmail(String email) {
+        this.email = email;
+    }
+
+    protected void setSenha(String novaSenha) {
+        this.senha = novaSenha;
     }
 }
