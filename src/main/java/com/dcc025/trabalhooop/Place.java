@@ -6,11 +6,11 @@ public class Place {
 
 	private String name;
 
-	private final List<Servicos> produtos;
+	private HashMap<String, Double> produtos;
 
 	public Place(String name) {
 		this.name = name;
-		this.produtos = new ArrayList<Servicos>();
+		this.produtos = new HashMap<String, Double>();
 	}
 
 	public String getName() {
@@ -21,18 +21,17 @@ public class Place {
 		this.name = name;
 	}
 
-	public List<Servicos> getProdutos() {
+	public HashMap<String, Double> getProdutos() {
 		return produtos;
 	}
 
-	public void addProdutos(Servicos produtos) {
-		this.produtos.add(produtos);
+	public void addProdutos(Produto produtos) {
+		this.produtos.put(produtos.getName(), produtos.getPrice());
 	}
 
 	public void printProdutos() {
-		for (Servicos servicos : produtos) {
-			System.out.println(servicos.getName());
-			System.out.println(servicos.getPrice() + "\n");
+		for (String produto : produtos.keySet()) {
+			System.out.println(produto + ": $" + produtos.get(produto));
 		}
 	}
 
