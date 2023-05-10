@@ -16,7 +16,7 @@ public class Horario {
       this.horario_de_Funcionamento = new ArrayList<Integer>(2);
       initHF();
       horarios = new ArrayList<HashMap<String, Integer>>(this.Dias_de_Funcionamento);
-      for (int i = 0; i < this.Dias_de_Funcionamento; i++) {
+      for (int i = 0; i < 7; i++) {
          horarios.add(new HashMap<String, Integer>()); // inicializa todos os horários
                                                        // com um HashMap vazio
       }
@@ -77,6 +77,34 @@ public class Horario {
 
    public void setHF(int hr) {
       this.horario_de_Funcionamento.add(hr);
+   }
+
+   public String nomeDia(int dia) {
+      switch (dia) {
+         case 0:
+            return "Segunda-Feira";
+         case 1:
+            return "Terça-Feira";
+         case 2:
+            return "Quarta-Feira";
+         case 3:
+            return "Quinta-Feira";
+         case 4:
+            return "Sexta-Feira";
+         case 5:
+            return "Sabado";
+         case 6:
+            return "Domingo";
+         default:
+            return "Dia invalido!!";
+      }
+   }
+
+   public void printDia(int i) {
+      ArrayList<String> hrs = this.getHhrsIndisponiveis(i);
+      for (String hr : hrs) {
+         System.out.println(hr + " Ocupado");
+      }
    }
 
    public static class HorarioJaOcupadoException extends Exception { // classe estatica que retorna a mensagem de erro

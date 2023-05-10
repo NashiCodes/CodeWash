@@ -5,10 +5,14 @@ import java.util.*;
 public class Administrador extends Usuario {
     private HashMap<String, Double> produtos;
     private ArrayList<Client> clientes;
+    private Horario horarios;
+    private int dias;
 
     public Administrador(String nome, String telefone, String email, String senha) {
         super(nome, telefone, email, senha);
         this.produtos = new HashMap<String, Double>();
+        this.horarios = new Horario(0);
+        this.dias = 0;
     }
 
     public void adicionarProduto(String nome, double preco) {
@@ -52,4 +56,18 @@ public class Administrador extends Usuario {
             System.out.println("O cliente " + cliente.getNome() + " não está cadastrado.");
         }
     }
+
+    public void getHorarios() {
+        System.out.println("Horarios");
+        for (int i = 0; i < dias; i++) {
+            String diaSemana = this.horarios.nomeDia(i);
+            System.out.println(diaSemana + ": ");
+            this.horarios.printDia(i);
+        }
+    }
+
+    public void Funcionamento() {
+
+    }
+
 }
