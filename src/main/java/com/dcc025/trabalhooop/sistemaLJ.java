@@ -5,8 +5,11 @@ import java.util.*;
 public class sistemaLJ {
 
 	private static final List<Place> places = new ArrayList<>();
-	private static String option;
 	private static final Scanner scan = new Scanner(System.in);
+	private static Usuario usuario;
+	private static final List<Cadastro> cadastro = new ArrayList<Cadastro>();
+	private static String option;
+	private static boolean logado = false;
 
 	private static String leitor() {
 		String nome = scan.nextLine();
@@ -29,24 +32,40 @@ public class sistemaLJ {
 	private static void menuOptions() {
 		System.out.println("//----------------------------------------------------------------//");
 		System.out.println("		Bem vindo ao SistemaLJ, o que deseja fazer?");
-		System.out.println("	(1) Cadastrar seu Lava Jato");
 
-		if (!places.isEmpty())
+		if (!logado) {
+			System.out.println("(1)Cadastre-se");
+			System.out.println("(2)login");
+		} else {
+			System.out.println("	(1) Cadastrar seu Lava Jato");
 			System.out.println("	(2) Cadastrar um novo serviço");
+		}
 
 		System.out.println("	(-1) Sair");
 		System.out.println("//----------------------------------------------------------------//");
 	}
 
 	public static void seletor() {
-		switch (option) {
-			case "1":
-				novoLJ();
-				break;
-			case "2":
-				novoProduto();
-			default:
-				break;
+		if (logado) {
+			switch (option) {
+				case "1":
+					novoLJ();
+					break;
+				case "2":
+					novoProduto();
+				default:
+					break;
+			}
+		} else {
+			switch (option) {
+				case "1":
+					cadastrar();
+					break;
+				case "2":
+					login();
+				default:
+					break;
+			}
 		}
 	}
 
@@ -73,6 +92,42 @@ public class sistemaLJ {
 			}
 
 		}
+
+	}
+
+	public static void cadastrar() {
+		menuCadastro();
+		cadastro.add(new Cadastro(usuario.getEmail(), usuario.getSenha(cadastro), usuario.getClass().getName()));
+		logado = true;
+	}
+
+	public static void menuCadastro() {
+		System.out.println("Digite seu nome: ");
+		String nome = leitor();
+		System.out.println("Digite seu telefone: ");
+		String telefone = leitor();
+		System.out.println("Digite o nome do seu email:");
+		String email = leitor();
+		System.out.println("Digite o nome do sua senha:");
+		String senha = leitor();
+		System.out.println("(0)Cliente ou (1)Administrador:");
+		String tipoUser = leitor();
+		switch (tipoUser) {
+			case "0":
+				usuario = new Client(nome, telefone, email, senha);
+				break;
+			case "1":
+				usuario = new Administrador(nome, telefone, email, senha);
+				break;
+			default:
+				break;
+		}
+	}
+
+	public static void seletorCad(String tipoUser) {
+	}
+
+	public static void login() {
 
 	}
 

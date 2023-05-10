@@ -10,7 +10,7 @@ public class Login {
     public Login(String email, String senha) {
         if (isValido(email))
             this.email = email;
-        else
+         else
             System.out.println("Email invalido !!");
         this.senha = senha;
     }
