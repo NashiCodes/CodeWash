@@ -59,6 +59,41 @@ public class sistemaLJ {
 	}
 
 	public static void login() {
+		// menuLogin();
+		System.out.println("TODO: implementação necessária");
+		leitor();
+	}
+
+	public static void menuLogin()
+	{
+		limparTerminal();
+		System.out.println("Digite seu email: ");
+		String email = leitor();
+		System.out.println("Digite sua senha: ");
+		String senha = leitor();
+		
+		if(verificaLogin(email))
+		{
+			System.out.println("TODO: implementação necessária");
+		}
+		else
+		{
+			System.out.println("Usuário não cadastrado");
+			System.out.println("Cadastre-se: ");
+			leitor();
+			cadastrar();
+		}
+	}
+
+	public static boolean verificaLogin(String email)
+	{
+		for (Cadastro cad : cadastro) {
+			if(cad.getEmail() == email)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public static void menuCadastro() {
@@ -77,6 +112,8 @@ public class sistemaLJ {
 			case "0":
 				client = new Client(nome, telefone, email, senha);
 				user = client;
+				System.out.println("TODO: implementação necessária");
+				leitor();
 				break;
 			case "1":
 				adm = new Administrador(nome, telefone, email, senha);
