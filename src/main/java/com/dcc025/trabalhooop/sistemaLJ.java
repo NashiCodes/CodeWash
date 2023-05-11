@@ -59,7 +59,6 @@ public class sistemaLJ {
 	}
 
 	public static void login() {
-
 	}
 
 	public static void menuCadastro() {
@@ -109,8 +108,8 @@ public class sistemaLJ {
 			System.out.println("(3) Adicionar Produtos");
 			System.out.println("(4) Editar preço de produto");
 			System.out.println("(5) Vizualizar produtos");
-			System.out.println("(-1) Sair");
 		}
+		System.out.println("(-1) Sair");
 		System.out.println("//----------------------------------------------------------------//");
 	}
 
