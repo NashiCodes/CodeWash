@@ -6,17 +6,17 @@ public class Horario {
 
    private List<HashMap<String, Integer>> horarios;// Array de hashMap para armazenar
                                                    // os horarios referentes de cada dia da semana
-   private final int Dias_de_Funcionamento; // varivel para armazenar os dias da semana
-                                            // que o lava jato funciona
+   private int diasUteis; // varivel para armazenar os dias da semana
+                          // que o lava jato funciona
 
    private final List<Integer> horario_de_Funcionamento; // Vetor que armazena os Horarios de Funcionamento
 
    public Horario(int dias) {
-      this.Dias_de_Funcionamento = dias;
+      this.diasUteis = dias;
       this.horario_de_Funcionamento = new ArrayList<Integer>(2);
       initHF();
-      horarios = new ArrayList<HashMap<String, Integer>>(this.Dias_de_Funcionamento);
-      for (int i = 0; i < this.Dias_de_Funcionamento; i++) {
+      horarios = new ArrayList<HashMap<String, Integer>>(this.diasUteis);
+      for (int i = 0; i < 7; i++) {
          horarios.add(new HashMap<String, Integer>()); // inicializa todos os horários
                                                        // com um HashMap vazio
       }
@@ -29,7 +29,7 @@ public class Horario {
    }
 
    public void setHorario(int diaSemana, String horario) throws HorarioJaOcupadoException {
-      if (diaSemana >= 0 && diaSemana < this.Dias_de_Funcionamento) { // se o dia selecionado pelo usuario for valido
+      if (diaSemana >= 0 && diaSemana < this.diasUteis) { // se o dia selecionado pelo usuario for valido
          HashMap<String, Integer> horariosDia = horarios.get(diaSemana);// pega todos os horarios desse dia
          if (horariosDia.containsKey(horario)) {// verifica se nesse dia outra pessoa ja seleciou tal horario
             int numPessoas = horariosDia.get(horario);// pega o numero de pessas desse horario
@@ -49,7 +49,7 @@ public class Horario {
    }
 
    public String getHorario(int diaSemana, String horario) {
-      if (diaSemana >= 0 && diaSemana < this.Dias_de_Funcionamento) {// Se o dia selecionado for valido
+      if (diaSemana >= 0 && diaSemana < this.diasUteis) {// Se o dia selecionado for valido
          HashMap<String, Integer> horariosDia = horarios.get(diaSemana);// pega todos os horarios desse dia
          if (horariosDia.containsKey(horario)) {// verifica se nesse dia pelo menos alguem ja seleciou tal horario
             return horariosDia.get(horario) + " pessoas marcadas para este horário.";// retora o numeror de pessoas que
@@ -64,7 +64,7 @@ public class Horario {
 
    public ArrayList<String> getHhrsIndisponiveis(int diaSemana) {
       ArrayList<String> horariosIndisponiveis = new ArrayList<String>();
-      if (diaSemana >= 0 && diaSemana < this.Dias_de_Funcionamento) { // se for um dia valido
+      if (diaSemana >= 0 && diaSemana < this.diasUteis) { // se for um dia valido
          HashMap<String, Integer> horariosDia = horarios.get(diaSemana);// pega todos os horarios desse dia
          for (String horario : horariosDia.keySet()) {// percorre todos os horariosdesse dia
             if (horariosDia.get(horario) == 2) {// verifica se esse horario ainda tem 2 pessoas marcadas
@@ -77,6 +77,42 @@ public class Horario {
 
    public void setHF(int hr) {
       this.horario_de_Funcionamento.add(hr);
+   }
+
+   public void setDiasUteis(int D) {
+      this.diasUteis = D;
+   }
+
+   public int getDiasUteis() {
+      return this.diasUteis;
+   }
+
+   public String nomeDia(int dia) {
+      switch (dia) {
+         case 0:
+            return "Segunda-Feira";
+         case 1:
+            return "Terça-Feira";
+         case 2:
+            return "Quarta-Feira";
+         case 3:
+            return "Quinta-Feira";
+         case 4:
+            return "Sexta-Feira";
+         case 5:
+            return "Sabado";
+         case 6:
+            return "Domingo";
+         default:
+            return "Dia invalido!!";
+      }
+   }
+
+   public void printDia(int i) {
+      ArrayList<String> hrs = this.getHhrsIndisponiveis(i);
+      for (String hr : hrs) {
+         System.out.println(hr + " Ocupado");
+      }
    }
 
    public static class HorarioJaOcupadoException extends Exception { // classe estatica que retorna a mensagem de erro
