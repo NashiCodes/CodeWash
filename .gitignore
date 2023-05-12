@@ -39,3 +39,4 @@ buildNumber.properties
 hs_err_pid*
 
 .vscode
+.idea
