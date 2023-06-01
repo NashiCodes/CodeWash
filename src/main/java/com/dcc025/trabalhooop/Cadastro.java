@@ -8,7 +8,7 @@ package com.dcc025.trabalhooop;
 
 public class Cadastro extends Login{
 
-    private String tipoUser;
+    private final String tipoUser;
 
     public Cadastro(String email, String senha, String tipoUser)
     {

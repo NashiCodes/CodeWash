@@ -15,7 +15,7 @@ public class Place {
 
 	public Place(String name) {
 		this.name = name;
-		this.produtos = new HashMap<String, Double>();
+		this.produtos = new HashMap<>();
 	}
 
 	public String getName() {

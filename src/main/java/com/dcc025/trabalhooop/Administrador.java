@@ -14,7 +14,7 @@ public class Administrador extends Usuario {
 
     public Administrador(String nome, String telefone, String email, String senha) {
         super(nome, telefone, email, senha);
-        this.produtos = new HashMap<String, Double>();
+        this.produtos = new HashMap<>();
         this.horarios = new Horario(0);
     }
 

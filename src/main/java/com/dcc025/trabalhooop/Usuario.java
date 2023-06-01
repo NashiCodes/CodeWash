@@ -40,7 +40,7 @@ public class Usuario {
 
     protected String getSenha(List<Cadastro> usuarios) {
         for (Cadastro cadastro : usuarios) {
-            if (cadastro.getEmail() == this.email)
+            if (cadastro.getEmail().equals(this.email))
                 return null;
         }
         return senha;
@@ -63,12 +63,11 @@ public class Usuario {
     }
 
     private static String leitor() {
-        String string = scan.nextLine();
-        return string;
+        return scan.nextLine();
     }
 
     private boolean isValido(String email) {
-        String regex = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        String regex = "^[\\w.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
