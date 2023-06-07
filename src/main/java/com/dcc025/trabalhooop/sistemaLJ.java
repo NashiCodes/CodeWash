@@ -5,10 +5,10 @@
 
 package com.dcc025.trabalhooop;
 
+import com.dcc025.trabalhooop.Display.Tela;
 import com.dcc025.trabalhooop.Local.Place;
 import com.dcc025.trabalhooop.Login.*;
 import com.dcc025.trabalhooop.Usuario.*;
-
 import java.util.*;
 
 public class sistemaLJ {
@@ -27,6 +27,9 @@ public class sistemaLJ {
     }
 
     public static void main(String[] args) {
+
+        Tela tela = new Tela();
+
         option = "1";
         menu();
     }
