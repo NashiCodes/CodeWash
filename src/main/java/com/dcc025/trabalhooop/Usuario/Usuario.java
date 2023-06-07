@@ -3,7 +3,9 @@
 // NOME: João Victor Pereira dos Anjos                        MATRÍCULA: 202176010
 // NOME: Lucas Henrique de Arruda Ferreira                MATRÍCULA: 202165193AC
 
-package com.dcc025.trabalhooop;
+package com.dcc025.trabalhooop.Usuario;
+
+import com.dcc025.trabalhooop.Login.Cadastro;
 
 import java.util.*;
 import java.util.regex.*;
@@ -26,19 +28,19 @@ public class Usuario {
         this.senha = senha;
     }
 
-    protected String getNome() {
+    public String getNome() {
         return nome;
     }
 
-    protected String getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    protected String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    protected String getSenha(List<Cadastro> usuarios) {
+    public String getSenha(List<Cadastro> usuarios) {
         for (Cadastro cadastro : usuarios) {
             if (cadastro.getEmail().equals(this.email))
                 return null;

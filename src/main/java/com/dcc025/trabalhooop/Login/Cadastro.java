@@ -3,21 +3,19 @@
 // NOME: João Victor Pereira dos Anjos                        MATRÍCULA: 202176010
 // NOME: Lucas Henrique de Arruda Ferreira                MATRÍCULA: 202165193AC
 
-package com.dcc025.trabalhooop;
+package com.dcc025.trabalhooop.Login;
 
 
-public class Cadastro extends Login{
+public class Cadastro extends Login {
 
     private final String tipoUser;
 
-    public Cadastro(String email, String senha, String tipoUser)
-    {
+    public Cadastro(String email, String senha, String tipoUser) {
         super(email, senha);
         this.tipoUser = tipoUser;
     }
 
-    public String getTipoUser()
-    {
+    public String getTipoUser() {
         return tipoUser;
     }
 }
