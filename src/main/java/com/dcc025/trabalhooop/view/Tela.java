@@ -1,6 +1,7 @@
-package com.dcc025.trabalhooop.Display;
+package com.dcc025.trabalhooop.view;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Tela extends JFrame {
 

@@ -10,16 +10,23 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>19</maven.compiler.source>
 		<maven.compiler.target>19</maven.compiler.target>
-		<exec.mainClass>com.dcc025.trabalhooop.sistemaLJ</exec.mainClass>
+		<exec.mainClass>com.dcc025.trabalhooop.Main</exec.mainClass>
 	</properties>
-	<build>
+    <dependencies>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+	</dependencies>
+    <build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.dcc025.trabalhooop.sistemaLJ</mainClass>
+							<mainClass>com.dcc025.trabalhooop.Main</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>

@@ -3,15 +3,16 @@
 // NOME: João Victor Pereira dos Anjos                        MATRÍCULA: 202176010
 // NOME: Lucas Henrique de Arruda Ferreira                MATRÍCULA: 202165193AC
 
-package com.dcc025.trabalhooop.Usuario;
+package com.dcc025.trabalhooop.controller;
 
-import com.dcc025.trabalhooop.Local.Horario;
+import com.dcc025.trabalhooop.model.Horario;
+import com.dcc025.trabalhooop.model.Usuario;
 
 import java.util.*;
 
 public class Administrador extends Usuario {
     private HashMap<String, Double> produtos;
-    private ArrayList<Client> clientes;
+    private ArrayList<Usuario> clientes;
     private Horario horarios;
 
     public Administrador(String nome, String telefone, String email, String senha) {
@@ -36,21 +37,21 @@ public class Administrador extends Usuario {
         }
     }
 
-    public void adicionarCliente(Client cliente) {
+    public void adicionarCliente(Usuario cliente) {
         this.clientes.add(cliente);
     }
 
-    public void removerCliente(Client cliente) {
+    public void removerCliente(Usuario cliente) {
         this.clientes.remove(cliente);
     }
 
-    public void visualizarDadosCliente(Client cliente) {
+    public void visualizarDadosCliente(Usuario cliente) {
         System.out.println("Nome: " + cliente.getNome());
         System.out.println("Email: " + cliente.getEmail());
         System.out.println("Telefone: " + cliente.getTelefone());
     }
 
-    public void editarDadosCliente(Client cliente, String novoNome, String novoEmail, String novaSenha,
+    public void editarDadosCliente(Usuario cliente, String novoNome, String novoEmail, String novaSenha,
             String novoTelefone) {
         if (this.clientes.contains(cliente)) {
             cliente.setNome(novoNome);

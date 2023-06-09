@@ -1,4 +1,4 @@
-package com.dcc025.trabalhooop.Display;
+package com.dcc025.trabalhooop.view;
 
 import com.dcc025.trabalhooop.Login.Cadastro;
 
