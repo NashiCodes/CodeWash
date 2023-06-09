@@ -16,6 +16,7 @@ public class Usuario {
     private String telefone;
     private String email;
     private String senha;
+    private boolean Tipo;
 
     public Usuario(String nome, String telefone, String email, String senha) {
         this.nome = nome;
