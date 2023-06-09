@@ -5,12 +5,13 @@
 
 package com.dcc025.trabalhooop.Login;
 
+import com.dcc025.trabalhooop.exception.EmailException;
 
 public class Cadastro extends Login {
 
     private final String tipoUser;
 
-    public Cadastro(String email, String senha, String tipoUser) {
+    public Cadastro(String email, String senha, String tipoUser) throws EmailException{
         super(email, senha);
         this.tipoUser = tipoUser;
     }

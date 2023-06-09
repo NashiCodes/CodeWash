@@ -7,16 +7,15 @@ package com.dcc025.trabalhooop.Login;
 
 import java.util.regex.*;
 
+import com.dcc025.trabalhooop.exception.EmailException;
+
 public class Login {
 
     private String email;
     private String senha;
 
-    public Login(String email, String senha) {
-        if (isValido(email))
-            this.email = email;
-         else
-            System.out.println("Email invalido !!");
+    public Login(String email, String senha) throws EmailException{
+        setEmail(email);
         this.senha = senha;
     }
 
@@ -35,11 +34,11 @@ public class Login {
         return senha;
     }
 
-    protected void setEmail(String novoEmail) {
-        if (isValido(novoEmail))
-            this.email = novoEmail;
+    protected void setEmail(String novoEmail) throws EmailException{
+        if (!isValido(novoEmail))
+            throw new EmailException();
         else
-            System.out.println("Email invalido!!");
+            this.email = novoEmail;
     }
 
     protected void setSenha(String novaSenha) {
