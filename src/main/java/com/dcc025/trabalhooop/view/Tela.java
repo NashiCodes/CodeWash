@@ -1,7 +1,6 @@
 package com.dcc025.trabalhooop.view;
 
-import com.dcc025.trabalhooop.controller.CadastroController;
-import com.dcc025.trabalhooop.controller.LoginController;
+import com.dcc025.trabalhooop.controller.*;
 
 import javax.swing.*;
 import java.awt.*;
