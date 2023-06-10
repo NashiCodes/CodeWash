@@ -11,12 +11,12 @@ import com.dcc025.trabalhooop.model.Usuario;
 import java.util.*;
 
 public class Administrador extends Usuario {
-    private HashMap<String, Double> produtos;
+    private final HashMap<String, Double> produtos;
     private ArrayList<Usuario> clientes;
-    private Horario horarios;
+    private final Horario horarios;
 
-    public Administrador(String nome, String telefone, String email, String senha) {
-        super(nome, telefone, email, senha);
+    public Administrador(String nome, String telefone, String email, String senha, boolean tipo) {
+        super(nome, telefone, email, senha , tipo);
         this.produtos = new HashMap<>();
         this.horarios = new Horario(0);
     }

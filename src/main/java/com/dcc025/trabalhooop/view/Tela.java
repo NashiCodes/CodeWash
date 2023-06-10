@@ -56,7 +56,7 @@ public class Tela extends JFrame {
         JButton btnLogin = new JButton("Login"); //Cria um novo JButton com o texto "Login"
         btnLogin.addActionListener(new LoginController(this)); //Adiciona um novo ActionListener ao JButton "btnLogin"
 
-        JButton btnCadastro = new JButton("Cadastrar"); //Cria um novo JButton com o texto "Cadastrar"
+        JButton btnCadastro = new JButton("Cadastre-se"); //Cria um novo JButton com o texto "Cadastrar"
         btnCadastro.addActionListener(new CadastroController(this)); //Adiciona um novo ActionListener ao JButton "btnCadastro"
 
         JPanel botoes = new JPanel(); //Cria um novo JPanel para os botões
@@ -68,7 +68,7 @@ public class Tela extends JFrame {
         this.getContentPane().add(painel, BorderLayout.CENTER); //Adiciona o JPanel "painel" ao JFrame com o posicionamento CENTER
     }
 
-    private void telaCadastro() {
+    public void telaCadastro() {
         // TODO: Implementar tela de cadastro (com os campos necessários para o cadastro)
     }
 

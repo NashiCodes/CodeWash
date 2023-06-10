@@ -12,7 +12,7 @@ public class CadastroController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) { // Método que será chamado quando o botão for clicado
-        tela.cadastro(); // Chama o método da tela que será executado
+        tela.telaCadastro(); // Chama o método da tela que será executado
     }
 
 }

@@ -11,7 +11,7 @@ public class Place {
 
     private String name;
 
-    private HashMap<String, Double> produtos;
+    private final HashMap<String, Double> produtos;
 
     public Place(String name) {
         this.name = name;

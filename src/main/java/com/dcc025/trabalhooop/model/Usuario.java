@@ -16,9 +16,9 @@ public class Usuario {
     private String telefone;
     private String email;
     private String senha;
-    private boolean Tipo;
+    private final boolean Tipo;
 
-    public Usuario(String nome, String telefone, String email, String senha) {
+    public Usuario(String nome, String telefone, String email, String senha , boolean Tipo) {
         this.nome = nome;
         this.telefone = telefone;
         while (!this.isValido(email)) {
@@ -27,6 +27,7 @@ public class Usuario {
         }
         this.email = email;
         this.senha = senha;
+        this.Tipo = Tipo;
     }
 
     public String getNome() {
@@ -74,5 +75,9 @@ public class Usuario {
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
+    }
+
+    public boolean getTipo() {
+        return Tipo;
     }
 }

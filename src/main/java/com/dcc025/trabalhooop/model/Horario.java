@@ -37,7 +37,7 @@ public class Horario {
         if (diaSemana >= 0 && diaSemana < this.diasUteis) { // se o dia selecionado pelo usuario for valido
             HashMap<String, Integer> horariosDia = horarios.get(diaSemana);// pega todos os horarios desse dia
             if (horariosDia.containsKey(horario)) {// verifica se nesse dia outra pessoa ja seleciou tal horario
-                int numPessoas = horariosDia.get(horario);// pega o numero de pessas desse horario
+                int numPessoas = horariosDia.get(horario);// pega o numero de pessoas desse horario
                 if (numPessoas >= 2) {// verifica se 2 ou mais pessoas ja marcaram esse horario
                     // se for verdade o programa cai num caso de exeção e sai da função com uma
                     // mensagem de error
@@ -67,11 +67,11 @@ public class Horario {
         }
     }
 
-    public ArrayList<String> getHhrsIndisponiveis(int diaSemana) {
+    public ArrayList<String> getHrsIndisponiveis(int diaSemana) {
         ArrayList<String> horariosIndisponiveis = new ArrayList<>();
         if (diaSemana >= 0 && diaSemana < this.diasUteis) { // se for um dia valido
             HashMap<String, Integer> horariosDia = horarios.get(diaSemana);// pega todos os horarios desse dia
-            for (String horario : horariosDia.keySet()) {// percorre todos os horariosdesse dia
+            for (String horario : horariosDia.keySet()) {// percorre todos os horarios desse dia
                 if (horariosDia.get(horario) == 2) {// verifica se esse horario ainda tem 2 pessoas marcadas
                     horariosIndisponiveis.add(horario);// adiciona esse horario na lista de horarios indisponiveis
                 }
@@ -106,7 +106,7 @@ public class Horario {
     }
 
     public void printDia(int i) {
-        ArrayList<String> hrs = this.getHhrsIndisponiveis(i);
+        ArrayList<String> hrs = this.getHrsIndisponiveis(i);
         for (String hr : hrs) {
             System.out.println(hr + " Ocupado");
         }
