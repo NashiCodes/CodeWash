@@ -29,6 +29,18 @@ public class PlacePersistence implements Persistence<Place> {
     @Override
     public List<Place> findAll() {
         //TODO: implementar findAll
-        return null;
+
+        Gson gson = new Gson(); // Instancia um objeto Gson
+        String json = Arquivo.Read(PATH); // Lê o arquivo JSON
+
+        List<Place> places = new ArrayList<>(); // Instancia uma lista de lugares
+        if (!json.trim().equals("")) { // Verifica se o arquivo não está vazio
+            Type tipoLista = new TypeToken<List<Place>>() {
+            }.getType(); // Instancia um objeto TypeToken
+            places = gson.fromJson(json, tipoLista); // Converte a string JSON para uma lista de objetos
+            if (places == null) places = new ArrayList<>(); // Verifica se a lista não está vazia
+        }
+        return places; // Retorna a lista de lugares
+
     }
 }
