@@ -27,10 +27,11 @@ public class Tela extends JFrame {
 
     private final int V_GAP = 10; //Define o espaçamento vertical
     private final int H_GAP = 5; //Define o espaçamento horizontal
-    private JList<Usuario> listUsuarios;
+    private final JList<Usuario> jlUsuarios;
 
     public Tela() {
         super("Sistema de Lava-Jatos"); //Instancia o JFrame com o título "Sistema de Lava-Jatos"
+        jlUsuarios = new JList<>(new DefaultListModel<>());
     }
 
     public void display() {
@@ -72,7 +73,7 @@ public class Tela extends JFrame {
         btnLogin.addActionListener(new LoginController(this)); //Adiciona um novo ActionListener ao JButton "btnLogin"
 
         JButton btnCadastro = new JButton("Cadastre-se"); //Cria um novo JButton com o texto "Cadastrar"
-        btnCadastro.addActionListener(new CadastroController(this, false)); //Adiciona um novo ActionListener ao JButton "btnCadastro"
+        btnCadastro.addActionListener(new CadastroController(this, false,null)); //Adiciona um novo ActionListener ao JButton "btnCadastro"
 
         JPanel botoes = new JPanel(); //Cria um novo JPanel para os botões
         botoes.add(btnLogin); //Adiciona o JButton "btnLogin" ao JPanel "botoes"
@@ -125,7 +126,7 @@ public class Tela extends JFrame {
         painel.add(cadastro, BorderLayout.CENTER); //Adiciona o JPanel "cadastro" ao JPanel "painel" (dentro do JPanel "painel") com o posicionamento CENTER
 
         JButton btnCadastrar = new JButton("Cadastrar"); //Cria um novo JButton com o texto "Cadastrar"
-        btnCadastrar.addActionListener(new CadastroController(this, true)); //Adiciona um novo ActionListener ao JButton "btnCadastrar"
+        btnCadastrar.addActionListener(new CadastroController(this, true, frame )); //Adiciona um novo ActionListener ao JButton "btnCadastrar"
 
         JButton btnCancelar = new JButton("Cancelar"); //Cria um novo JButton com o texto "Cancelar"
         btnCancelar.addActionListener(e -> {
@@ -151,22 +152,21 @@ public class Tela extends JFrame {
     public void cadastro() {
         // TODO: Implementar o push de cadastro
         // e chama seus respectivos métodos de acordo com o tipo de usuário
-        DefaultListModel<Usuario> model = (DefaultListModel<Usuario>) listUsuarios.getModel(); //Cria um novo DefaultListModel para armazenar os usuários
-        if (tfSenha == tfConfirmarSenha) {
+        DefaultListModel<Usuario> model = (DefaultListModel<Usuario>) jlUsuarios.getModel(); //Cria um novo DefaultListModel para armazenar os usuários
+        if (Arrays.equals(tfSenha.getPassword(), tfConfirmarSenha.getPassword())) {
             model.addElement(new Usuario(
                     tfNome.getText(), tfTelefone.getText(), tfEmail.getText(), Arrays.toString(tfSenha.getPassword()),
                     Objects.equals(Objects.requireNonNull(cbTipoUsuario.getSelectedItem()).toString(), "Cliente")
             )); //Adiciona o usuário ao DefaultListModel
-            listUsuarios.setModel(model); //Define o DefaultListModel como o modelo da JList "listUsuarios"
+            jlUsuarios.setModel(model); //Define o DefaultListModel como o modelo da JList "listUsuarios"
         } else JOptionPane.showMessageDialog(null, "As senhas não coincidem", "Erro", JOptionPane.ERROR_MESSAGE);
     }
 
     public void carregaUsuarios(List<Usuario> usuarios) {
-        DefaultListModel<Usuario> model = new DefaultListModel<>(); //Cria um novo DefaultListModel para armazenar os usuários
+        DefaultListModel<Usuario> model = (DefaultListModel<Usuario>) jlUsuarios.getModel(); //Cria um novo DefaultListModel para armazenar os usuários
         for (Usuario usuario : usuarios) { //Para cada usuário na lista de usuários
             model.addElement(usuario); //Adiciona o usuário ao DefaultListModel
         }
-        listUsuarios.setModel(model); //Define o DefaultListModel como o modelo da JList "listUsuarios"
     }
 
 
@@ -174,4 +174,14 @@ public class Tela extends JFrame {
         // TODO: Implementar editar dados
     }
 
+    public List<Usuario> listaUsuarios() {
+        DefaultListModel<Usuario> model = (DefaultListModel<Usuario>) jlUsuarios.getModel(); //Cria um novo DefaultListModel para armazenar os usuários
+        List<Usuario> usuarios = new ArrayList<>(); //Cria uma nova lista de usuários
+
+        for (int i = 0; i < model.getSize(); i++) { //Para cada usuário no DefaultListModel
+            usuarios.add(model.get(i)); //Adiciona o usuário à lista de usuários
+        }
+
+        return usuarios; //Retorna a lista de usuários
+    }
 }
