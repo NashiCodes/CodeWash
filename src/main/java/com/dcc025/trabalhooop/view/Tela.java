@@ -146,10 +146,10 @@ public class Tela extends JFrame {
 
     public void login() {
         // TODO: Implementar o fetch de login
-        // e chama seus respectivos métodos de acordo com o tipo de usuário
-        List <Usuario> users = findAll();
+        Persistence<Usuario> usuarioPersistence = new UserPersistence();
+        List <Usuario> users = usuarioPersistence.findAll();
         for(Usuario usuario : users) {
-            if(usuario.getEmail.equals(tfEmail) && usuario.getPassword.equals(tfSenha))
+            if(usuario.getEmail().equals(tfEmail.getText()) && usuario.getPassword.equals(tfSenha))
             {
                 if(tiposUsuario.equals("Cliente"))
                 {
