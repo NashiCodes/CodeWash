@@ -147,6 +147,20 @@ public class Tela extends JFrame {
     public void login() {
         // TODO: Implementar o fetch de login
         // e chama seus respectivos métodos de acordo com o tipo de usuário
+        List <Usuario> users = findAll();
+        for(Usuario usuario : users) {
+            if(usuario.getEmail.equals(tfEmail) && usuario.getPassword.equals(tfSenha))
+            {
+                if(tiposUsuario.equals("Cliente"))
+                {
+                    // chama metodo cliente;
+                }
+                else
+                {
+                    // chama metodo Adm;
+                }
+            }
+        }
     }
 
     public void cadastro() {
