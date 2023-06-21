@@ -1,12 +1,12 @@
-package com.dcc025.trabalhooop.controller;
+package com.dcc025.trabalhooop.controller.User;
 
-import com.dcc025.trabalhooop.view.Tela;
+import com.dcc025.trabalhooop.view.TelaInicial;
 import java.awt.event.*;
 
 public class EditarDados implements ActionListener {
-    private final Tela tela; // Tela é a classe que contém os métodos que serão chamados
+    private final TelaInicial tela; // Tela é a classe que contém os métodos que serão chamados
 
-    public EditarDados(Tela tela) { // Construtor da classe
+    public EditarDados(TelaInicial tela) { // Construtor da classe
         this.tela = tela; // Atribui a tela que será usada
     }
     @Override

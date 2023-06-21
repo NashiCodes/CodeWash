@@ -8,13 +8,13 @@ package com.dcc025.trabalhooop.model;
 import java.util.*;
 
 public class Place {
-
     private String name;
-
+    private final String email;
     private final HashMap<String, Double> produtos;
 
-    public Place(String name) {
+    public Place(String name,String email) {
         this.name = name;
+        this.email = email;
         this.produtos = new HashMap<>();
     }
 
@@ -38,6 +38,10 @@ public class Place {
         for (String produto : produtos.keySet()) {
             System.out.println(produto + ": $" + produtos.get(produto));
         }
+    }
+
+    public String getEmail() {
+        return email;
     }
 
 }

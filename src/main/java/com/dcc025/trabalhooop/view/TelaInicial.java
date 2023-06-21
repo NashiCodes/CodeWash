@@ -1,8 +1,8 @@
 package com.dcc025.trabalhooop.view;
 
-import com.dcc025.trabalhooop.controller.CadastroController;
-import com.dcc025.trabalhooop.controller.LoginController;
-import com.dcc025.trabalhooop.controller.TelaManager;
+import com.dcc025.trabalhooop.controller.TelaInicial.CadastroController;
+import com.dcc025.trabalhooop.controller.TelaInicial.LoginController;
+import com.dcc025.trabalhooop.controller.TelaInicial.TelaManager;
 import com.dcc025.trabalhooop.model.Usuario;
 
 import javax.swing.*;
@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Tela extends JFrame {
+public class TelaInicial extends JFrame {
 
     private JTextField tfNome; //Cria um novo JTextField para o nome
     private JTextField tfTelefone; //Cria um novo JTextField para o telefone
@@ -30,7 +30,7 @@ public class Tela extends JFrame {
     private Usuario usuarioLogado; //Cria um novo objeto do tipo Usuario para o usuário logado
     private List<Usuario> usuarios; //Cria um novo ArrayList de Usuario para os usuários cadastrados
 
-    public Tela() {
+    public TelaInicial() {
         super("Sistema de Lava-Jatos"); //Instancia o JFrame com o título "Sistema de Lava-Jatos"
         usuarios = new ArrayList<>(); //Instancia o ArrayList de Usuario
     }
@@ -38,7 +38,7 @@ public class Tela extends JFrame {
     public void display() {
         setSize(WIDTH, HEIGHT); //Define o tamanho da janela
         addWindowListener(new TelaManager(this)); //Adiciona um novo WindowListener à janela
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Define a ação padrão ao fechar a janela
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //Define a ação padrão ao fechar a janela
         setResizable(false); //Define que a janela não pode ser redimensionada
         setLocationRelativeTo(null); //Define que a janela será centralizada na tela
         setVisible(true); //Define a janela como visível
@@ -90,7 +90,7 @@ public class Tela extends JFrame {
     public void telaCadastro() {
         JFrame frame = new JFrame("Cadastro"); //Instancia um novo JFrame com o título "Cadastro"
         frame.setSize(WIDTH, HEIGHT); //Define o tamanho da janela
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Define a ação padrão ao fechar a janela
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //Define a ação padrão ao fechar a janela
         frame.setLocationRelativeTo(null); //Define que a janela será centralizada na tela
         frame.setVisible(true); //Define a janela como visível
 
@@ -162,13 +162,15 @@ public class Tela extends JFrame {
             JOptionPane.showMessageDialog(null, "Email ou senha incorretos", "Erro", JOptionPane.ERROR_MESSAGE);
     }
 
-    public void cadastro() {
+    public void cadastro(JFrame frame) {
         if (Arrays.equals(tfSenha.getPassword(), tfConfirmarSenha.getPassword()))  //Se a senha e a confirmação de senha forem iguais
         {
             this.usuarioLogado = new Usuario(tfNome.getText(), tfTelefone.getText(), tfEmail.getText(), new String(tfSenha.getPassword()), Objects.equals(cbTipoUsuario.getSelectedItem(), "Administrador")); //Cria um novo usuário
             usuarios.add(usuarioLogado); //Adiciona um novo usuário à lista de usuários
             JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE); //Exibe uma mensagem de sucesso
+            frame.dispose(); //Fecha a janela
             handleUser();
+
         } else
             JOptionPane.showMessageDialog(null, "As senhas não coincidem", "Erro", JOptionPane.ERROR_MESSAGE); //Exibe uma mensagem de erro
 
@@ -181,11 +183,13 @@ public class Tela extends JFrame {
             else this.usuarios.add(u);
     }
 
-    private void handleUser(){
+    private void handleUser() {
         if (usuarioLogado.getTipo()) {
-            new AdmView(usuarioLogado);
+            this.dispose();
+            new AdmView(usuarioLogado).display();
         } else {
-            new ClienteView(usuarioLogado);
+            this.dispose();
+            new ClienteView(usuarioLogado).display();
         }
     }
 
