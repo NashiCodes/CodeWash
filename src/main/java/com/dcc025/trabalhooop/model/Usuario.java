@@ -5,9 +5,7 @@
 
 package com.dcc025.trabalhooop.model;
 
-import com.dcc025.trabalhooop.Login.Cadastro;
-
-import java.util.*;
+import java.util.Scanner;
 import java.util.regex.*;
 
 public class Usuario {

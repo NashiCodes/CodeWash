@@ -165,7 +165,7 @@ public class Tela extends JFrame {
     public void cadastro() {
         if (Arrays.equals(tfSenha.getPassword(), tfConfirmarSenha.getPassword()))  //Se a senha e a confirmação de senha forem iguais
         {
-            this.usuarioLogado = new Usuario(tfNome.getText(), tfTelefone.getText(), tfEmail.getText(), new String(tfSenha.getPassword()), Objects.equals((String) cbTipoUsuario.getSelectedItem(), "Administrador")); //Cria um novo usuário
+            this.usuarioLogado = new Usuario(tfNome.getText(), tfTelefone.getText(), tfEmail.getText(), new String(tfSenha.getPassword()), Objects.equals(cbTipoUsuario.getSelectedItem(), "Administrador")); //Cria um novo usuário
             usuarios.add(usuarioLogado); //Adiciona um novo usuário à lista de usuários
             JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE); //Exibe uma mensagem de sucesso
             handleUser();
@@ -183,9 +183,9 @@ public class Tela extends JFrame {
 
     private void handleUser(){
         if (usuarioLogado.getTipo()) {
-            System.out.println("Administrador");
+            new AdmView(usuarioLogado);
         } else {
-            System.out.println("Cliente");
+            new ClienteView(usuarioLogado);
         }
     }
 
