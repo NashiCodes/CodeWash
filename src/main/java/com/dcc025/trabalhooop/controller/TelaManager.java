@@ -27,7 +27,7 @@ public class TelaManager implements WindowListener {
     @Override
     public void windowClosing(WindowEvent e) {
         Persistence<Usuario> usuarioPersistence = new UserPersistence();
-        usuarioPersistence.save(tela.listaUsuarios());
+        usuarioPersistence.save(tela.getUsuarios());
     }
 
     @Override

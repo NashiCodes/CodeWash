@@ -18,7 +18,7 @@ public class Usuario {
     private String senha;
     private final boolean Tipo;
 
-    public Usuario(String nome, String telefone, String email, String senha , boolean Tipo) {
+    public Usuario(String nome, String telefone, String email, String senha, boolean Tipo) {
         this.nome = nome;
         this.telefone = telefone;
         while (!this.isValido(email)) {
@@ -42,11 +42,7 @@ public class Usuario {
         return email;
     }
 
-    public String getSenha(List<Cadastro> usuarios) {
-        for (Cadastro cadastro : usuarios) {
-            if (cadastro.getEmail().equals(this.email))
-                return null;
-        }
+    public String getSenha() {
         return senha;
     }
 

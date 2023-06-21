@@ -11,7 +11,7 @@ public class EditarDados implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {// Método que será chamado quando o botão for clicado
-        tela.editarDados(); // Chama o método da tela que será executado
+//        tela.editarDados(); // Chama o método da tela que será executado
     }
 
 }
