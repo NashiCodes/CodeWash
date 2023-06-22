@@ -3,8 +3,8 @@
 // NOME: João Victor Pereira dos Anjos                        MATRÍCULA: 202176010
 // NOME: Lucas Henrique de Arruda Ferreira                MATRÍCULA: 202165193AC
 
-package com.dcc025.trabalhooop;
-import com.dcc025.trabalhooop.view.TelaInicial;
+package trabalhooop;
+import trabalhooop.view.TelaInicial;
 
 public class Main {
 

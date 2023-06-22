@@ -10,7 +10,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>19</maven.compiler.source>
 		<maven.compiler.target>19</maven.compiler.target>
-		<exec.mainClass>com.dcc025.trabalhooop.Main</exec.mainClass>
+		<exec.mainClass>trabalhooop.Main</exec.mainClass>
 	</properties>
     <dependencies>
         <dependency>
@@ -26,7 +26,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.dcc025.trabalhooop.Main</mainClass>
+							<mainClass>trabalhooop.Main</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>

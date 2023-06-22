@@ -1,4 +1,4 @@
-package com.dcc025.trabalhooop.persistence;
+package trabalhooop.persistence;
 
 import java.io.*;
 

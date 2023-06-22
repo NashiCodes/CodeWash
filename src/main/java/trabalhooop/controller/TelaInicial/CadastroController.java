@@ -1,6 +1,6 @@
-package com.dcc025.trabalhooop.controller.TelaInicial;
+package trabalhooop.controller.TelaInicial;
 
-import com.dcc025.trabalhooop.view.TelaInicial;
+import trabalhooop.view.TelaInicial;
 
 import javax.swing.*;
 import java.awt.event.*;

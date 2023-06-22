@@ -1,6 +1,6 @@
-package com.dcc025.trabalhooop.persistence;
+package trabalhooop.persistence;
 
-import com.dcc025.trabalhooop.model.Place;
+import trabalhooop.model.Place;
 
 import java.lang.*;
 

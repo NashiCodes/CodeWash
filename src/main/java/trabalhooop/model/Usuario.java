@@ -3,9 +3,9 @@
 // NOME: João Victor Pereira dos Anjos                        MATRÍCULA: 202176010
 // NOME: Lucas Henrique de Arruda Ferreira                MATRÍCULA: 202165193AC
 
-package com.dcc025.trabalhooop.model;
+package trabalhooop.model;
 
-import com.dcc025.trabalhooop.exception.EmailException;
+import trabalhooop.exception.EmailException;
 
 import java.util.Scanner;
 import java.util.regex.*;

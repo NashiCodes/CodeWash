@@ -1,9 +1,8 @@
-package com.dcc025.trabalhooop.controller.User;
+package trabalhooop.controller.User;
 
-import com.dcc025.trabalhooop.model.Place;
-import com.dcc025.trabalhooop.persistence.*;
-import com.dcc025.trabalhooop.view.AdmView;
-import com.dcc025.trabalhooop.view.UserView;
+import trabalhooop.model.Place;
+import trabalhooop.persistence.*;
+import trabalhooop.view.UserView;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;

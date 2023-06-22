@@ -1,8 +1,8 @@
-package com.dcc025.trabalhooop.view;
+package trabalhooop.view;
 
-import com.dcc025.trabalhooop.controller.User.UserManager;
-import com.dcc025.trabalhooop.model.Place;
-import com.dcc025.trabalhooop.model.Usuario;
+import trabalhooop.controller.User.UserManager;
+import trabalhooop.model.Place;
+import trabalhooop.model.Usuario;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,9 +1,9 @@
-package com.dcc025.trabalhooop.controller.TelaInicial;
+package trabalhooop.controller.TelaInicial;
 
-import com.dcc025.trabalhooop.model.Usuario;
-import com.dcc025.trabalhooop.persistence.Persistence;
-import com.dcc025.trabalhooop.persistence.UserPersistence;
-import com.dcc025.trabalhooop.view.TelaInicial;
+import trabalhooop.model.Usuario;
+import trabalhooop.persistence.Persistence;
+import trabalhooop.persistence.UserPersistence;
+import trabalhooop.view.TelaInicial;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;

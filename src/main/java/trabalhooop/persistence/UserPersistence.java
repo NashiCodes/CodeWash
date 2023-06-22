@@ -1,6 +1,6 @@
-package com.dcc025.trabalhooop.persistence;
+package trabalhooop.persistence;
 
-import com.dcc025.trabalhooop.model.Usuario;
+import trabalhooop.model.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

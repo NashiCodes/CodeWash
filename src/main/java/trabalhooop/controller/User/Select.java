@@ -1,6 +1,6 @@
-package com.dcc025.trabalhooop.controller.User;
+package trabalhooop.controller.User;
 
-import com.dcc025.trabalhooop.view.UserView;
+import trabalhooop.view.UserView;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
