@@ -92,25 +92,7 @@ public class Horario {
         return this.diasUteis;
     }
 
-    public String nomeDia(int dia) {
-        return switch (dia) {
-            case 0 -> "Segunda-Feira";
-            case 1 -> "Terça-Feira";
-            case 2 -> "Quarta-Feira";
-            case 3 -> "Quinta-Feira";
-            case 4 -> "Sexta-Feira";
-            case 5 -> "Sabado";
-            case 6 -> "Domingo";
-            default -> "Dia invalido!!";
-        };
-    }
 
-    public void printDia(int i) {
-        ArrayList<String> hrs = this.getHrsIndisponiveis(i);
-        for (String hr : hrs) {
-            System.out.println(hr + " Ocupado");
-        }
-    }
 
     public static class HorarioJaOcupadoException extends Exception { // classe estatica que retorna a mensagem de erro
         public HorarioJaOcupadoException(String mensagem) {

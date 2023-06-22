@@ -13,24 +13,21 @@ public class UserManager implements WindowListener {
 
     private final UserView tela;
     private List<Place> places;
+    private final Persistence<Place> placePersistence;
 
     public UserManager(UserView tela) {
         this.tela = tela;
+        this.placePersistence = new PlacePersistence();
     }
 
     @Override
     public void windowOpened(WindowEvent e) {
-        Persistence<Place> placePersistence = new PlacePersistence();
-        this.places = placePersistence.findAll();
-        tela.carregaPlaces(places);
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
-        if (AdmView.class.equals(tela.getClass())) places.add(tela.getPlace());
-        else places = tela.getPlaces();
-        Persistence<Place> placePersistence = new PlacePersistence();
-        placePersistence.save(places);
+        places = tela.listPlaces(places); //Pega os lava jatos da tela
+        this.placePersistence.save(places); //Salva os lava jatos no banco de dados
     }
 
     @Override
@@ -50,7 +47,9 @@ public class UserManager implements WindowListener {
 
     @Override
     public void windowActivated(WindowEvent e) {
-
+        this.places = this.placePersistence.findAll();  //Pega todos os lava jatos do banco de dados
+        tela.carregaPlaces(places); //Carrega os lava jatos na tela
+        tela.display(); //Exibe a tela
     }
 
     @Override

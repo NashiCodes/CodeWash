@@ -14,51 +14,60 @@ public class AdmView extends UserView {
     private final Dimension preferredSize = new Dimension(450, 400);
     private final int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
     private final int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
-    private JTextField nome;
+    private JTextField JNome;
     private final Usuario user;
-
     private Place place;
 
     public AdmView(Usuario user) {
-        super("Administrador");
-        this.user = user;
+        //Função que cria a tela do administrador
+        super("Administrador"); //Título da tela
+        this.user = user;    //Usuário que está logado
+        this.setSize(preferredSize);    //Tamanho da tela
+        this.addWindowListener(new UserManager(this));  //Adiciona um listener para o botão de fechar a tela
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    //Fecha a aplicação quando a tela é fechada
+        this.setLocation(x, y); //Posição da tela
+        this.setVisible(true);  //Torna a tela visível
+        this.setEnabled(true);  //Torna a tela habilitada
     }
 
     @Override
     public void display() {
-        this.setSize(preferredSize);
-        this.addWindowListener(new UserManager(this));
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocation(x, y);
-        this.setVisible(true);
-
+        telaInicial();
         this.pack();
     }
 
     @Override
     public void carregaPlaces(List<Place> places) {
-        for (Place place : places) {
-            if (place.getName().equals(user.getEmail())) {
-                this.place = place;
-                break;
+        //Função que carrega os lava jatos associados ao usuário
+        for (Place place : places) {   //Percorre a lista de lava jatos
+            if (place.getEmail().equals(user.getEmail())) {   //Verifica se o email do usuário é igual ao email do lava jato
+                this.place = place; //Se sim, o lava jato é carregado
+                break; //Para o loop
             }
         }
     }
 
-    public List<Place> telaCadastro(List<Place> places) {
-        return places;
+    public void telaInicial() {
+        //TODO: Implementar tela de cadastro dos lava jatos
+        //verifica se o usuário já tem um Lava jato associado a ele
+        //se sim, abre a tela de edição do lava jato, como os horários de funcionamento, edição de produtos e serviços, etc
+        //se não, exibe um aviso de boas vindas e abre a tela de cadastro do lava jato
     }
 
-    public List<Place> CadastraLavaJato(List<Place> places) {
-        places.add(new Place(nome.getText(), "Lava Jato"));
-        return places;
+    public void CadastraLavaJato() {
+        place = new Place(JNome.getText(), user.getEmail());
     }
 
-    public Place getPlace() {
-        return place;
+    @Override
+    public List<Place> listPlaces(List<Place> places) {
+        //Função que lista os lava jatos associados ao usuário
+        places.removeIf(place -> place.getEmail().equals(user.getEmail()));//Remove o Lava jato do usuário da lista para atualizar
+        places.add(this.place); //Adiciona o lava jato do usuário na lista
+        return places; //Retorna a lista
     }
 
-    public List<Place> getPlaces() {
-        return null;
+    @Override
+    public void itemSelected() {
+        //Função que é chamada quando um item é selecionado
     }
 }

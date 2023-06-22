@@ -165,7 +165,7 @@ public class TelaInicial extends JFrame {
     public void cadastro(JFrame frame) {
         if (Arrays.equals(tfSenha.getPassword(), tfConfirmarSenha.getPassword()))  //Se a senha e a confirmação de senha forem iguais
         {
-            this.usuarioLogado = new Usuario(tfNome.getText(), tfTelefone.getText(), tfEmail.getText(), new String(tfSenha.getPassword()), Objects.equals(cbTipoUsuario.getSelectedItem(), "Administrador")); //Cria um novo usuário
+            usuarioLogado = atribuiUsuario(); //Atribui os valores dos campos de texto ao usuário logado
             usuarios.add(usuarioLogado); //Adiciona um novo usuário à lista de usuários
             JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE); //Exibe uma mensagem de sucesso
             frame.dispose(); //Fecha a janela
@@ -186,11 +186,22 @@ public class TelaInicial extends JFrame {
     private void handleUser() {
         if (usuarioLogado.getTipo()) {
             this.dispose();
-            new AdmView(usuarioLogado).display();
+            new AdmView(usuarioLogado);
         } else {
             this.dispose();
-            new ClienteView(usuarioLogado).display();
+            new ClienteView(usuarioLogado);
         }
+    }
+
+    private boolean verificaTipo() {
+        return Objects.equals(cbTipoUsuario.getSelectedItem(), "Administrador");
+    }
+
+    private Usuario atribuiUsuario() {
+        if (verificaTipo())
+            return new Usuario(tfNome.getText(), tfTelefone.getText(), tfEmail.getText(), new String(tfSenha.getPassword()), true);
+        else
+            return new Usuario(tfNome.getText(), tfTelefone.getText(), tfEmail.getText(), new String(tfSenha.getPassword()), false);
     }
 
     public List<Usuario> getUsuarios() {

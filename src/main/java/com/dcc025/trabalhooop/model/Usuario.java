@@ -5,6 +5,8 @@
 
 package com.dcc025.trabalhooop.model;
 
+import com.dcc025.trabalhooop.exception.EmailException;
+
 import java.util.Scanner;
 import java.util.regex.*;
 
@@ -19,11 +21,15 @@ public class Usuario {
     public Usuario(String nome, String telefone, String email, String senha, boolean Tipo) {
         this.nome = nome;
         this.telefone = telefone;
-        while (!this.isValido(email)) {
-            System.out.println("Email invalido, digite um novo email: ");
-            email = leitor();
+        try {
+            if (isValido(email)) {
+                this.email = email;
+            } else {
+                throw new EmailException();
+            }
+        } catch (EmailException e) {
+            System.out.println(e.getMessage());
         }
-        this.email = email;
         this.senha = senha;
         this.Tipo = Tipo;
     }
@@ -60,12 +66,8 @@ public class Usuario {
         this.senha = novaSenha;
     }
 
-    private static String leitor() {
-        return scan.nextLine();
-    }
-
     private boolean isValido(String email) {
-        String regex = "^[\\w.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
