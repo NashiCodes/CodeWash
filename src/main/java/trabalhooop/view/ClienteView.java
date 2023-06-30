@@ -45,22 +45,18 @@ public class ClienteView extends UserView {
         //Atualmente apenas mostra o nome do usuário e um botão para sair
         //TODO: Implementar a lista de lava jatos
         //Deve conter uma lista clicavel de lava jatos
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        JPanel panel = new JPanel(); //Cria um painel
+        panel.setLayout(new BorderLayout()); //Define o layout do painel
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); //Define a borda do painel
+        panel.setPreferredSize(preferredSize);
 
-        JLabel label = new JLabel("Bem vindo, " + user.getNome() + "!");
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(label);
+        DefaultListModel<Place> model = new DefaultListModel<>(); //Cria um modelo de lista
+        LavaJatos.setModel(model); //Define o modelo da lista
+        LavaJatos.addListSelectionListener(new Select(this)); //Adiciona um listener para a lista
 
-        JButton button = new JButton("Sair");
-        button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button.addActionListener(e -> {
-            this.dispose();
-            new TelaInicial().display();
-        });
-        panel.add(button);
+        panel.add(new JScrollPane(LavaJatos), BorderLayout.CENTER); //Adiciona a lista ao painel
 
-        this.add(panel);
+        getContentPane().add(panel); //Adiciona o painel à tela
     }
 
     @Override
@@ -87,5 +83,53 @@ public class ClienteView extends UserView {
     @Override
     public void itemSelected() {
         //Função que é chamada quando um item da lista é selecionado
+        int index = LavaJatos.getSelectedIndex(); //Pega o índice do item selecionado
+        if (index != -1) { //Se o índice for válido
+            Place place = LavaJatos.getModel().getElementAt(index); //Pega o lava jato selecionado
+            compose(place);
+        }
     }
+
+    private void compose(Place place) {
+        this.getContentPane().removeAll();
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.setPreferredSize(preferredSize);
+
+        JPanel conteudo = new JPanel();
+        conteudo.setLayout(new GridLayout(4, 1, 10, 10));
+
+        JLabel nome = new JLabel(place.getName());
+        conteudo.add(nome, BorderLayout.NORTH);
+        JButton Comprar = new JButton("Comprar Produtos");
+        Comprar.addActionListener(e -> comprar(place));
+        conteudo.add(Comprar, BorderLayout.CENTER);
+
+        JButton Agendar = new JButton("Agendar");
+        Agendar.addActionListener(e -> agendar(place));
+        conteudo.add(Agendar, BorderLayout.SOUTH);
+
+        JButton Voltar = new JButton("Voltar");
+        Voltar.addActionListener(e -> display());
+        conteudo.add(Voltar, BorderLayout.SOUTH);
+
+        panel.add(conteudo, BorderLayout.CENTER);
+        this.getContentPane().add(panel);
+        this.pack();
+    }
+
+    private void agendar(Place place) {
+        //TODO: Implementar a tela de agendamento
+        //Deve conter opções de data e horário, ou calendario, ou algo do tipo
+        //botão pra voltar
+        //botão pra agendar
+    }
+
+    private void comprar(Place place) {
+        //TODO: Implementar a tela de compra
+        //Deve conter uma lista de produtos, com a quantidade de cada produto
+        //botão pra voltar
+        //botão pra efetuar a compra
+        }
 }
