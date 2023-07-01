@@ -74,11 +74,11 @@ public class Place {
         return email;
     }
 
-    public void verifica(Dias.Dia dia, int hora) throws HorarioException{
-        if (hora >= this.abertura && hora < this.fechamento && hora != this.intervalo) {
-            throw new HorarioException("Horário inválido.");
+    public boolean verifica(Dias.Dia dia, int hora){
+        if (hora <this.abertura && hora >= this.fechamento && hora == this.intervalo) {
+            return false;
         }
-        this.agenda.verifica(dia, String.valueOf(hora));
+        return this.agenda.verifica(dia, String.valueOf(hora));
     }
 
     public void setDiasAbertos(List<Dias.Dia> diasAbertos) {

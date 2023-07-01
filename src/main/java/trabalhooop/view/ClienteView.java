@@ -2,13 +2,18 @@ package trabalhooop.view;
 
 import trabalhooop.controller.User.Select;
 import trabalhooop.controller.User.UserManager;
+import trabalhooop.exception.HorarioException;
+import trabalhooop.model.Dias;
 import trabalhooop.model.Place;
 import trabalhooop.model.Usuario;
+import trabalhooop.model.Dias.Dia;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
+import java.awt.event.ItemEvent;
+
 
 //Classe que representa a tela do cliente e seus métodos
 public class ClienteView extends UserView {
@@ -44,7 +49,7 @@ public class ClienteView extends UserView {
 
     private void mainWindow() {
         //Atualmente apenas mostra o nome do usuário e um botão para sair
-        //TODO: Implementar a lista de lava jatos
+        //Implementar a lista de lava jatos
         //Deve conter uma lista clicavel de lava jatos
         JPanel panel = new JPanel(); //Cria um painel
         panel.setLayout(new BorderLayout()); //Define o layout do painel
@@ -121,10 +126,63 @@ public class ClienteView extends UserView {
     }
 
     private void agendar(Place place) {
-        //TODO: Implementar a tela de agendamento
+        //Implementar a tela de agendamento
         //Deve conter opções de data e horário, ou calendario, ou algo do tipo
         //botão pra voltar
         //botão pra agendar
+        this.getContentPane().removeAll();
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.setPreferredSize(preferredSize);
+
+        JPanel conteudo = new JPanel();
+        conteudo.setLayout(new GridLayout(2, 2, 10, 10));
+
+        JLabel titulo = new JLabel("Selecione o dia e horário que deseja agendar");
+        panel.add(titulo, BorderLayout.NORTH);
+
+        JLabel selecioneDia = new JLabel("Selecione o dia");
+        conteudo.add(selecioneDia, BorderLayout.WEST);
+
+        final Dia[] diaSelecionado = new Dia[1];
+        JComboBox<Dias.Dia> diasComboBox = new JComboBox<>();
+        for (Dias.Dia dia : place.getDiasAbertos()) {
+            diasComboBox.addItem(dia);
+        }
+        diasComboBox.addItemListener(e -> {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                diaSelecionado[0] = (Dias.Dia) e.getItem();}
+        });
+        conteudo.add(diasComboBox, BorderLayout.CENTER);
+
+        JLabel selecioneHora = new JLabel("Selecione a hora");
+        conteudo.add(selecioneHora, BorderLayout.WEST);
+
+        JComboBox<String> horasComboBox = new JComboBox<>();
+        for (int i = place.getAbertura(); i < place.getFechamento(); i++) {
+            if(place.verifica(diaSelecionado[0], i))
+                horasComboBox.addItem(Integer.toString(i));
+        }
+        conteudo.add(horasComboBox, BorderLayout.CENTER);
+
+        JButton Agendar = new JButton("Agendar");
+        Agendar.addActionListener(e -> {
+            try {
+                place.marcarHorario(user.getEmail(), diaSelecionado[0], (String) horasComboBox.getSelectedItem());
+            } catch (HorarioException horarioException) {
+                JOptionPane.showMessageDialog(null, "Horário inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        panel.add(horasComboBox, BorderLayout.SOUTH);
+
+        JButton Voltar = new JButton("Voltar");
+        Voltar.addActionListener(e -> compose(place));
+        conteudo.add(Voltar, BorderLayout.SOUTH);
+
+        panel.add(conteudo, BorderLayout.CENTER);
+        this.getContentPane().add(panel);
+        this.pack();
     }
     
     private void comprar(Place place) {
@@ -163,7 +221,7 @@ public class ClienteView extends UserView {
         panel.add(conteudo, BorderLayout.CENTER);
         this.getContentPane().add(panel);
         this.pack();
-        //TODO: Implementar a tela de compra
+        //Implementar a tela de compra
         //Deve conter uma lista de produtos, com a quantidade de cada produto
         //botão pra voltar
         //botão pra efetuar a compra
