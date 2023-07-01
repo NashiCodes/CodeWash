@@ -7,6 +7,7 @@ import trabalhooop.model.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.List;
 
 //Classe que representa a tela do cliente e seus métodos
@@ -125,11 +126,85 @@ public class ClienteView extends UserView {
         //botão pra voltar
         //botão pra agendar
     }
-
+    
     private void comprar(Place place) {
+        this.getContentPane().removeAll();
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.setPreferredSize(preferredSize);
+
+        JPanel conteudo = new JPanel();
+        conteudo.setLayout(new GridLayout(2, 2, 10, 10));
+
+        JLabel titulo = new JLabel("Selecione os produtos que deseja comprar");
+        conteudo.add(titulo, BorderLayout.NORTH);
+
+        JPanel produtoPanel = new JPanel();
+        produtoPanel.setLayout(new GridLayout(1, 2, 10, 10));
+        JComboBox<String> produtosComboBox = new JComboBox<>();
+        HashMap<String, Double> produtosMap = place.getProdutos();
+        for (String nomeProduto : produtosMap.keySet()) {
+            produtosComboBox.addItem(nomeProduto);
+        }
+        conteudo.add(produtosComboBox, BorderLayout.CENTER);
+        
+        JSpinner quantidadeProd = new JSpinner();
+        conteudo.add(quantidadeProd, BorderLayout.CENTER);
+
+        JButton EfetuarCompra = new JButton("Finalizar Compra");
+        EfetuarCompra.addActionListener(e -> efetuarCompra(place, produtosComboBox, quantidadeProd));
+        conteudo.add(EfetuarCompra, BorderLayout.SOUTH);
+
+        JButton Voltar = new JButton("Voltar");
+        Voltar.addActionListener(e -> compose(place));
+        conteudo.add(Voltar, BorderLayout.SOUTH);
+
+        panel.add(conteudo, BorderLayout.CENTER);
+        this.getContentPane().add(panel);
+        this.pack();
         //TODO: Implementar a tela de compra
         //Deve conter uma lista de produtos, com a quantidade de cada produto
         //botão pra voltar
         //botão pra efetuar a compra
         }
+
+    private void efetuarCompra(Place place, JComboBox<String> produtosComboBox, JSpinner quantidadeProd) {
+        this.getContentPane().removeAll();
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.setPreferredSize(preferredSize);
+
+        JPanel conteudo = new JPanel();
+        conteudo.setLayout(new GridLayout(3, 1, 10, 10));
+
+        JLabel titulo = new JLabel("Dados da compra");
+        conteudo.add(titulo, BorderLayout.NORTH);
+
+        JTextArea dadosCompra = new JTextArea();
+        dadosCompra.setEditable(false);
+        dadosCompra.setText("Lava Jato: " + place.getName() + "\n" + 
+                            "Produto: " + produtosComboBox.getSelectedItem() + "\n" +
+                            "Quantidade: " + quantidadeProd.getValue() + "\n" +
+                            "Valor Final: " + place.getProdutos().get(produtosComboBox.getSelectedItem()) 
+                            * (int) quantidadeProd.getValue());
+        conteudo.add(dadosCompra, BorderLayout.CENTER); 
+
+        JButton Cancelar = new JButton("Cancelar");
+        Cancelar.addActionListener(e -> comprar(place));
+        conteudo.add(Cancelar, BorderLayout.SOUTH);
+
+        JButton Finalizar = new JButton("Finalizar");
+        StringBuilder mensagem = new StringBuilder();
+        mensagem.append("Compra realizada com sucesso!\n");
+        Finalizar.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null, mensagem.toString());
+        });
+        conteudo.add(Finalizar, BorderLayout.SOUTH);
+
+        panel.add(conteudo, BorderLayout.CENTER);
+        this.getContentPane().add(panel);
+        this.pack();
+    }
 }
