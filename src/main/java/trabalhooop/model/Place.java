@@ -5,21 +5,37 @@
 
 package trabalhooop.model;
 
+import trabalhooop.exception.HorarioException;
+
 import java.util.*;
 
 public class Place {
     private String name;
     private final String email;
     private final HashMap<String, Double> produtos;
-    private final List<Usuario> clientes;
-    private final Horario horarios;
+    private final Agenda agenda;
+    private final List<Dias.Dia> diasAbertos;
+    private int abertura;
+    private int fechamento;
+    private int intervalo;
 
     public Place(String name, String email) {
         this.name = name;
         this.email = email;
         this.produtos = new HashMap<>();
-        this.clientes = new ArrayList<>();
-        this.horarios = new Horario(0);
+        this.agenda = new Agenda();
+        this.diasAbertos = new ArrayList<>();
+    }
+
+    public boolean setFuncionamento(int abertura, int fechamento, int intervalo) throws HorarioException {
+        if (abertura < fechamento && abertura >= 0 && fechamento <= 24 && intervalo >= 0 && intervalo <= 24) {
+            this.abertura = abertura;
+            this.fechamento = fechamento;
+            this.intervalo = intervalo;
+            return true;
+        } else {
+            throw new HorarioException("Horário inválido.");
+        }
     }
 
     public String getName() {
@@ -50,22 +66,38 @@ public class Place {
         }
     }
 
-    public void adicionarCliente(Usuario cliente) {
-        this.clientes.add(cliente);
-    }
-
-    public void removerCliente(Usuario cliente) {
-        this.clientes.remove(cliente);
-    }
-
-    public void printProdutos() {
-        for (String produto : produtos.keySet()) {
-            System.out.println(produto + ": $" + produtos.get(produto));
-        }
+    public void marcarHorario(String email, Dias.Dia dia, String hora) throws HorarioException {
+        this.agenda.setHorario(email, dia, hora);
     }
 
     public String getEmail() {
         return email;
     }
 
+    public void verifica(Dias.Dia dia, int hora) throws HorarioException{
+        if (hora >= this.abertura && hora < this.fechamento && hora != this.intervalo) {
+            throw new HorarioException("Horário inválido.");
+        }
+        this.agenda.verifica(dia, String.valueOf(hora));
+    }
+
+    public void setDiasAbertos(List<Dias.Dia> diasAbertos) {
+        this.diasAbertos.addAll(diasAbertos);
+    }
+
+    public List<Dias.Dia> getDiasAbertos() {
+        return this.diasAbertos;
+    }
+
+    public int getAbertura() {
+        return this.abertura;
+    }
+
+    public int getFechamento() {
+        return this.fechamento;
+    }
+
+    public int getIntervalo() {
+        return this.intervalo;
+    }
 }
