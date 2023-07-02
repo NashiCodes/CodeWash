@@ -64,7 +64,38 @@ public class AdmView extends UserView {
         }
     }
 
+    public void telaCadastroLavaJato(){
+        this.getContentPane().removeAll();
+        lblNome = new JLabel("Digite o nome do Lava Jato");
+        JNome = new JTextField(20);
+        btnCadastrar = new JButton("Cadastrar");
 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Cadastro de Lava Jato");
+        setSize(300, 150);
+        setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.insets = new Insets(5, 10, 5, 10);
+
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        panel.add(lblNome, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        panel.add(JNome, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        panel.add(btnCadastrar, constraints);
+
+        getContentPane().add(panel);
+
+        pack();
+    }
 
     public void CadastraLavaJato() {
         place = new Place(JNome.getText(), user.getEmail());
