@@ -14,9 +14,13 @@ public class AdmView extends UserView {
     private final Dimension preferredSize = new Dimension(450, 400);
     private final int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
     private final int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
-    private JTextField JNome;
     private final Usuario user;
     private Place place;
+
+    // Cadastro de Lava Jato
+    private JLabel lblNome;
+    private JTextField JNome;
+    private JButton btnCadastrar;
 
     public AdmView(Usuario user) {
         //Função que cria a tela do administrador
@@ -50,9 +54,17 @@ public class AdmView extends UserView {
     public void telaInicial() {
         //TODO: Implementar tela de cadastro dos lava jatos
         //verifica se o usuário já tem um Lava jato associado a ele
-        //se sim, abre a tela de edição do lava jato, como os horários de funcionamento, edição de produtos e serviços, etc
-        //se não, exibe um aviso de boas vindas e abre a tela de cadastro do lava jato
+        if(this.place == null){
+            //se não, exibe um aviso de boas vindas e abre a tela de cadastro do lava jato
+            telaCadastroLavaJato();
+        }
+        else{
+            //se sim, abre a tela de edição do lava jato, como os horários de funcionamento, edição de produtos e serviços, etc
+            telaEdicaoLavaJato();
+        }
     }
+
+
 
     public void CadastraLavaJato() {
         place = new Place(JNome.getText(), user.getEmail());
