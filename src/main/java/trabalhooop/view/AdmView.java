@@ -97,6 +97,23 @@ public class AdmView extends UserView {
         pack();
     }
 
+    public void telaEdicaoLavaJato(){
+        this.getContentPane().removeAll();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Área Adminstrativa");
+        setSize(300, 150);
+        setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.insets = new Insets(5, 10, 5, 10);
+
+        getContentPane().add(panel);
+
+        pack();
+    }
+
     public void CadastraLavaJato() {
         place = new Place(JNome.getText(), user.getEmail());
     }
