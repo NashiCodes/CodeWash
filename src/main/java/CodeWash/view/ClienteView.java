@@ -5,21 +5,18 @@ import CodeWash.controller.User.UserManager;
 import CodeWash.exception.HorarioException;
 import CodeWash.model.Dias;
 import CodeWash.model.Place;
+import CodeWash.model.Produto;
 import CodeWash.model.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.List;
 import java.awt.event.ItemEvent;
+import java.util.List;
 
 
 //Classe que representa a tela do cliente e seus métodos
 public class ClienteView extends UserView {
-    private final Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize(); //Pega o tamanho da tela
     private final Dimension preferredSize = new Dimension(450, 400); //Define o tamanho preferido da tela
-    private final int x = (int) ((dimension.getWidth() - this.getWidth()) / 2); //Define a posição x da tela
-    private final int y = (int) ((dimension.getHeight() - this.getHeight()) / 2); //Define a posição y da tela
     private final Usuario user; //Usuário atual
     private final JList<Place> LavaJatos; //Lista de lava jatos
 
@@ -35,6 +32,12 @@ public class ClienteView extends UserView {
         this.setSize(preferredSize); //Define o tamanho da tela
         this.addWindowListener(new UserManager(this)); //Adiciona um listener para o comportamento da tela
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Define o que acontece quando a tela é fechada
+        //Define a posição x da tela
+        //Pega o tamanho da tela
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+        //Define a posição y da tela
+        int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
         this.setLocation(x, y); //Define a posição da tela
         this.setEnabled(true); //Define se a tela está habilitada
         this.setVisible(true); //Define se a tela está visível
@@ -200,10 +203,11 @@ public class ClienteView extends UserView {
         JPanel produtoPanel = new JPanel();
         produtoPanel.setLayout(new GridLayout(1, 2, 10, 10));
         JComboBox<String> produtosComboBox = new JComboBox<>();
-        HashMap<String, Double> produtosMap = place.getProdutos();
-        for (String nomeProduto : produtosMap.keySet()) {
-            produtosComboBox.addItem(nomeProduto);
+        List<Produto> produtos = place.getProdutos();
+        for (Produto produto : produtos) {
+            produtosComboBox.addItem(produto.getNome());
         }
+
         conteudo.add(produtosComboBox, BorderLayout.CENTER);
         
         JSpinner quantidadeProd = new JSpinner();
@@ -244,7 +248,7 @@ public class ClienteView extends UserView {
         dadosCompra.setText("Lava Jato: " + place.getName() + "\n" + 
                             "Produto: " + produtosComboBox.getSelectedItem() + "\n" +
                             "Quantidade: " + quantidadeProd.getValue() + "\n" +
-                            "Valor Final: " + place.getProdutos().get(produtosComboBox.getSelectedItem()) 
+                            "Valor Final: " + place.getProdutos().get(produtosComboBox.getSelectedIndex()).getPreco()
                             * (int) quantidadeProd.getValue());
         conteudo.add(dadosCompra, BorderLayout.CENTER); 
 
@@ -253,11 +257,7 @@ public class ClienteView extends UserView {
         conteudo.add(Cancelar, BorderLayout.SOUTH);
 
         JButton Finalizar = new JButton("Finalizar");
-        StringBuilder mensagem = new StringBuilder();
-        mensagem.append("Compra realizada com sucesso!\n");
-        Finalizar.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, mensagem.toString());
-        });
+        Finalizar.addActionListener(e -> JOptionPane.showMessageDialog(null, "Compra realizada com sucesso!\n"));
         conteudo.add(Finalizar, BorderLayout.SOUTH);
 
         panel.add(conteudo, BorderLayout.CENTER);

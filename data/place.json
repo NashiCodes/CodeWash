@@ -1,1 +1,28 @@
-[{"name":"teste","email":"b@b.com","produtos":{},"agenda":{"horarios":{}},"diasAbertos":["SEGUNDA","QUARTA","SEXTA","SEGUNDA","QUARTA","SEXTA"],"abertura":0,"fechamento":0,"intervalo":0}]
+[
+  {
+    "name": "teste",
+    "email": "b@b.com",
+    "produtos": [
+      {
+        "nome": "sabão",
+        "preco": 15.0
+      }
+    ],
+    "agenda": {
+      "horarios": {}
+    },
+    "diasAbertos": [
+      "SEGUNDA",
+      "TERCA",
+      "QUARTA",
+      "SABADO",
+      "SEGUNDA",
+      "TERCA",
+      "QUARTA",
+      "SABADO"
+    ],
+    "abertura": 0,
+    "fechamento": 0,
+    "intervalo": 0
+  }
+]

@@ -3,39 +3,39 @@ package CodeWash.view;
 import CodeWash.controller.User.UserManager;
 import CodeWash.model.Dias;
 import CodeWash.model.Place;
+import CodeWash.model.Produto;
 import CodeWash.model.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 //Classe que representa a tela do administrador e seus métodos
 public class AdmView extends UserView {
-    private final Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
     private final Dimension preferredSize = new Dimension(450, 400);
-    private final int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
-    private final int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
     private final Usuario user;
     private Place place;
-
-    // Cadastro de Lava Jato
-    private JLabel lblNome;
     private JTextField JNome;
-    private JButton btnCadastrar;
+    private JTextField JPreco;
+    // Cadastro de Lava Jato
     private final List<Dias> dias;
     private List<String> horarios;
-    private HashMap<String, Double> produtos;
+    private JList<Produto> Jprodutos;
 
     public AdmView(Usuario user) {
         //Função que cria a tela do administrador
         super("Administrador"); //Título da tela
         this.user = user;    //Usuário que está logado
         this.dias = new ArrayList<>();  //Lista de dias
+        this.horarios = new ArrayList<>();  //Lista de horários
+        this.Jprodutos = new JList<>();  //Lista de produtos
         this.setSize(preferredSize);    //Tamanho da tela
         this.addWindowListener(new UserManager(this));  //Adiciona um listener para o botão de fechar a tela
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    //Fecha a aplicação quando a tela é fechada
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
         this.setLocation(x, y); //Posição da tela
         this.setVisible(true);  //Torna a tela visível
         this.setEnabled(true);  //Torna a tela habilitada
@@ -72,12 +72,11 @@ public class AdmView extends UserView {
 
     public void telaCadastroLavaJato() {
         this.getContentPane().removeAll();
-        lblNome = new JLabel("Digite o nome do Lava Jato");
+        //Jframe e Jpanel variáveis
+        JLabel lblNome = new JLabel("Digite o nome do Lava Jato");
         JNome = new JTextField(20);
-        btnCadastrar = new JButton("Cadastrar");
-        btnCadastrar.addActionListener(e -> {
-            CadastraLavaJato();
-        });
+        JButton btnCadastrar = new JButton("Cadastrar");
+        btnCadastrar.addActionListener(e -> CadastraLavaJato());
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Cadastro de Lava Jato");
@@ -161,14 +160,10 @@ public class AdmView extends UserView {
 
         //horarios
         JButton horarios = new JButton("Horários");
-        horarios.addActionListener(e->{
-            ListaHorarios();
-        });
+        horarios.addActionListener(e -> ListaHorarios());
         //editar produtos
         JButton produtos = new JButton("Editar produtos");
-        produtos.addActionListener(e->{
-            EditaProdutos();
-        });
+        produtos.addActionListener(e -> EditaProdutos());
 
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -270,19 +265,13 @@ public class AdmView extends UserView {
         return horarios;
     }
 
-    private void ListaHorarios()
-    {
+    private void ListaHorarios() {
         //TODO
     }
 
-    private void EditaProdutos()
-    {
+    private void EditaProdutos() {
+        this.setLayout(new GridLayout(0, 2, 0, 0));
         this.getContentPane().removeAll();
-        this.addWindowListener(new GerenciarContatos(this));
-        this.setSize(500, 200);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
-        this.setLayout(new BorderLayout());
 
         desenhaLista();
         desenhaFormulario();
@@ -291,66 +280,112 @@ public class AdmView extends UserView {
     }
 
     private void desenhaFormulario() {
-
-    }
-
-    private void desenhaLista() {
-        JPanel lista = new JPanel();
-        lista.setBorder(BorderFactory.createTitledBorder("Contatos"));
-        lista.setPreferredSize(new Dimension(WIDTH/3, HEIGHT));
-        lista.setLayout(new BorderLayout());
-
-        produtos = this.place.getProdutos();
-        DefaultListModel<String> model = new DefaultListModel<>();
-
-
-        JList<String> listProdutos = new JList<>(model);
-        listProdutos.addListSelectionListener(new SelecionarContato(this));
-
-        lista.add(new JScrollPane(listProdutos), BorderLayout.CENTER);
-
-        this.getContentPane().add(lista, BorderLayout.WEST);
-
-        JPanel formularioEdicao = new JPanel();
-        formularioEdicao.setBorder(BorderFactory.createTitledBorder("Formulário"));
+        JPanel MainPanel = new JPanel();
+        MainPanel.setBorder(BorderFactory.createTitledBorder("Edição de Produtos"));
 
 
         JPanel formulario = new JPanel();
         JPanel painelLabel = new JPanel();
         painelLabel.setLayout(new GridLayout(0, 1, 5, 10));
+        painelLabel.add(new JLabel("Nome"));
         painelLabel.add(new JLabel("Preço"));
 
 
         JPanel painelField = new JPanel();
-        painelField.setLayout(new GridLayout(0,1, 5, 10));
-        JTextField tfpreco = new JTextField(20);
+        painelField.setLayout(new GridLayout(0, 1, 5, 10));
+        JNome = new JTextField(20);
+        JPreco = new JTextField(20);
 
-        painelField.add(tfpreco);
+        painelField.add(JNome);
+        painelField.add(JPreco);
 
         formulario.add(painelLabel);
         formulario.add(painelField);
 
-        formularioEdicao.setLayout(new BorderLayout());
-        formularioEdicao.add(formulario, BorderLayout.CENTER);
+        MainPanel.setLayout(new BorderLayout());
+        MainPanel.add(formulario, BorderLayout.CENTER);
 
         JButton btnAdicionar = new JButton("Adicionar");
-        btnAdicionar.addActionListener(new AdicionarContato(this));
+        btnAdicionar.addActionListener(e -> this.addProduto());
 
         JButton btnRemover = new JButton("Remover");
-        listProdutos.getSelectedValue();
-        btnRemover.addActionListener(new this.place.removerProduto());
+        btnRemover.addActionListener(e -> this.removerProduto());
 
         JButton btnEditar = new JButton("Editar");
-        btnEditar.addActionListener(new EditarContato(this));
+        btnEditar.addActionListener(e -> this.editarProduto());
+
+        JButton btnVoltar = new JButton("Voltar");
+        btnVoltar.addActionListener(e -> this.AreaAdmin());
 
         JPanel botoes = new JPanel();
         botoes.add(btnAdicionar);
         botoes.add(btnRemover);
         botoes.add(btnEditar);
+        botoes.add(btnVoltar);
 
-        formularioEdicao.add(botoes, BorderLayout.SOUTH);
+        MainPanel.add(botoes, BorderLayout.SOUTH);
 
-        this.getContentPane().add(formularioEdicao, BorderLayout.CENTER); 
+        this.getContentPane().add(MainPanel, BorderLayout.CENTER);
+
+    }
+
+    private void desenhaLista() {
+        JPanel MainPanel = new JPanel();
+        MainPanel.setBorder(BorderFactory.createTitledBorder("Produtos"));
+        MainPanel.setLayout(new BorderLayout());
+
+        DefaultListModel<Produto> model = new DefaultListModel<>();
+
+
+        Jprodutos = new JList<>(model);
+        Jprodutos.addListSelectionListener(event -> this.AtualizaFormulario());
+        AtualizaLista();
+
+        MainPanel.add(new JScrollPane(Jprodutos), BorderLayout.CENTER);
+
+        this.getContentPane().add(MainPanel, BorderLayout.WEST);
+
+    }
+
+    private void AtualizaFormulario() {
+        int index = Jprodutos.getSelectedIndex();
+        if (index != -1) {
+            DefaultListModel<Produto> model = (DefaultListModel<Produto>) Jprodutos.getModel();
+            Produto produto = model.get(index);
+            JNome.setText(produto.getNome());
+            JPreco.setText(String.valueOf(produto.getPreco()));
+        }
+
+
+    }
+
+    private void AtualizaLista() {
+        DefaultListModel<Produto> model = (DefaultListModel<Produto>) Jprodutos.getModel();
+        model.clear();
+        for (Produto produto : this.place.getProdutos()) {
+            model.addElement(produto);
+        }
+    }
+
+    private void addProduto() {
+        String nome = JNome.getText();
+        double preco = Double.parseDouble(JPreco.getText());
+        this.place.addProduto(nome, preco);
+         this.AtualizaLista();
+    }
+
+    private void removerProduto() {
+        int index = Jprodutos.getSelectedIndex();
+        this.place.removerProduto(index);
+        this.AtualizaLista();
+    }
+
+    private void editarProduto() {
+        int index = Jprodutos.getSelectedIndex();
+        String nome = JNome.getText();
+        double preco = Double.parseDouble(JPreco.getText());
+        this.place.editarProduto(index, nome, preco);
+        this.AtualizaLista();
     }
 
     public void CadastraLavaJato() {

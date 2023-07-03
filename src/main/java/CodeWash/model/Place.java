@@ -12,7 +12,7 @@ import java.util.*;
 public class Place {
     private String name;
     private final String email;
-    private final HashMap<String, Double> produtos;
+    private final List<Produto> produtos;
     private final Agenda agenda;
     private final List<Dias> diasAbertos;
     private int abertura;
@@ -22,7 +22,7 @@ public class Place {
     public Place(String name, String email) {
         this.name = name;
         this.email = email;
-        this.produtos = new HashMap<>();
+        this.produtos = new ArrayList<>();
         this.agenda = new Agenda();
         this.diasAbertos = new ArrayList<>();
     }
@@ -46,24 +46,34 @@ public class Place {
         this.name = name;
     }
 
-    public HashMap<String, Double> getProdutos() {
+    public List<Produto> getProdutos() {
         return produtos;
     }
 
-    public void addProduto(String nome, double preco) {
-        this.produtos.put(nome, preco);
-    }
-
-    public void removerProduto(String nome) {
-        this.produtos.remove(nome);
-    }
-
-    public void editarPrecoProduto(String nome, double novoPreco) {
-        if (this.produtos.containsKey(nome)) {
-            this.produtos.put(nome, novoPreco);
-        } else {
-            System.out.println("O produto " + nome + " não está cadastrado.");
+    public Produto getProduto(String nome) {
+        for (Produto produto : this.produtos) {
+            if (produto.getNome().equals(nome)) {
+                return produto;
+            }
         }
+        return null;
+    }
+
+    public Produto getProduto(int index) {
+        return this.produtos.get(index);
+    }
+
+    public void addProduto(String nome, double preco) {
+        this.produtos.add(new Produto(nome, preco));
+    }
+
+    public void removerProduto(int index) {
+        this.produtos.remove(index);
+    }
+
+    public void editarProduto(int idx, String nome, double novoPreco) {
+        this.produtos.get(idx).setNome(nome);
+        this.produtos.get(idx).setPreco(novoPreco);
     }
 
     public void marcarHorario(String email, Dias dia, String hora) throws HorarioException {

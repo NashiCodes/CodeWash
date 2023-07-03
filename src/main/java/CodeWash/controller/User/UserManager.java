@@ -21,6 +21,9 @@ public class UserManager implements WindowListener {
 
     @Override
     public void windowOpened(WindowEvent e) {
+        this.places = this.placePersistence.findAll();  //Pega todos os lava jatos do banco de dados
+        tela.carregaPlaces(places); //Carrega os lava jatos na tela
+        tela.display(); //Exibe a tela
     }
 
     @Override
@@ -46,9 +49,7 @@ public class UserManager implements WindowListener {
 
     @Override
     public void windowActivated(WindowEvent e) {
-        this.places = this.placePersistence.findAll();  //Pega todos os lava jatos do banco de dados
-        tela.carregaPlaces(places); //Carrega os lava jatos na tela
-        tela.display(); //Exibe a tela
+
     }
 
     @Override
