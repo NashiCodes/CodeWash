@@ -64,7 +64,7 @@ public class AdmView extends UserView {
             telaCadastroLavaJato();
         } else {
             //se sim, abre a tela de edição do lava jato, como os horários de funcionamento, edição de produtos e serviços, etc
-            telaEdicaoLavaJato();
+            AreaAdmin();
         }
     }
 
@@ -150,17 +150,43 @@ public class AdmView extends UserView {
         this.pack();
     }
 
-    public void telaEdicaoLavaJato() {
+    public void AreaAdmin() {
         this.getContentPane().removeAll();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Área Adminstrativa");
         setSize(300, 150);
         setLocationRelativeTo(null);
 
+        //horarios
+        JButton horarios = new JButton("Horários");
+        horarios.addActionListener(e->{
+            ListaHorarios();
+        });
+        //editar produtos
+        JButton produtos = new JButton("Editar produtos");
+        produtos.addActionListener(e->{
+            EditaProdutos();
+        });
+
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.insets = new Insets(5, 10, 5, 10);
+
+        JLabel titulo = new JLabel("Selecione uma opção:");
+
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        panel.add(titulo, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        panel.add(horarios, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        panel.add(produtos, constraints);
+
 
         getContentPane().add(panel);
 
@@ -182,7 +208,7 @@ public class AdmView extends UserView {
         JButton submit = new JButton("Continuar");
         submit.addActionListener(e -> {
             this.place.setDiasAbertos(dias);
-            telaEdicaoLavaJato();
+            AreaAdmin();
         });
 
         constraints.gridx = 0;
@@ -240,6 +266,16 @@ public class AdmView extends UserView {
         horarios.add(spnFechamento, constraintsHorarios);
 
         return horarios;
+    }
+
+    private void ListaHorarios()
+    {
+        //TODO
+    }
+
+    private void EditaProdutos()
+    {
+        //TODO
     }
 
     public void CadastraLavaJato() {
