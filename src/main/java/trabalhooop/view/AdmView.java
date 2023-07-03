@@ -1,6 +1,7 @@
 package trabalhooop.view;
 
 import trabalhooop.controller.User.UserManager;
+import trabalhooop.model.Dias;
 import trabalhooop.model.Place;
 import trabalhooop.model.Usuario;
 
@@ -21,6 +22,7 @@ public class AdmView extends UserView {
     private JLabel lblNome;
     private JTextField JNome;
     private JButton btnCadastrar;
+    private List<Dias.Dia> dias;
 
     public AdmView(Usuario user) {
         //Função que cria a tela do administrador
@@ -57,6 +59,7 @@ public class AdmView extends UserView {
         if(this.place == null){
             //se não, exibe um aviso de boas vindas e abre a tela de cadastro do lava jato
             telaCadastroLavaJato();
+            telaEdicaoLavaJato();
         }
         else{
             //se sim, abre a tela de edição do lava jato, como os horários de funcionamento, edição de produtos e serviços, etc
@@ -69,6 +72,7 @@ public class AdmView extends UserView {
         lblNome = new JLabel("Digite o nome do Lava Jato");
         JNome = new JTextField(20);
         btnCadastrar = new JButton("Cadastrar");
+        btnCadastrar.addActionListener(e->{CadastraLavaJato();});
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Cadastro de Lava Jato");
@@ -95,6 +99,16 @@ public class AdmView extends UserView {
         getContentPane().add(panel);
 
         pack();
+    }
+
+    private void getDias(){
+        this.getContentPane().removeAll();
+        setTitle("Selecione os dias de funcionamento");
+        
+
+        for(int i = 0; i < 7; i++){
+            JCheckBox check = new JCheckBox(new Dias.Dia(i));
+        }
     }
 
     public void telaEdicaoLavaJato(){
