@@ -1,7 +1,15 @@
 package trabalhooop.model;
 
-public class Dias {
-    public enum Dia {
-        SEGUNDA, TERCA, QUARTA, QUINTA, SEXTA, SABADO, DOMINGO
+
+public enum Dias {
+    SEGUNDA(0), TERCA(1), QUARTA(2), QUINTA(3), SEXTA(4), SABADO(5), DOMINGO(6);
+
+    private final int index;
+
+    Dias(int index){
+        this.index = index;
     }
+
+
 }
+

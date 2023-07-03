@@ -1,15 +1,15 @@
 package trabalhooop.model;
 
 public class Horario {
-    private Dias.Dia dia;
+    private Dias dia;
     private String hora;
 
-    public Horario(Dias.Dia dia, String hora) {
+    public Horario(Dias dia, String hora) {
         this.dia = dia;
         this.hora = hora;
     }
 
-    public Dias.Dia getDia() {
+    public Dias getDia() {
         return dia;
     }
 
@@ -17,7 +17,7 @@ public class Horario {
         return hora;
     }
 
-    public void setDia(Dias.Dia dia) {
+    public void setDia(Dias dia) {
         this.dia = dia;
     }
 

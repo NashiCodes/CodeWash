@@ -11,7 +11,7 @@ public class Agenda {
         this.horarios = new HashMap<>();
     }
 
-    public void setHorario(String email, Dias.Dia dia, String hora) throws HorarioException {
+    public void setHorario(String email, Dias dia, String hora) throws HorarioException {
         if (this.verifica(dia, hora)) {
             this.horarios.put(email, new Horario(dia, hora));
         } else {
@@ -19,7 +19,7 @@ public class Agenda {
         }
     }
 
-    public boolean verifica(Dias.Dia dia, String hora) {
+    public boolean verifica(Dias dia, String hora) {
         int cont = 0;
         for (Horario horario : this.horarios.values()) {
             if (horario.getDia().equals(dia) && horario.getHora().equals(hora)) {

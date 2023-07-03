@@ -6,7 +6,6 @@ import trabalhooop.exception.HorarioException;
 import trabalhooop.model.Dias;
 import trabalhooop.model.Place;
 import trabalhooop.model.Usuario;
-import trabalhooop.model.Dias.Dia;
 
 import javax.swing.*;
 import java.awt.*;
@@ -145,14 +144,14 @@ public class ClienteView extends UserView {
         JLabel selecioneDia = new JLabel("Selecione o dia");
         conteudo.add(selecioneDia, BorderLayout.WEST);
 
-        final Dia[] diaSelecionado = new Dia[1];
-        JComboBox<Dias.Dia> diasComboBox = new JComboBox<>();
-        for (Dias.Dia dia : place.getDiasAbertos()) {
+        final Dias[] diaSelecionado = new Dias[1];
+        JComboBox<Dias> diasComboBox = new JComboBox<>();
+        for (Dias dia : place.getDiasAbertos()) {
             diasComboBox.addItem(dia);
         }
         diasComboBox.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
-                diaSelecionado[0] = (Dias.Dia) e.getItem();}
+                diaSelecionado[0] = (Dias) e.getItem();}
         });
         conteudo.add(diasComboBox, BorderLayout.CENTER);
 

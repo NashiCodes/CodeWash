@@ -14,7 +14,7 @@ public class Place {
     private final String email;
     private final HashMap<String, Double> produtos;
     private final Agenda agenda;
-    private final List<Dias.Dia> diasAbertos;
+    private final List<Dias> diasAbertos;
     private int abertura;
     private int fechamento;
     private int intervalo;
@@ -66,7 +66,7 @@ public class Place {
         }
     }
 
-    public void marcarHorario(String email, Dias.Dia dia, String hora) throws HorarioException {
+    public void marcarHorario(String email, Dias dia, String hora) throws HorarioException {
         this.agenda.setHorario(email, dia, hora);
     }
 
@@ -74,18 +74,18 @@ public class Place {
         return email;
     }
 
-    public boolean verifica(Dias.Dia dia, int hora){
+    public boolean verifica(Dias dia, int hora){
         if (hora <this.abertura && hora >= this.fechamento && hora == this.intervalo) {
             return false;
         }
         return this.agenda.verifica(dia, String.valueOf(hora));
     }
 
-    public void setDiasAbertos(List<Dias.Dia> diasAbertos) {
+    public void setDiasAbertos(List<Dias> diasAbertos) {
         this.diasAbertos.addAll(diasAbertos);
     }
 
-    public List<Dias.Dia> getDiasAbertos() {
+    public List<Dias> getDiasAbertos() {
         return this.diasAbertos;
     }
 
