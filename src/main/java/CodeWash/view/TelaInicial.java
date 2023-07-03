@@ -1,9 +1,9 @@
-package trabalhooop.view;
+package CodeWash.view;
 
-import trabalhooop.controller.TelaInicial.CadastroController;
-import trabalhooop.controller.TelaInicial.LoginController;
-import trabalhooop.controller.TelaInicial.TelaManager;
-import trabalhooop.model.Usuario;
+import CodeWash.controller.TelaInicial.CadastroController;
+import CodeWash.controller.TelaInicial.LoginController;
+import CodeWash.controller.TelaInicial.TelaManager;
+import CodeWash.model.Usuario;
 
 import javax.swing.*;
 import java.awt.*;

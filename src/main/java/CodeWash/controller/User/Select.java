@@ -1,6 +1,6 @@
-package trabalhooop.controller.User;
+package CodeWash.controller.User;
 
-import trabalhooop.view.UserView;
+import CodeWash.view.UserView;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;

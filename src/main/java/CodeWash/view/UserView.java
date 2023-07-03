@@ -1,6 +1,6 @@
-package trabalhooop.view;
+package CodeWash.view;
 
-import trabalhooop.model.Place;
+import CodeWash.model.Place;
 
 import javax.swing.*;
 import java.util.List;

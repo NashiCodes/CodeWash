@@ -1,6 +1,6 @@
-package trabalhooop.persistence;
+package CodeWash.persistence;
 
-import trabalhooop.model.Usuario;
+import CodeWash.model.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

@@ -1,11 +1,11 @@
-package trabalhooop.view;
+package CodeWash.view;
 
-import trabalhooop.controller.User.Select;
-import trabalhooop.controller.User.UserManager;
-import trabalhooop.exception.HorarioException;
-import trabalhooop.model.Dias;
-import trabalhooop.model.Place;
-import trabalhooop.model.Usuario;
+import CodeWash.controller.User.Select;
+import CodeWash.controller.User.UserManager;
+import CodeWash.exception.HorarioException;
+import CodeWash.model.Dias;
+import CodeWash.model.Place;
+import CodeWash.model.Usuario;
 
 import javax.swing.*;
 import java.awt.*;

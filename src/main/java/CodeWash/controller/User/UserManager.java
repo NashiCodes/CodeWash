@@ -1,8 +1,8 @@
-package trabalhooop.controller.User;
+package CodeWash.controller.User;
 
-import trabalhooop.model.Place;
-import trabalhooop.persistence.*;
-import trabalhooop.view.UserView;
+import CodeWash.model.Place;
+import CodeWash.persistence.*;
+import CodeWash.view.UserView;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;

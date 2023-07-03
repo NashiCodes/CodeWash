@@ -1,6 +1,6 @@
-package trabalhooop.model;
+package CodeWash.model;
 
-import trabalhooop.exception.HorarioException;
+import CodeWash.exception.HorarioException;
 
 import java.util.*;
 

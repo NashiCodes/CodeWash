@@ -1,4 +1,4 @@
-package trabalhooop.exception;
+package CodeWash.exception;
 
 public class EmailException extends Exception{
     public EmailException() {

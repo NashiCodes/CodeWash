@@ -1,4 +1,4 @@
-package trabalhooop.model;
+package CodeWash.model;
 
 
 public enum Dias {

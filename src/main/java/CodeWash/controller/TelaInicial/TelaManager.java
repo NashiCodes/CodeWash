@@ -1,9 +1,9 @@
-package trabalhooop.controller.TelaInicial;
+package CodeWash.controller.TelaInicial;
 
-import trabalhooop.model.Usuario;
-import trabalhooop.persistence.Persistence;
-import trabalhooop.persistence.UserPersistence;
-import trabalhooop.view.TelaInicial;
+import CodeWash.model.Usuario;
+import CodeWash.persistence.Persistence;
+import CodeWash.persistence.UserPersistence;
+import CodeWash.view.TelaInicial;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;

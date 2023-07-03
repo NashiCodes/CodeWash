@@ -1,6 +1,6 @@
-package trabalhooop.persistence;
+package CodeWash.persistence;
 
-import trabalhooop.model.Place;
+import CodeWash.model.Place;
 
 import java.lang.*;
 

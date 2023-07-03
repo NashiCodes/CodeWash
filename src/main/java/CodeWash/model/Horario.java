@@ -1,4 +1,4 @@
-package trabalhooop.model;
+package CodeWash.model;
 
 public class Horario {
     private Dias dia;

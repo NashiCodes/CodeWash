@@ -1,6 +1,6 @@
-package trabalhooop.controller.TelaInicial;
+package CodeWash.controller.TelaInicial;
 
-import trabalhooop.view.TelaInicial;
+import CodeWash.view.TelaInicial;
 
 import java.awt.event.*;
 

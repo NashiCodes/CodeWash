@@ -1,9 +1,9 @@
-package trabalhooop.view;
+package CodeWash.view;
 
-import trabalhooop.controller.User.UserManager;
-import trabalhooop.model.Dias;
-import trabalhooop.model.Place;
-import trabalhooop.model.Usuario;
+import CodeWash.controller.User.UserManager;
+import CodeWash.model.Dias;
+import CodeWash.model.Place;
+import CodeWash.model.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
