@@ -18,16 +18,15 @@ import java.util.List;
 public class ClienteView extends UserView {
     private final Dimension preferredSize = new Dimension(450, 400); //Define o tamanho preferido da tela
     private final Usuario user; //Usuário atual
-    private final JList<Place> LavaJatos; //Lista de lava jatos
+    private JList<Place> LavaJatos; //Lista de lava jatos
 
     public ClienteView(Usuario user) {
         //Função que cria a tela do cliente
         super("Cliente");   //Chama o construtor da classe pai
         this.user = user;  //Salva o usuário atual
 
-        DefaultListModel<Place> listModel = new DefaultListModel<>(); //Cria um modelo de lista
-        this.LavaJatos = new JList<>(listModel); //Cria uma lista com o modelo criado
-        this.LavaJatos.addListSelectionListener(new Select(this)); //Adiciona um listener para a lista
+        DefaultListModel<Place> model = new DefaultListModel<>();
+        this.LavaJatos = new JList<>(model);
 
         this.setSize(preferredSize); //Define o tamanho da tela
         this.addWindowListener(new UserManager(this)); //Adiciona um listener para o comportamento da tela
@@ -58,8 +57,6 @@ public class ClienteView extends UserView {
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); //Define a borda do painel
         panel.setPreferredSize(preferredSize);
 
-        DefaultListModel<Place> model = new DefaultListModel<>(); //Cria um modelo de lista
-        LavaJatos.setModel(model); //Define o modelo da lista
         LavaJatos.addListSelectionListener(new Select(this)); //Adiciona um listener para a lista
 
         panel.add(new JScrollPane(LavaJatos), BorderLayout.CENTER); //Adiciona a lista ao painel
@@ -71,11 +68,10 @@ public class ClienteView extends UserView {
     public void carregaPlaces(List<Place> places) {
         //Função que carrega a lista de lava jatos
         DefaultListModel<Place> model = (DefaultListModel<Place>) LavaJatos.getModel(); //Pega o modelo da lista
-        for (Place place : places) { //Para cada lava jato
-            if (place != null) //Se o lava jato não for nulo
-                model.addElement(place); //Adiciona o lava jato ao modelo
+        model.clear(); //Remove todos os lava jatos do modelo
+        for (Place place : places) { //Para cada lava jato na lista
+            model.addElement(place); //Adiciona o lava jato ao modelo
         }
-        LavaJatos.setModel(model); //Define o modelo da lista
     }
 
     @Override

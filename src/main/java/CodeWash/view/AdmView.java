@@ -104,7 +104,7 @@ public class AdmView extends UserView {
         pack();
     }
 
-    private void getDias() {
+    private void SetFuncionamento() {
         this.getContentPane().removeAll();
         setTitle("Selecione os dias de funcionamento");
         setSize(preferredSize);
@@ -204,7 +204,6 @@ public class AdmView extends UserView {
 
         JButton submit = new JButton("Continuar");
         submit.addActionListener(e -> {
-            this.place.setDiasAbertos(dias);
             AreaAdmin();
         });
 
@@ -390,7 +389,7 @@ public class AdmView extends UserView {
 
     public void CadastraLavaJato() {
         place = new Place(JNome.getText(), user.getEmail());
-        getDias();
+        SetFuncionamento();
     }
 
     @Override

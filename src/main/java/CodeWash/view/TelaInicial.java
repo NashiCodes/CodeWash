@@ -186,10 +186,10 @@ public class TelaInicial extends JFrame {
     private void handleUser() {
         if (usuarioLogado.getTipo()) {
             this.dispose();
-            new AdmView(usuarioLogado).display();
+            new AdmView(usuarioLogado);
         } else {
             this.dispose();
-            new ClienteView(usuarioLogado).display();
+            new ClienteView(usuarioLogado);
         }
     }
 

@@ -28,7 +28,7 @@ public class Place {
     }
 
     public boolean setFuncionamento(int abertura, int fechamento, int intervalo) throws HorarioException {
-        if (abertura < fechamento && abertura >= 0 && fechamento <= 24 && intervalo >= 0 && intervalo <= 24) {
+        if (abertura < fechamento && abertura >= 0 && fechamento <= 24 && intervalo > abertura && intervalo < fechamento) {
             this.abertura = abertura;
             this.fechamento = fechamento;
             this.intervalo = intervalo;
@@ -109,5 +109,10 @@ public class Place {
 
     public int getIntervalo() {
         return this.intervalo;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }
