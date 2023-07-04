@@ -16,7 +16,7 @@ import java.util.List;
 
 //Classe que representa a tela do cliente e seus métodos
 public class ClienteView extends UserView {
-    private final Dimension preferredSize = new Dimension(450, 400); //Define o tamanho preferido da tela
+    private final Dimension preferredSize = new Dimension(300, 250); //Define o tamanho preferido da tela
     private final Usuario user; //Usuário atual
     private JList<Place> LavaJatos; //Lista de lava jatos
 
@@ -62,6 +62,7 @@ public class ClienteView extends UserView {
         panel.add(new JScrollPane(LavaJatos), BorderLayout.CENTER); //Adiciona a lista ao painel
 
         getContentPane().add(panel); //Adiciona o painel à tela
+        pack();
     }
 
     @Override
@@ -102,25 +103,40 @@ public class ClienteView extends UserView {
         panel.setPreferredSize(preferredSize);
 
         JPanel conteudo = new JPanel();
-        conteudo.setLayout(new GridLayout(4, 1, 10, 10));
+        conteudo.setLayout(new BorderLayout());
+
+        JPanel labelPanel = new JPanel();
+        labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.Y_AXIS));
 
         JLabel nome = new JLabel(place.getName());
-        conteudo.add(nome, BorderLayout.NORTH);
+        nome.setHorizontalAlignment(SwingConstants.CENTER);
+        labelPanel.add(Box.createVerticalGlue()); // Add glue to vertically center the label
+        labelPanel.add(nome);
+        labelPanel.add(Box.createVerticalGlue()); // Add glue to vertically center the label
+
+        conteudo.add(labelPanel, BorderLayout.NORTH);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
         JButton Comprar = new JButton("Comprar Produtos");
         Comprar.addActionListener(e -> comprar(place));
-        conteudo.add(Comprar, BorderLayout.CENTER);
+        buttonPanel.add(Comprar);
 
         JButton Agendar = new JButton("Agendar");
         Agendar.addActionListener(e -> agendar(place));
-        conteudo.add(Agendar, BorderLayout.SOUTH);
+        buttonPanel.add(Agendar);
 
         JButton Voltar = new JButton("Voltar");
         Voltar.addActionListener(e -> display());
-        conteudo.add(Voltar, BorderLayout.SOUTH);
+        buttonPanel.add(Voltar);
+
+        conteudo.add(buttonPanel, BorderLayout.CENTER);
 
         panel.add(conteudo, BorderLayout.CENTER);
+
         this.getContentPane().add(panel);
-        this.pack();
+        pack();
     }
 
     private void agendar(Place place) {
