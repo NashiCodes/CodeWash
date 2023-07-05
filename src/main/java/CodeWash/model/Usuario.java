@@ -7,15 +7,14 @@ package CodeWash.model;
 
 import CodeWash.exception.EmailException;
 
-import java.util.Scanner;
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Usuario {
-    private static final Scanner scan = new Scanner(System.in);
-    private String nome;
-    private String telefone;
+    private final String nome;
+    private final String telefone;
     private String email;
-    private String senha;
+    private final String senha;
     private final boolean Tipo;
 
     public Usuario(String nome, String telefone, String email, String senha, boolean Tipo) {
@@ -34,36 +33,12 @@ public class Usuario {
         this.Tipo = Tipo;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public String getSenha() {
         return senha;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setSenha(String novaSenha) {
-        this.senha = novaSenha;
     }
 
     private boolean isValido(String email) {

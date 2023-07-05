@@ -29,10 +29,6 @@ public class Agenda {
         return cont < 2;
     }
 
-    public void removeHorario(String email) {
-        this.horarios.remove(email);
-    }
-
     public int getCont(Dias dia, String hora){
         int cont = 0;
         for (Horario horario : this.horarios.values()) {

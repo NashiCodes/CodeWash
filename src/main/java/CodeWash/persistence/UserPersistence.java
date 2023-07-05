@@ -26,7 +26,6 @@ public class UserPersistence implements Persistence<Usuario> {
 
     @Override
     public List<Usuario> findAll() {
-        //TODO: implementar findAll
         Gson gson = new Gson(); // Instancia um objeto Gson
         String json = Arquivo.Read(PATH); // Lê o arquivo JSON
 

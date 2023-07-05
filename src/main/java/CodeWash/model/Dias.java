@@ -10,6 +10,8 @@ public enum Dias {
         this.index = index;
     }
 
-
+    public int getIndex() {
+        return index;
+    }
 }
 

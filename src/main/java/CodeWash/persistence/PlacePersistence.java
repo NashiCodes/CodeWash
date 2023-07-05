@@ -2,8 +2,6 @@ package CodeWash.persistence;
 
 import CodeWash.model.Place;
 
-import java.lang.*;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -28,8 +26,6 @@ public class PlacePersistence implements Persistence<Place> {
 
     @Override
     public List<Place> findAll() {
-        //TODO: implementar findAll
-
         Gson gson = new Gson(); // Instancia um objeto Gson
         String json = Arquivo.Read(PATH); // Lê o arquivo JSON
 

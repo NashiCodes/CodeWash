@@ -18,7 +18,7 @@ import java.util.List;
 public class ClienteView extends UserView {
     private final Dimension preferredSize = new Dimension(300, 250); //Define o tamanho preferido da tela
     private final Usuario user; //Usuário atual
-    private JList<Place> LavaJatos; //Lista de lava jatos
+    private final JList<Place> LavaJatos; //Lista de lava jatos
 
     public ClienteView(Usuario user) {
         //Função que cria a tela do cliente

@@ -148,7 +148,6 @@ public class TelaInicial extends JFrame {
     }
 
     public void login() {
-        // TODO: Implementar o fetch de login
         for (Usuario usuario : usuarios)
             if (usuario.getEmail().equals(tfEmail.getText()) && usuario.getSenha().equals(new String(tfSenha.getPassword())))
                 this.usuarioLogado = usuario;

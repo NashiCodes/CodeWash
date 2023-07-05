@@ -10,7 +10,7 @@ import CodeWash.exception.HorarioException;
 import java.util.*;
 
 public class Place {
-    private String name;
+    private final String name;
     private final String email;
     private final List<Produto> produtos;
     private final Agenda agenda;
@@ -39,10 +39,6 @@ public class Place {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public List<Produto> getProdutos() {
