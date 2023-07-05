@@ -11,6 +11,7 @@ import java.util.List;
 
 //Classe que representa a tela do administrador e seus métodos
 public class AdmView extends UserView {
+    private final TelaInicial login;
     private final Dimension preferredSize = new Dimension(450, 400);
     private final Usuario user;
     private Place place;
@@ -22,9 +23,10 @@ public class AdmView extends UserView {
     private final List<Integer> horarios;
     private JList<Produto> Jprodutos;
 
-    public AdmView(Usuario user) {
+    public AdmView(Usuario user, TelaInicial login) {
         // Função que cria a tela do administrador
         super("Administrador"); // Título da tela
+        this.login = login; // Tela de login
         this.user = user; // Usuário que está logado
         this.dias = new ArrayList<>(); // Lista de dias
         this.horarios = new ArrayList<>(3); // Lista de horários
@@ -149,6 +151,7 @@ public class AdmView extends UserView {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Área Adminstrativa");
         setSize(300, 150);
+        setLayout(new GridLayout(1, 1));
         setLocationRelativeTo(null);
 
         // horarios
@@ -157,6 +160,13 @@ public class AdmView extends UserView {
         // editar produtos
         JButton produtos = new JButton("Editar produtos");
         produtos.addActionListener(e -> EditaProdutos());
+        //Voltar para a tela de login
+        JButton btnVoltar = new JButton("Voltar");
+        btnVoltar.addActionListener(e -> {
+            this.dispose();
+            this.setEnabled(false);
+            login.display();
+        });
 
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -176,6 +186,10 @@ public class AdmView extends UserView {
         constraints.gridx = 0;
         constraints.gridy = 2;
         panel.add(produtos, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 3;
+        panel.add(btnVoltar, constraints);
 
         getContentPane().add(panel);
 

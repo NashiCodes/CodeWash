@@ -36,6 +36,7 @@ public class TelaInicial extends JFrame {
     }
 
     public void display() {
+        this.getContentPane().removeAll(); //Remove todos os componentes do JFrame
         setSize(WIDTH, HEIGHT); //Define o tamanho da janela
         addWindowListener(new TelaManager(this)); //Adiciona um novo WindowListener à janela
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //Define a ação padrão ao fechar a janela
@@ -185,10 +186,10 @@ public class TelaInicial extends JFrame {
     private void handleUser() {
         if (usuarioLogado.getTipo()) {
             this.dispose();
-            new AdmView(usuarioLogado);
+            new AdmView(usuarioLogado,this);
         } else {
             this.dispose();
-            new ClienteView(usuarioLogado);
+            new ClienteView(usuarioLogado,this);
         }
     }
 

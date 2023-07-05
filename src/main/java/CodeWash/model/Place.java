@@ -119,6 +119,10 @@ public class Place {
         return this.name;
     }
 
+    public void efetuarCompra(Produto produto, int quantidade) {
+        produtos.get(produtos.indexOf(produto)).setQuantidade(produtos.get(produtos.indexOf(produto)).getQuantidade() - quantidade);
+    }
+
     public void removeCliente(List<String> clientes) {
         this.agenda.removeCliente(clientes);
     }
