@@ -58,8 +58,8 @@ public class Place {
         return this.produtos.get(index);
     }
 
-    public void addProduto(String nome, double preco) {
-        this.produtos.add(new Produto(nome, preco));
+    public void addProduto(String nome, double preco, int quantidade) {
+        this.produtos.add(new Produto(nome, preco, quantidade));
     }
 
     public void removerProduto(int index) {

@@ -16,6 +16,7 @@ public class AdmView extends UserView {
     private Place place;
     private JTextField JNome;
     private JTextField JPreco;
+    private JTextField JQuantidade;
     // Cadastro de Lava Jato
     private final List<Dias> dias;
     private final List<Integer> horarios;
@@ -456,14 +457,17 @@ public class AdmView extends UserView {
         painelLabel.setLayout(new GridLayout(0, 1, 5, 10));
         painelLabel.add(new JLabel("Nome"));
         painelLabel.add(new JLabel("Preço"));
+        painelLabel.add(new JLabel("Quantidade"));
 
         JPanel painelField = new JPanel();
         painelField.setLayout(new GridLayout(0, 1, 5, 10));
         JNome = new JTextField(20);
         JPreco = new JTextField(20);
+        JQuantidade = new JTextField(20);
 
         painelField.add(JNome);
         painelField.add(JPreco);
+        painelField.add(JQuantidade);
 
         formulario.add(painelLabel);
         formulario.add(painelField);
@@ -534,7 +538,8 @@ public class AdmView extends UserView {
     private void addProduto() {
         String nome = JNome.getText();
         double preco = Double.parseDouble(JPreco.getText());
-        this.place.addProduto(nome, preco);
+        int quantidade = Integer.parseInt(JQuantidade.getText());
+        this.place.addProduto(nome, preco, quantidade);
         this.AtualizaLista();
     }
 

@@ -11,6 +11,8 @@ import CodeWash.model.Usuario;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -44,6 +46,7 @@ public class ClienteView extends UserView {
 
     @Override
     public void display() {
+        this.getContentPane().removeAll(); //Remove todos os componentes da tela
         mainWindow();
         this.pack();
     }
@@ -97,16 +100,21 @@ public class ClienteView extends UserView {
 
     private void compose(Place place) {
         this.getContentPane().removeAll();
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        panel.setPreferredSize(preferredSize);
+
+        JPanel MainPanel = new JPanel();
+        MainPanel.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.insets = new Insets(5, 10, 5, 10);
 
         JPanel conteudo = new JPanel();
-        conteudo.setLayout(new BorderLayout());
+        conteudo.setLayout(new GridBagLayout());
+        GridBagConstraints constraints2 = new GridBagConstraints();
+        constraints2.fill = GridBagConstraints.HORIZONTAL;
+        constraints2.insets = new Insets(5, 10, 5, 10);
 
         JPanel labelPanel = new JPanel();
-        labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.Y_AXIS));
+        labelPanel.setLayout(new GridBagLayout());
 
         JLabel nome = new JLabel(place.getName());
         nome.setHorizontalAlignment(SwingConstants.CENTER);
@@ -114,7 +122,10 @@ public class ClienteView extends UserView {
         labelPanel.add(nome);
         labelPanel.add(Box.createVerticalGlue()); // Add glue to vertically center the label
 
-        conteudo.add(labelPanel, BorderLayout.NORTH);
+        constraints2.gridx = 0;
+        constraints2.gridy = 0;
+        constraints2.gridwidth = 2;
+        conteudo.add(labelPanel, constraints2);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -131,11 +142,17 @@ public class ClienteView extends UserView {
         Voltar.addActionListener(e -> display());
         buttonPanel.add(Voltar);
 
-        conteudo.add(buttonPanel, BorderLayout.CENTER);
+        constraints2.gridx = 0;
+        constraints2.gridy = 1;
+        constraints2.gridwidth = 2;
+        conteudo.add(buttonPanel, constraints2);
 
-        panel.add(conteudo, BorderLayout.CENTER);
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.gridwidth = 2;
+        MainPanel.add(conteudo, constraints);
 
-        this.getContentPane().add(panel);
+        this.getContentPane().add(MainPanel);
         pack();
     }
 
@@ -166,7 +183,8 @@ public class ClienteView extends UserView {
         }
         diasComboBox.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
-                diaSelecionado[0] = (Dias) e.getItem();}
+                diaSelecionado[0] = (Dias) e.getItem();
+            }
         });
         conteudo.add(diasComboBox, BorderLayout.CENTER);
 
@@ -175,8 +193,7 @@ public class ClienteView extends UserView {
 
         JComboBox<String> horasComboBox = new JComboBox<>();
         for (int i = place.getAbertura(); i < place.getFechamento(); i++) {
-            if(place.verifica(diaSelecionado[0], i))
-                horasComboBox.addItem(Integer.toString(i));
+            if (place.verifica(diaSelecionado[0], i)) horasComboBox.addItem(Integer.toString(i));
         }
         conteudo.add(horasComboBox, BorderLayout.CENTER);
 
@@ -198,51 +215,106 @@ public class ClienteView extends UserView {
         this.getContentPane().add(panel);
         this.pack();
     }
-    
+
     private void comprar(Place place) {
         this.getContentPane().removeAll();
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        panel.setPreferredSize(preferredSize);
 
-        JPanel conteudo = new JPanel();
-        conteudo.setLayout(new GridLayout(2, 2, 10, 10));
+        JPanel MainPanel = new JPanel();
+        MainPanel.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.insets = new Insets(5, 10, 5, 10);
 
         JLabel titulo = new JLabel("Selecione os produtos que deseja comprar");
-        conteudo.add(titulo, BorderLayout.NORTH);
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.gridwidth = 2;
+        MainPanel.add(titulo, constraints);
 
-        JPanel produtoPanel = new JPanel();
-        produtoPanel.setLayout(new GridLayout(1, 2, 10, 10));
-        JComboBox<String> produtosComboBox = new JComboBox<>();
-        List<Produto> produtos = place.getProdutos();
-        for (Produto produto : produtos) {
-            produtosComboBox.addItem(produto.getNome());
+        JPanel conteudo = new JPanel();
+        conteudo.setLayout(new GridBagLayout());
+        GridBagConstraints constraints2 = new GridBagConstraints();
+        constraints2.fill = GridBagConstraints.HORIZONTAL;
+        constraints2.insets = new Insets(5, 10, 5, 10);
+
+
+        JPanel produtosPanel = new JPanel();
+        produtosPanel.setLayout(new GridBagLayout());
+        GridBagConstraints constraints3 = new GridBagConstraints();
+        constraints3.fill = GridBagConstraints.HORIZONTAL;
+        constraints3.insets = new Insets(5, 10, 5, 10);
+
+        JLabel selecioneProduto = new JLabel("Selecione o produto");
+        constraints3.gridx = 0;
+        constraints3.gridy = 0;
+        produtosPanel.add(selecioneProduto, constraints3);
+
+        HashMap<Produto, Integer> produtos = new HashMap<>();
+        for (int i = 0; i < place.getProdutos().size(); i++) {
+            Produto produto = place.getProdutos().get(i);
+            JCheckBox produtoCheckBox = new JCheckBox(produto.getNome());
+            JSpinner quantidade = new JSpinner(new SpinnerNumberModel(0, 0, produto.getQuantidade(), 1));
+            JSpinner.NumberEditor editor = new JSpinner.NumberEditor(quantidade, "#");
+            quantidade.setEditor(editor);
+
+            produtoCheckBox.addItemListener(e -> {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    produtos.put(produto, (Integer) quantidade.getValue());
+                } else {
+                    produtos.remove(produto);
+                }
+            });
+            quantidade.addChangeListener(e -> {
+                if (produtoCheckBox.isSelected()) {
+                    produtos.put(produto, (Integer) quantidade.getValue());
+                }
+            });
+
+            constraints3.gridx = 0;
+            constraints3.gridy = i + 1;
+            produtosPanel.add(produtoCheckBox, constraints3);
+            constraints3.gridx = 1;
+            produtosPanel.add(quantidade, constraints3);
         }
 
-        conteudo.add(produtosComboBox, BorderLayout.CENTER);
-        
-        JSpinner quantidadeProd = new JSpinner();
-        conteudo.add(quantidadeProd, BorderLayout.CENTER);
+        constraints2.gridx = 0;
+        constraints2.gridy = 0;
+        conteudo.add(produtosPanel, constraints2);
+
+        JPanel botoesPanel = new JPanel();
+        botoesPanel.setLayout(new GridBagLayout());
+        GridBagConstraints constraints4 = new GridBagConstraints();
+        constraints4.fill = GridBagConstraints.HORIZONTAL;
+        constraints4.insets = new Insets(5, 10, 5, 10);
 
         JButton EfetuarCompra = new JButton("Finalizar Compra");
-        EfetuarCompra.addActionListener(e -> efetuarCompra(place, produtosComboBox, quantidadeProd));
-        conteudo.add(EfetuarCompra, BorderLayout.SOUTH);
+        EfetuarCompra.addActionListener(e -> efetuarCompra(place, produtos));
+        constraints4.gridx = 0;
+        constraints4.gridy = 0;
+        botoesPanel.add(EfetuarCompra, constraints4);
 
         JButton Voltar = new JButton("Voltar");
         Voltar.addActionListener(e -> compose(place));
-        conteudo.add(Voltar, BorderLayout.SOUTH);
+        constraints4.gridx = 1;
+        botoesPanel.add(Voltar, constraints4);
 
-        panel.add(conteudo, BorderLayout.CENTER);
-        this.getContentPane().add(panel);
+        constraints2.gridx = 0;
+        constraints2.gridy = 1;
+        conteudo.add(botoesPanel, constraints2);
+
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        MainPanel.add(conteudo, constraints);
+
+        this.getContentPane().add(MainPanel);
         this.pack();
         //Implementar a tela de compra
         //Deve conter uma lista de produtos, com a quantidade de cada produto
         //botão pra voltar
         //botão pra efetuar a compra
-        }
+    }
 
-    private void efetuarCompra(Place place, JComboBox<String> produtosComboBox, JSpinner quantidadeProd) {
+    private void efetuarCompra(Place place, HashMap<Produto, Integer> produtos) {
         this.getContentPane().removeAll();
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -257,12 +329,8 @@ public class ClienteView extends UserView {
 
         JTextArea dadosCompra = new JTextArea();
         dadosCompra.setEditable(false);
-        dadosCompra.setText("Lava Jato: " + place.getName() + "\n" + 
-                            "Produto: " + produtosComboBox.getSelectedItem() + "\n" +
-                            "Quantidade: " + quantidadeProd.getValue() + "\n" +
-                            "Valor Final: " + place.getProdutos().get(produtosComboBox.getSelectedIndex()).getPreco()
-                            * (int) quantidadeProd.getValue());
-        conteudo.add(dadosCompra, BorderLayout.CENTER); 
+        dadosCompra.setText("Lava Jato: " + place.getName() + "\n" + "Produto: " + produtosComboBox.getSelectedItem() + "\n" + "Quantidade: " + quantidadeProd.getValue() + "\n" + "Valor Final: " + place.getProdutos().get(produtosComboBox.getSelectedIndex()).getPreco() * (int) quantidadeProd.getValue());
+        conteudo.add(dadosCompra, BorderLayout.CENTER);
 
         JButton Cancelar = new JButton("Cancelar");
         Cancelar.addActionListener(e -> comprar(place));
