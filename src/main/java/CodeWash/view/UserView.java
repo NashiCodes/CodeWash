@@ -16,5 +16,5 @@ public abstract class UserView extends JFrame {
     public abstract void carregaPlaces(List<Place> places);
 
     public abstract List<Place> listPlaces(List<Place> places);
-    public abstract void itemSelected();
+    public void itemSelected(){}
 }

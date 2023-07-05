@@ -1,10 +1,8 @@
 package CodeWash.view;
 
 import CodeWash.controller.User.UserManager;
-import CodeWash.model.Dias;
-import CodeWash.model.Place;
-import CodeWash.model.Produto;
-import CodeWash.model.Usuario;
+import CodeWash.exception.HorarioException;
+import CodeWash.model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,25 +18,25 @@ public class AdmView extends UserView {
     private JTextField JPreco;
     // Cadastro de Lava Jato
     private final List<Dias> dias;
-    private List<String> horarios;
+    private final List<Integer> horarios;
     private JList<Produto> Jprodutos;
 
     public AdmView(Usuario user) {
-        //Função que cria a tela do administrador
-        super("Administrador"); //Título da tela
-        this.user = user;    //Usuário que está logado
-        this.dias = new ArrayList<>();  //Lista de dias
-        this.horarios = new ArrayList<>();  //Lista de horários
-        this.Jprodutos = new JList<>();  //Lista de produtos
-        this.setSize(preferredSize);    //Tamanho da tela
-        this.addWindowListener(new UserManager(this));  //Adiciona um listener para o botão de fechar a tela
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    //Fecha a aplicação quando a tela é fechada
+        // Função que cria a tela do administrador
+        super("Administrador"); // Título da tela
+        this.user = user; // Usuário que está logado
+        this.dias = new ArrayList<>(); // Lista de dias
+        this.horarios = new ArrayList<>(3); // Lista de horários
+        this.Jprodutos = new JList<>(); // Lista de produtos
+        this.setSize(preferredSize); // Tamanho da tela
+        this.addWindowListener(new UserManager(this)); // Adiciona um listener para o botão de fechar a tela
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fecha a aplicação quando a tela é fechada
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
         int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
-        this.setLocation(x, y); //Posição da tela
-        this.setVisible(true);  //Torna a tela visível
-        this.setEnabled(true);  //Torna a tela habilitada
+        this.setLocation(x, y); // Posição da tela
+        this.setVisible(true); // Torna a tela visível
+        this.setEnabled(true); // Torna a tela habilitada
     }
 
     @Override
@@ -49,30 +47,24 @@ public class AdmView extends UserView {
 
     @Override
     public void carregaPlaces(List<Place> places) {
-        //Função que carrega os lava jatos associados ao usuário
-        for (Place place : places) {   //Percorre a lista de lava jatos
-            if (place.getEmail().equals(user.getEmail())) {   //Verifica se o email do usuário é igual ao email do lava jato
-                this.place = place; //Se sim, o lava jato é carregado
-                break; //Para o loop
+        // Função que carrega os lava jatos associados ao usuário
+        for (Place place : places) { // Percorre a lista de lava jatos
+            if (place.getEmail().equals(user.getEmail())) { // Verifica se o email do usuário é igual ao email do lava jato
+                this.place = place; // Se sim, o lava jato é carregado
+                break; // Para o loop
             }
         }
     }
 
     public void telaInicial() {
-        //TODO: Implementar tela de cadastro dos lava jatos
-        //verifica se o usuário já tem um Lava jato associado a ele
-        if (this.place == null) {
-            //se não, exibe um aviso de boas vindas e abre a tela de cadastro do lava jato
-            telaCadastroLavaJato();
-        } else {
-            //se sim, abre a tela de edição do lava jato, como os horários de funcionamento, edição de produtos e serviços, etc
-            AreaAdmin();
-        }
+        if (this.place == null) telaCadastroLavaJato();
+        else AreaAdmin();
+
     }
 
     public void telaCadastroLavaJato() {
         this.getContentPane().removeAll();
-        //Jframe e Jpanel variáveis
+        // Jframe e Jpanel variáveis
         JLabel lblNome = new JLabel("Digite o nome do Lava Jato");
         JNome = new JTextField(20);
         JButton btnCadastrar = new JButton("Cadastrar");
@@ -158,10 +150,10 @@ public class AdmView extends UserView {
         setSize(300, 150);
         setLocationRelativeTo(null);
 
-        //horarios
+        // horarios
         JButton horarios = new JButton("Horários");
         horarios.addActionListener(e -> ListaHorarios());
-        //editar produtos
+        // editar produtos
         JButton produtos = new JButton("Editar produtos");
         produtos.addActionListener(e -> EditaProdutos());
 
@@ -184,7 +176,6 @@ public class AdmView extends UserView {
         constraints.gridy = 2;
         panel.add(produtos, constraints);
 
-
         getContentPane().add(panel);
 
         pack();
@@ -199,12 +190,16 @@ public class AdmView extends UserView {
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.insets = new Insets(5, 10, 5, 10);
 
-
-        panel.add(PainelHorarios(), constraints);
+        panel.add(Spinners(), constraints);
 
         JButton submit = new JButton("Continuar");
         submit.addActionListener(e -> {
-            AreaAdmin();
+            try {
+                this.place.setFuncionamento(horarios.get(0), horarios.get(1), horarios.get(2));
+                AreaAdmin();
+            } catch (HorarioException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
         });
 
         constraints.gridx = 0;
@@ -215,7 +210,7 @@ public class AdmView extends UserView {
         this.pack();
     }
 
-    private JPanel PainelHorarios() {
+    private JPanel Spinners() {
         JPanel horarios = new JPanel(new GridBagLayout());
         GridBagConstraints constraintsHorarios = new GridBagConstraints();
         constraintsHorarios.fill = GridBagConstraints.HORIZONTAL;
@@ -225,17 +220,47 @@ public class AdmView extends UserView {
         JLabel lblIntervalo = new JLabel("Horário de Intervalo");
         JLabel lblFechamento = new JLabel("Horário de Fechamento");
 
-        JSpinner spnAbertura = new JSpinner(new SpinnerDateModel());
-        JSpinner spnIntervalo = new JSpinner(new SpinnerDateModel());
-        JSpinner spnFechamento = new JSpinner(new SpinnerDateModel());
+        JSpinner spnAbertura = new JSpinner(new SpinnerNumberModel(8, 0, 21, 1));
+        this.horarios.add((int) spnAbertura.getValue());
+        JSpinner spnIntervalo = new JSpinner(new SpinnerNumberModel(12, 1, 22, 1));
+        this.horarios.add((int) spnIntervalo.getValue());
+        JSpinner spnFechamento = new JSpinner(new SpinnerNumberModel(18, 2, 23, 1));
+        this.horarios.add((int) spnFechamento.getValue());
 
-        JSpinner.DateEditor deAbertura = new JSpinner.DateEditor(spnAbertura, "HH");
-        JSpinner.DateEditor deIntervalo = new JSpinner.DateEditor(spnIntervalo, "HH");
-        JSpinner.DateEditor deFechamento = new JSpinner.DateEditor(spnFechamento, "HH");
+        JSpinner.NumberEditor deAbertura = new JSpinner.NumberEditor(spnAbertura, "00");
+        JSpinner.NumberEditor deIntervalo = new JSpinner.NumberEditor(spnIntervalo, "00");
+        JSpinner.NumberEditor deFechamento = new JSpinner.NumberEditor(spnFechamento, "00");
 
         spnAbertura.setEditor(deAbertura);
+        spnAbertura.addChangeListener(e -> {
+            if ((int) spnAbertura.getValue() >= (int) spnIntervalo.getValue()) {
+                spnIntervalo.setValue((int) spnAbertura.getValue() + 1);
+            }
+            if ((int) spnAbertura.getValue() >= (int) spnFechamento.getValue()) {
+                spnFechamento.setValue((int) spnAbertura.getValue() + 1);
+            }
+            this.horarios.set(0, (int) spnAbertura.getValue());
+        });
         spnIntervalo.setEditor(deIntervalo);
+        spnIntervalo.addChangeListener(e -> {
+            if ((int) spnIntervalo.getValue() <= (int) spnAbertura.getValue()) {
+                spnAbertura.setValue((int) spnIntervalo.getValue() - 1);
+            }
+            if ((int) spnIntervalo.getValue() >= (int) spnFechamento.getValue()) {
+                spnFechamento.setValue((int) spnIntervalo.getValue() + 1);
+            }
+            this.horarios.set(1, (int) spnIntervalo.getValue());
+        });
         spnFechamento.setEditor(deFechamento);
+        spnFechamento.addChangeListener(e -> {
+            if ((int) spnFechamento.getValue() <= (int) spnIntervalo.getValue()) {
+                spnIntervalo.setValue((int) spnFechamento.getValue() - 1);
+            }
+            if ((int) spnFechamento.getValue() <= (int) spnAbertura.getValue()) {
+                spnAbertura.setValue((int) spnFechamento.getValue() - 1);
+            }
+            this.horarios.set(2, (int) spnFechamento.getValue());
+        });
 
         constraintsHorarios.gridx = 0;
         constraintsHorarios.gridy = 0;
@@ -265,7 +290,151 @@ public class AdmView extends UserView {
     }
 
     private void ListaHorarios() {
-        //TODO
+        this.getContentPane().removeAll();
+        setTitle("Horários Marcados");
+
+        JPanel Mainpanel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.insets = new Insets(5, 10, 5, 10);
+
+        JPanel lblHorarios = new JPanel(new GridBagLayout());
+        GridBagConstraints constraintsHorarios = new GridBagConstraints();
+        constraintsHorarios.fill = GridBagConstraints.HORIZONTAL;
+        constraintsHorarios.insets = new Insets(5, 10, 5, 10);
+
+        for (int i = place.getAbertura(); i < place.getFechamento(); i++) {
+            JLabel lblHorario = new JLabel(i >= 10 ? i + ":00" : "0" + i + ":00");
+            constraintsHorarios.gridx = 0;
+            constraintsHorarios.gridy = i - place.getAbertura();
+            lblHorarios.add(lblHorario, constraintsHorarios);
+        }
+
+        JPanel lblDias = new JPanel(new GridBagLayout());
+        GridBagConstraints constraintsDias = new GridBagConstraints();
+        constraintsDias.fill = GridBagConstraints.HORIZONTAL;
+        constraintsDias.insets = new Insets(5, 10, 5, 10);
+
+        for (Dias dia : this.place.getDiasAbertos()) {
+            JLabel lblDia = new JLabel(dia.toString());
+            constraintsDias.gridx = dia.ordinal();
+            constraintsDias.gridy = 0;
+            lblDias.add(lblDia, constraintsDias);
+
+            for (int i = place.getAbertura(); i < place.getFechamento(); i++) {
+                if (i == place.getIntervalo()) {
+                    JLabel lblIntervalo = new JLabel("Intervalo");
+                    lblIntervalo.setBackground(Color.YELLOW);
+                    lblIntervalo.setForeground(Color.BLACK);
+                    constraintsDias.gridx = dia.ordinal();
+                    constraintsDias.gridy = i - place.getAbertura() + 1;
+                    lblDias.add(lblIntervalo, constraintsDias);
+                    continue;
+                }
+                if (this.place.getCont(dia, Integer.toString(i)) == 0) {
+                    final int hora = i;
+                    JButton reservado = new JButton("Reservado");
+                    reservado.addActionListener(e -> AgendaManager(dia, hora));
+                    reservado.setBackground(Color.RED);
+                    reservado.setForeground(Color.WHITE);
+                    reservado.setEnabled(false);
+                    constraintsDias.gridx = dia.ordinal();
+                    constraintsDias.gridy = i - place.getAbertura() + 1;
+                    lblDias.add(reservado, constraintsDias);
+                } else {
+                    JLabel lblVazio = new JLabel("Vazio");
+                    lblVazio.setBackground(new Color(0, 150, 0));
+                    constraintsDias.gridx = dia.ordinal();
+                    constraintsDias.gridy = i - place.getAbertura() + 1;
+                    lblDias.add(lblVazio, constraintsDias);
+                }
+            }
+        }
+
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        Mainpanel.add(lblHorarios, constraints);
+
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        Mainpanel.add(lblDias, constraints);
+
+        this.getContentPane().add(Mainpanel);
+        this.pack();
+
+
+    }
+
+    private void AgendaManager(Dias dia, int hora) {
+        this.getContentPane().removeAll();
+        setTitle("Reservas");
+
+        List<String> clientesToRemove = new ArrayList<>();
+
+        JPanel Mainpanel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.insets = new Insets(5, 10, 5, 10);
+
+        JLabel Title = new JLabel("Horário: " + dia.toString() + " " + hora + ":00");
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        Mainpanel.add(Title, constraints);
+
+        JLabel subTitle = new JLabel("Marcado por: ");
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        Mainpanel.add(subTitle, constraints);
+
+        JPanel lblClientes = new JPanel(new GridBagLayout());
+        GridBagConstraints constraintsClientes = new GridBagConstraints();
+        constraintsClientes.fill = GridBagConstraints.HORIZONTAL;
+        constraintsClientes.insets = new Insets(5, 10, 5, 10);
+
+        for (String cliente : this.place.getClientes(dia, Integer.toString(hora))) {
+            JCheckBox lblCliente = new JCheckBox(cliente);
+            lblCliente.addActionListener(e -> {
+                if (lblCliente.isSelected()) {
+                    clientesToRemove.add(cliente);
+                } else {
+                    clientesToRemove.remove(cliente);
+                }
+            });
+            constraintsClientes.gridx = 0;
+            constraintsClientes.gridy = this.place.getClientes(dia, Integer.toString(hora)).indexOf(cliente);
+            lblClientes.add(lblCliente, constraintsClientes);
+        }
+
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        Mainpanel.add(lblClientes, constraints);
+
+        JPanel btnPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraintsBtn = new GridBagConstraints();
+        constraintsBtn.fill = GridBagConstraints.HORIZONTAL;
+        constraintsBtn.insets = new Insets(5, 10, 5, 10);
+
+        JButton btnVoltar = new JButton("Voltar");
+        btnVoltar.addActionListener(e -> ListaHorarios());
+        constraintsBtn.gridx = 0;
+        constraintsBtn.gridy = 0;
+        btnPanel.add(btnVoltar, constraintsBtn);
+
+        JButton btnRemover = new JButton("Entregar Carro(s)");
+        btnRemover.addActionListener(e -> {
+            this.place.removeCliente(clientesToRemove);
+            AgendaManager(dia, hora);
+        });
+        constraintsBtn.gridx = 1;
+        constraintsBtn.gridy = 0;
+        btnPanel.add(btnRemover, constraintsBtn);
+
+        constraints.gridx = 0;
+        constraints.gridy = 3;
+        Mainpanel.add(btnPanel, constraints);
+
+        this.getContentPane().add(Mainpanel);
+        this.pack();
     }
 
     private void EditaProdutos() {
@@ -282,13 +451,11 @@ public class AdmView extends UserView {
         JPanel MainPanel = new JPanel();
         MainPanel.setBorder(BorderFactory.createTitledBorder("Edição de Produtos"));
 
-
         JPanel formulario = new JPanel();
         JPanel painelLabel = new JPanel();
         painelLabel.setLayout(new GridLayout(0, 1, 5, 10));
         painelLabel.add(new JLabel("Nome"));
         painelLabel.add(new JLabel("Preço"));
-
 
         JPanel painelField = new JPanel();
         painelField.setLayout(new GridLayout(0, 1, 5, 10));
@@ -335,7 +502,6 @@ public class AdmView extends UserView {
 
         DefaultListModel<Produto> model = new DefaultListModel<>();
 
-
         Jprodutos = new JList<>(model);
         Jprodutos.addListSelectionListener(event -> this.AtualizaFormulario());
         AtualizaLista();
@@ -355,7 +521,6 @@ public class AdmView extends UserView {
             JPreco.setText(String.valueOf(produto.getPreco()));
         }
 
-
     }
 
     private void AtualizaLista() {
@@ -370,7 +535,7 @@ public class AdmView extends UserView {
         String nome = JNome.getText();
         double preco = Double.parseDouble(JPreco.getText());
         this.place.addProduto(nome, preco);
-         this.AtualizaLista();
+        this.AtualizaLista();
     }
 
     private void removerProduto() {
@@ -394,14 +559,11 @@ public class AdmView extends UserView {
 
     @Override
     public List<Place> listPlaces(List<Place> places) {
-        //Função que lista os lava jatos associados ao usuário
-        places.removeIf(place -> place.getEmail().equals(user.getEmail()));//Remove o Lava jato do usuário da lista para atualizar
-        places.add(this.place); //Adiciona o lava jato do usuário na lista
-        return places; //Retorna a lista
+        // Função que lista os lava jatos associados ao usuário
+        places.removeIf(place -> place.getEmail().equals(user.getEmail()));// Remove o Lava jato do usuário da lista
+        // para atualizar
+        places.add(this.place); // Adiciona o lava jato do usuário na lista
+        return places; // Retorna a lista
     }
 
-    @Override
-    public void itemSelected() {
-        //Função que é chamada quando um item é selecionado
-    }
 }

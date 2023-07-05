@@ -28,4 +28,35 @@ public class Agenda {
         }
         return cont < 2;
     }
+
+    public void removeHorario(String email) {
+        this.horarios.remove(email);
+    }
+
+    public int getCont(Dias dia, String hora){
+        int cont = 0;
+        for (Horario horario : this.horarios.values()) {
+            if (horario.getDia().equals(dia) && horario.getHora().equals(hora)) {
+                cont++;
+            }
+        }
+        return cont;
+    }
+
+
+    public List<String> getClientes(Dias dia, String hora) {
+        final List<String> clientes = new ArrayList<>();
+        for (Map.Entry<String, Horario> entry : this.horarios.entrySet()) {
+            if (entry.getValue().getDia().equals(dia) && entry.getValue().getHora().equals(hora)) {
+                clientes.add(entry.getKey());
+            }
+        }
+        return clientes;
+    }
+
+    public void removeCliente(List<String> clientes) {
+        for (String cliente : clientes) {
+            this.horarios.remove(cliente);
+        }
+    }
 }

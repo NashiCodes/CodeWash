@@ -27,12 +27,11 @@ public class Place {
         this.diasAbertos = new ArrayList<>();
     }
 
-    public boolean setFuncionamento(int abertura, int fechamento, int intervalo) throws HorarioException {
-        if (abertura < fechamento && abertura >= 0 && fechamento <= 24 && intervalo > abertura && intervalo < fechamento) {
+    public void setFuncionamento(int abertura, int intervalo, int fechamento) throws HorarioException {
+        if (abertura >= 0 && fechamento <= 24 && intervalo > abertura && intervalo < fechamento) {
             this.abertura = abertura;
             this.fechamento = fechamento;
             this.intervalo = intervalo;
-            return true;
         } else {
             throw new HorarioException("Horário inválido.");
         }
@@ -84,11 +83,11 @@ public class Place {
         return email;
     }
 
-    public boolean verifica(Dias dia, int hora){
-        if (hora <this.abertura && hora >= this.fechamento && hora == this.intervalo) {
-            return false;
+    public boolean verifica(Dias dia, int hora) {
+        if (hora >= this.abertura && hora < this.fechamento && hora != this.intervalo) {
+            return this.agenda.verifica(dia, Integer.toString(hora));
         }
-        return this.agenda.verifica(dia, String.valueOf(hora));
+        return false;
     }
 
     public void setDiasAbertos(List<Dias> diasAbertos) {
@@ -111,8 +110,20 @@ public class Place {
         return this.intervalo;
     }
 
+    public int getCont(Dias dia, String hora) {
+        return this.agenda.getCont(dia, hora);
+    }
+
+    public List<String> getClientes(Dias dia, String hora) {
+        return this.agenda.getClientes(dia, hora);
+    }
+
     @Override
     public String toString() {
         return this.name;
+    }
+
+    public void removeCliente(List<String> clientes) {
+        this.agenda.removeCliente(clientes);
     }
 }
