@@ -45,19 +45,6 @@ public class Place {
         return produtos;
     }
 
-    public Produto getProduto(String nome) {
-        for (Produto produto : this.produtos) {
-            if (produto.getNome().equals(nome)) {
-                return produto;
-            }
-        }
-        return null;
-    }
-
-    public Produto getProduto(int index) {
-        return this.produtos.get(index);
-    }
-
     public void addProduto(String nome, double preco, int quantidade) {
         this.produtos.add(new Produto(nome, preco, quantidade));
     }
@@ -106,11 +93,11 @@ public class Place {
         return this.intervalo;
     }
 
-    public int getCont(Dias dia, String hora) {
+    public int getCont(Dias dia, int hora) {
         return this.agenda.getCont(dia, hora);
     }
 
-    public List<String> getClientes(Dias dia, String hora) {
+    public List<String> getClientes(Dias dia, int hora) {
         return this.agenda.getClientes(dia, hora);
     }
 

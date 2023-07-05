@@ -346,13 +346,12 @@ public class AdmView extends UserView {
                     lblDias.add(lblIntervalo, constraintsDias);
                     continue;
                 }
-                if (this.place.getCont(dia, Integer.toString(i)) == 0) {
+                if (this.place.getCont(dia, i) != 0) {
                     final int hora = i;
                     JButton reservado = new JButton("Reservado");
                     reservado.addActionListener(e -> AgendaManager(dia, hora));
                     reservado.setBackground(Color.RED);
                     reservado.setForeground(Color.WHITE);
-                    reservado.setEnabled(false);
                     constraintsDias.gridx = dia.ordinal();
                     constraintsDias.gridy = i - place.getAbertura() + 1;
                     lblDias.add(reservado, constraintsDias);
@@ -406,7 +405,7 @@ public class AdmView extends UserView {
         constraintsClientes.fill = GridBagConstraints.HORIZONTAL;
         constraintsClientes.insets = new Insets(5, 10, 5, 10);
 
-        for (String cliente : this.place.getClientes(dia, Integer.toString(hora))) {
+        for (String cliente : this.place.getClientes(dia, hora)) {
             JCheckBox lblCliente = new JCheckBox(cliente);
             lblCliente.addActionListener(e -> {
                 if (lblCliente.isSelected()) {
@@ -416,7 +415,7 @@ public class AdmView extends UserView {
                 }
             });
             constraintsClientes.gridx = 0;
-            constraintsClientes.gridy = this.place.getClientes(dia, Integer.toString(hora)).indexOf(cliente);
+            constraintsClientes.gridy = this.place.getClientes(dia, hora).indexOf(cliente);
             lblClientes.add(lblCliente, constraintsClientes);
         }
 

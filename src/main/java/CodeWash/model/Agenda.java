@@ -29,10 +29,11 @@ public class Agenda {
         return cont < 2;
     }
 
-    public int getCont(Dias dia, String hora){
+    public int getCont(Dias dia, int hora){
         int cont = 0;
+        String horaString = hora > 9 ? hora + ":00" : "0" + hora + ":00";
         for (Horario horario : this.horarios.values()) {
-            if (horario.getDia().equals(dia) && horario.getHora().equals(hora)) {
+            if (horario.getDia().equals(dia) && horario.getHora().equals(horaString)) {
                 cont++;
             }
         }
@@ -40,8 +41,9 @@ public class Agenda {
     }
 
 
-    public List<String> getClientes(Dias dia, String hora) {
+    public List<String> getClientes(Dias dia, int hora) {
         final List<String> clientes = new ArrayList<>();
+
         for (Map.Entry<String, Horario> entry : this.horarios.entrySet()) {
             if (entry.getValue().getDia().equals(dia) && entry.getValue().getHora().equals(hora)) {
                 clientes.add(entry.getKey());
