@@ -183,6 +183,7 @@ public class AdmView extends UserView {
         btnVoltar.addActionListener(e -> {
             this.dispose();
             this.setEnabled(false);
+            login.setEnabled(true);
             login.display();
         });
 

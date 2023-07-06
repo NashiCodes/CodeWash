@@ -105,7 +105,6 @@ public class TelaInicial extends JFrame {
         JPanel painelLabel = new JPanel(); //Cria um novo JPanel para os labels (dentro do JPanel "cadastro")
         painelLabel.setLayout(new GridLayout(0, 1, H_GAP, V_GAP + 10)); //Define o layout do JPanel "painelLabel" como GridLayout
         painelLabel.add(new JLabel("Nome")); //Adiciona um novo JLabel com o texto "Nome" ao JPanel "painelLabel"
-        painelLabel.add((new JLabel("Telefone"))); //Adiciona um novo JLabel com o texto "Telefone" ao JPanel "painelLabel"
         painelLabel.add(new JLabel("Email")); //Adiciona um novo JLabel com o texto "Email" ao JPanel "painelLabel"
         painelLabel.add(new JLabel("Senha")); //Adiciona um novo JLabel com o texto "Senha" ao JPanel "painelLabel"
         painelLabel.add(new JLabel("Confirmar Senha")); //Adiciona um novo JLabel com o texto "Confirmar Senha" ao JPanel "painelLabel"

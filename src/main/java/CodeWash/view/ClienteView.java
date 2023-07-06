@@ -77,6 +77,7 @@ public class ClienteView extends UserView {
         button.addActionListener(e -> { //Adiciona um listener para o botão
             this.dispose(); //Fecha a tela atual
             this.setEnabled(false); //Desabilita a tela atual
+            login.setEnabled(true); //Habilita a tela de login
             login.display(); //Mostra a tela de login
         });
         voltar.add(button, BorderLayout.CENTER); //Adiciona o botão ao painel
@@ -119,6 +120,7 @@ public class ClienteView extends UserView {
 
     private void compose(Place place) {
         this.getContentPane().removeAll();
+        this.setTitle("Lava Jato: " + place.getName());
 
         JPanel MainPanel = new JPanel();
         MainPanel.setLayout(new GridBagLayout());
@@ -135,7 +137,7 @@ public class ClienteView extends UserView {
         JPanel labelPanel = new JPanel();
         labelPanel.setLayout(new GridBagLayout());
 
-        JLabel nome = new JLabel(place.getName());
+        JLabel nome = new JLabel("Bem Vindo ao Lava Jato: " + place.getName());
         nome.setHorizontalAlignment(SwingConstants.CENTER);
         labelPanel.add(Box.createVerticalGlue()); // Add glue to vertically center the label
         labelPanel.add(nome);
@@ -147,19 +149,33 @@ public class ClienteView extends UserView {
         conteudo.add(labelPanel, constraints2);
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        buttonPanel.setLayout(new GridBagLayout());
+        GridBagConstraints btnConstraints = new GridBagConstraints();
+        btnConstraints.fill = GridBagConstraints.HORIZONTAL;
+        btnConstraints.insets = new Insets(5, 10, 5, 10);
 
         JButton Comprar = new JButton("Comprar Produtos");
         Comprar.addActionListener(e -> comprar(place));
-        buttonPanel.add(Comprar);
+        btnConstraints.gridx = 0;
+        btnConstraints.gridy = 0;
+        btnConstraints.gridwidth = 1;
+        btnConstraints.weighty = 3;
+        buttonPanel.add(Comprar, btnConstraints);
 
         JButton Agendar = new JButton("Agendar");
         Agendar.addActionListener(e -> agendar(place));
-        buttonPanel.add(Agendar);
+        btnConstraints.gridx = 0;
+        btnConstraints.gridy = 1;
+        buttonPanel.add(Agendar, btnConstraints);
 
         JButton Voltar = new JButton("Voltar");
-        Voltar.addActionListener(e -> display());
-        buttonPanel.add(Voltar);
+        Voltar.addActionListener(e -> {
+            this.setTitle("Lava Jatos");
+            display();
+        });
+        btnConstraints.gridx = 0;
+        btnConstraints.gridy = 2;
+        buttonPanel.add(Voltar, btnConstraints);
 
         constraints2.gridx = 0;
         constraints2.gridy = 1;

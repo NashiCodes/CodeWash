@@ -58,5 +58,7 @@ public class TelaManager implements WindowListener {
 
     @Override
     public void windowDeactivated(WindowEvent e) {
+        Persistence<Usuario> usuarioPersistence = new UserPersistence();
+        usuarioPersistence.save(tela.getUsuarios());
     }
 }
