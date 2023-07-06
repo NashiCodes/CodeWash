@@ -1,3 +1,8 @@
+// NOME: Gabriel de Oliveira Vieira                       MATRÍCULA: 202265029A
+// NOME: Ítalo de Almeida Ribeiro                         MATRÍCULA: 202176009
+// NOME: João Victor Pereira dos Anjos                    MATRÍCULA: 202176010
+// NOME: Lucas Henrique de Arruda Ferreira                MATRÍCULA: 202165193AC
+
 package CodeWash.view;
 
 import CodeWash.controller.User.Select;
@@ -24,7 +29,7 @@ public class ClienteView extends UserView {
 
     public ClienteView(Usuario user, TelaInicial login) {
         //Função que cria a tela do cliente
-        super("Cliente");   //Chama o construtor da classe pai
+        super("Bem Vindo, " + user.getNome());   //Chama o construtor da classe pai
         this.user = user;  //Salva o usuário atual
         this.login = login; //Salva a tela de login
 
@@ -58,7 +63,7 @@ public class ClienteView extends UserView {
         //Deve conter uma lista clicavel de lava jatos
         JPanel panel = new JPanel(); //Cria um painel
         panel.setLayout(new BorderLayout()); //Define o layout do painel
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); //Define a borda do painel
+        panel.setBorder(BorderFactory.createTitledBorder("Estes São os Lava Jatos Disponiveis: ")); //Define a borda do painel
         panel.setPreferredSize(preferredSize);
 
         LavaJatos.addListSelectionListener(new Select(this)); //Adiciona um listener para a lista
@@ -262,7 +267,7 @@ public class ClienteView extends UserView {
     }
 
     private void getHoras(Place place, Dias dia, JComboBox<String> horasComboBox) {
-        for(int i = place.getAbertura(); i < place.getFechamento(); i++){
+        for (int i = place.getAbertura(); i < place.getFechamento(); i++) {
             if (place.verifica(dia, i))
                 horasComboBox.addItem(i > 9 ? i + ":00" : "0" + i + ":00");
         }

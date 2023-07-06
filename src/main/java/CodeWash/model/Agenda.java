@@ -1,3 +1,8 @@
+// NOME: Gabriel de Oliveira Vieira                         MATRÍCULA: 202265029A
+// NOME: Ítalo de Almeida Ribeiro                           MATRÍCULA: 202176009
+// NOME: João Victor Pereira dos Anjos                      MATRÍCULA: 202176010
+// NOME: Lucas Henrique de Arruda Ferreira                  MATRÍCULA: 202165193AC
+
 package CodeWash.model;
 
 import CodeWash.exception.HorarioException;
@@ -22,7 +27,7 @@ public class Agenda {
     public boolean verifica(Dias dia, String hora) {
         int cont = 0;
         for (Horario horario : this.horarios.values()) {
-            if (horario.getDia().equals(dia) && horario.getHora().equals(hora)) {
+            if (horario.dia().equals(dia) && horario.hora().equals(hora)) {
                 cont++;
             }
         }
@@ -33,7 +38,7 @@ public class Agenda {
         int cont = 0;
         String horaString = hora > 9 ? hora + ":00" : "0" + hora + ":00";
         for (Horario horario : this.horarios.values()) {
-            if (horario.getDia().equals(dia) && horario.getHora().equals(horaString)) {
+            if (horario.dia().equals(dia) && horario.hora().equals(horaString)) {
                 cont++;
             }
         }
@@ -43,9 +48,9 @@ public class Agenda {
 
     public List<String> getClientes(Dias dia, int hora) {
         final List<String> clientes = new ArrayList<>();
-
+        String horaString = hora > 9 ? hora + ":00" : "0" + hora + ":00";
         for (Map.Entry<String, Horario> entry : this.horarios.entrySet()) {
-            if (entry.getValue().getDia().equals(dia) && entry.getValue().getHora().equals(hora)) {
+            if (entry.getValue().dia().equals(dia) && entry.getValue().hora().equals(horaString)) {
                 clientes.add(entry.getKey());
             }
         }

@@ -1,7 +1,7 @@
-// NOME: Gabriel de Oliveira Vieira                               MATRÍCULA: 202265029A
-// NOME: Ítalo de Almeida Ribeiro                                 MATRÍCULA: 202176009
-// NOME: João Victor Pereira dos Anjos                        MATRÍCULA: 202176010
-// NOME: Lucas Henrique de Arruda Ferreira                MATRÍCULA: 202165193AC
+// NOME: Gabriel de Oliveira Vieira                         MATRÍCULA: 202265029A
+// NOME: Ítalo de Almeida Ribeiro                           MATRÍCULA: 202176009
+// NOME: João Victor Pereira dos Anjos                      MATRÍCULA: 202176010
+// NOME: Lucas Henrique de Arruda Ferreira                  MATRÍCULA: 202165193AC
 
 package CodeWash.model;
 
@@ -12,14 +12,12 @@ import java.util.regex.Pattern;
 
 public class Usuario {
     private final String nome;
-    private final String telefone;
     private String email;
     private final String senha;
     private final boolean Tipo;
 
-    public Usuario(String nome, String telefone, String email, String senha, boolean Tipo) {
+    public Usuario(String nome, String email, String senha, boolean Tipo) {
         this.nome = nome;
-        this.telefone = telefone;
         try {
             if (isValido(email)) {
                 this.email = email;
@@ -50,5 +48,9 @@ public class Usuario {
 
     public boolean getTipo() {
         return Tipo;
+    }
+
+    public String getNome() {
+        return nome;
     }
 }

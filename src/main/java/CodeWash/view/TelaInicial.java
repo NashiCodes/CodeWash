@@ -1,3 +1,8 @@
+// NOME: Gabriel de Oliveira Vieira                       MATRÍCULA: 202265029A
+// NOME: Ítalo de Almeida Ribeiro                         MATRÍCULA: 202176009
+// NOME: João Victor Pereira dos Anjos                    MATRÍCULA: 202176010
+// NOME: Lucas Henrique de Arruda Ferreira                MATRÍCULA: 202165193AC
+
 package CodeWash.view;
 
 import CodeWash.controller.TelaInicial.CadastroController;
@@ -15,7 +20,6 @@ import java.util.Objects;
 public class TelaInicial extends JFrame {
 
     private JTextField tfNome; //Cria um novo JTextField para o nome
-    private JTextField tfTelefone; //Cria um novo JTextField para o telefone
     private JTextField tfEmail; //Cria um novo JTextField para o email
     private JPasswordField tfSenha; //Cria um novo JPasswordField para a senha
     private JPasswordField tfConfirmarSenha; //Cria um novo JPasswordField para a confirmação de senha
@@ -31,7 +35,7 @@ public class TelaInicial extends JFrame {
     private List<Usuario> usuarios; //Cria um novo ArrayList de Usuario para os usuários cadastrados
 
     public TelaInicial() {
-        super("Sistema de Lava-Jatos"); //Instancia o JFrame com o título "Sistema de Lava-Jatos"
+        super("CodeWash"); //Instancia o JFrame com o título "Sistema de Lava-Jatos"
         usuarios = new ArrayList<>(); //Instancia o ArrayList de Usuario
     }
 
@@ -41,12 +45,12 @@ public class TelaInicial extends JFrame {
         addWindowListener(new TelaManager(this)); //Adiciona um novo WindowListener à janela
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //Define a ação padrão ao fechar a janela
         setResizable(false); //Define que a janela não pode ser redimensionada
-        setLocationRelativeTo(null); //Define que a janela será centralizada na tela
         setVisible(true); //Define a janela como visível
 
         telaLogin(); //Chama o método telaLogin
 
         pack(); //Redimensiona a janela para que todos os componentes sejam exibidos
+        setLocationRelativeTo(null); //Define que a janela será centralizada na tela
     }
 
     private void telaLogin() {
@@ -89,10 +93,9 @@ public class TelaInicial extends JFrame {
     }
 
     public void telaCadastro() {
-        JFrame frame = new JFrame("Cadastro"); //Instancia um novo JFrame com o título "Cadastro"
+        JFrame frame = new JFrame("Cadastre - se"); //Instancia um novo JFrame com o título "Cadastro"
         frame.setSize(WIDTH, HEIGHT); //Define o tamanho da janela
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //Define a ação padrão ao fechar a janela
-        frame.setLocationRelativeTo(null); //Define que a janela será centralizada na tela
         frame.setVisible(true); //Define a janela como visível
 
         JPanel painel = new JPanel(); //Cria um novo JPanel para o cadastro
@@ -111,13 +114,11 @@ public class TelaInicial extends JFrame {
         JPanel painelField = new JPanel(); //Cria um novo JPanel para os campos (dentro do JPanel "cadastro")
         painelField.setLayout(new GridLayout(0, 1, H_GAP, V_GAP)); //Define o layout do JPanel "painelField" como GridLayout
         tfNome = new JTextField(20); //Cria um novo JTextField com 20 colunas de tamanho
-        tfTelefone = new JTextField(20); //Cria um novo JTextField com 20 colunas de tamanho
         tfEmail = new JTextField(20); //Cria um novo JTextField com 20 colunas de tamanho
         tfSenha = new JPasswordField(20); //Cria um novo JPasswordField com 20 colunas de tamanho
         tfConfirmarSenha = new JPasswordField(20); //Cria um novo JPasswordField com 20 colunas de tamanho
 
         painelField.add(tfNome); //Adiciona o JTextField "tfNome" ao JPanel "painelField"
-        painelField.add(tfTelefone); //Adiciona o JTextField "tfTelefone" ao JPanel "painelField"
         painelField.add(tfEmail); //Adiciona o JTextField "tfEmail" ao JPanel "painelField"
         painelField.add(tfSenha); //Adiciona o JPasswordField "tfSenha" ao JPanel "painelField"
         painelField.add(tfConfirmarSenha); //Adiciona o JPasswordField "tfConfirmarSenha" ao JPanel "painelField"
@@ -135,6 +136,9 @@ public class TelaInicial extends JFrame {
         JButton btnCancelar = new JButton("Cancelar"); //Cria um novo JButton com o texto "Cancelar"
         btnCancelar.addActionListener(e -> {
             frame.dispose(); //Fecha a janela
+            frame.setEnabled(false); //Desabilita a janela
+            this.setEnabled(true); //Habilita a janela
+            this.display();
         });
 
         JPanel botoes = new JPanel(); //Cria um novo JPanel para os botões
@@ -146,6 +150,7 @@ public class TelaInicial extends JFrame {
         frame.getContentPane().add(painel, BorderLayout.CENTER); //Adiciona o JPanel "painel" ao JFrame com o posicionamento CENTER
 
         frame.pack(); //Redimensiona a janela
+        frame.setLocationRelativeTo(null); //Define que a janela será centralizada na tela
     }
 
     public void login() {
@@ -199,9 +204,9 @@ public class TelaInicial extends JFrame {
 
     private Usuario atribuiUsuario() {
         if (verificaTipo())
-            return new Usuario(tfNome.getText(), tfTelefone.getText(), tfEmail.getText(), new String(tfSenha.getPassword()), true);
+            return new Usuario(tfNome.getText(), tfEmail.getText(), new String(tfSenha.getPassword()), true);
         else
-            return new Usuario(tfNome.getText(), tfTelefone.getText(), tfEmail.getText(), new String(tfSenha.getPassword()), false);
+            return new Usuario(tfNome.getText(), tfEmail.getText(), new String(tfSenha.getPassword()), false);
     }
 
     public List<Usuario> getUsuarios() {
