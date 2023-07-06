@@ -1,1 +1,1 @@
-[{"nome":"ana","telefone":"12312321","email":"a@a.com","senha":"1234","Tipo":false},{"nome":"beltrano","telefone":"28174651287","email":"b@b.com","senha":"1234","Tipo":true}]
+[{"nome":"ClienteTeste","email":"teste@cliente.com","senha":"1234","Tipo":false},{"nome":"AdminTeste","email":"teste@admin.com","senha":"1234","Tipo":true}]

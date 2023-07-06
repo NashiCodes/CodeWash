@@ -1,3 +1,8 @@
+// NOME: Gabriel de Oliveira Vieira                       MATRÍCULA: 202265029A
+// NOME: Ítalo de Almeida Ribeiro                         MATRÍCULA: 202176009
+// NOME: João Victor Pereira dos Anjos                    MATRÍCULA: 202176010
+// NOME: Lucas Henrique de Arruda Ferreira                MATRÍCULA: 202165193AC
+
 package CodeWash.view;
 
 import CodeWash.controller.User.Select;
@@ -11,7 +16,6 @@ import CodeWash.model.Usuario;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,11 +25,13 @@ public class ClienteView extends UserView {
     private final Dimension preferredSize = new Dimension(300, 250); //Define o tamanho preferido da tela
     private final Usuario user; //Usuário atual
     private final JList<Place> LavaJatos; //Lista de lava jatos
+    private final TelaInicial login; //Tela de login
 
-    public ClienteView(Usuario user) {
+    public ClienteView(Usuario user, TelaInicial login) {
         //Função que cria a tela do cliente
-        super("Cliente");   //Chama o construtor da classe pai
+        super("Bem Vindo, " + user.getNome());   //Chama o construtor da classe pai
         this.user = user;  //Salva o usuário atual
+        this.login = login; //Salva a tela de login
 
         DefaultListModel<Place> model = new DefaultListModel<>();
         this.LavaJatos = new JList<>(model);
@@ -57,12 +63,26 @@ public class ClienteView extends UserView {
         //Deve conter uma lista clicavel de lava jatos
         JPanel panel = new JPanel(); //Cria um painel
         panel.setLayout(new BorderLayout()); //Define o layout do painel
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); //Define a borda do painel
+        panel.setBorder(BorderFactory.createTitledBorder("Estes São os Lava Jatos Disponiveis: ")); //Define a borda do painel
         panel.setPreferredSize(preferredSize);
 
         LavaJatos.addListSelectionListener(new Select(this)); //Adiciona um listener para a lista
 
         panel.add(new JScrollPane(LavaJatos), BorderLayout.CENTER); //Adiciona a lista ao painel
+
+        JPanel voltar = new JPanel(); //Cria um painel
+        voltar.setLayout(new BorderLayout()); //Define o layout do painel
+
+        JButton button = new JButton("Voltar"); //Cria um botão
+        button.addActionListener(e -> { //Adiciona um listener para o botão
+            this.dispose(); //Fecha a tela atual
+            this.setEnabled(false); //Desabilita a tela atual
+            login.setEnabled(true); //Habilita a tela de login
+            login.display(); //Mostra a tela de login
+        });
+        voltar.add(button, BorderLayout.CENTER); //Adiciona o botão ao painel
+
+        panel.add(voltar, BorderLayout.SOUTH); //Adiciona o painel ao painel principal
 
         getContentPane().add(panel); //Adiciona o painel à tela
         pack();
@@ -100,6 +120,7 @@ public class ClienteView extends UserView {
 
     private void compose(Place place) {
         this.getContentPane().removeAll();
+        this.setTitle("Lava Jato: " + place.getName());
 
         JPanel MainPanel = new JPanel();
         MainPanel.setLayout(new GridBagLayout());
@@ -116,7 +137,7 @@ public class ClienteView extends UserView {
         JPanel labelPanel = new JPanel();
         labelPanel.setLayout(new GridBagLayout());
 
-        JLabel nome = new JLabel(place.getName());
+        JLabel nome = new JLabel("Bem Vindo ao Lava Jato: " + place.getName());
         nome.setHorizontalAlignment(SwingConstants.CENTER);
         labelPanel.add(Box.createVerticalGlue()); // Add glue to vertically center the label
         labelPanel.add(nome);
@@ -128,19 +149,33 @@ public class ClienteView extends UserView {
         conteudo.add(labelPanel, constraints2);
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        buttonPanel.setLayout(new GridBagLayout());
+        GridBagConstraints btnConstraints = new GridBagConstraints();
+        btnConstraints.fill = GridBagConstraints.HORIZONTAL;
+        btnConstraints.insets = new Insets(5, 10, 5, 10);
 
         JButton Comprar = new JButton("Comprar Produtos");
         Comprar.addActionListener(e -> comprar(place));
-        buttonPanel.add(Comprar);
+        btnConstraints.gridx = 0;
+        btnConstraints.gridy = 0;
+        btnConstraints.gridwidth = 1;
+        btnConstraints.weighty = 3;
+        buttonPanel.add(Comprar, btnConstraints);
 
         JButton Agendar = new JButton("Agendar");
         Agendar.addActionListener(e -> agendar(place));
-        buttonPanel.add(Agendar);
+        btnConstraints.gridx = 0;
+        btnConstraints.gridy = 1;
+        buttonPanel.add(Agendar, btnConstraints);
 
         JButton Voltar = new JButton("Voltar");
-        Voltar.addActionListener(e -> display());
-        buttonPanel.add(Voltar);
+        Voltar.addActionListener(e -> {
+            this.setTitle("Lava Jatos");
+            display();
+        });
+        btnConstraints.gridx = 0;
+        btnConstraints.gridy = 2;
+        buttonPanel.add(Voltar, btnConstraints);
 
         constraints2.gridx = 0;
         constraints2.gridy = 1;
@@ -162,58 +197,96 @@ public class ClienteView extends UserView {
         //botão pra voltar
         //botão pra agendar
         this.getContentPane().removeAll();
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        panel.setPreferredSize(preferredSize);
-
-        JPanel conteudo = new JPanel();
-        conteudo.setLayout(new GridLayout(2, 2, 10, 10));
+        JPanel MainPanel = new JPanel();
+        MainPanel.setLayout(new GridBagLayout());
+        GridBagConstraints MainC = new GridBagConstraints();
+        MainC.fill = GridBagConstraints.HORIZONTAL;
+        MainC.insets = new Insets(5, 10, 5, 10);
 
         JLabel titulo = new JLabel("Selecione o dia e horário que deseja agendar");
-        panel.add(titulo, BorderLayout.NORTH);
+        MainC.gridx = 0;
+        MainC.gridy = 0;
+        MainC.gridwidth = 2;
+        MainPanel.add(titulo, MainC);
+
+        JPanel conteudo = new JPanel();
+        conteudo.setLayout(new GridBagLayout());
+        GridBagConstraints contentC = new GridBagConstraints();
+        contentC.fill = GridBagConstraints.HORIZONTAL;
+        contentC.insets = new Insets(5, 10, 5, 10);
 
         JLabel selecioneDia = new JLabel("Selecione o dia");
-        conteudo.add(selecioneDia, BorderLayout.WEST);
+        contentC.gridx = 0;
+        contentC.gridy = 0;
+        conteudo.add(selecioneDia, contentC);
 
         final Dias[] diaSelecionado = new Dias[1];
         JComboBox<Dias> diasComboBox = new JComboBox<>();
+        JComboBox<String> horasComboBox = new JComboBox<>();
         for (Dias dia : place.getDiasAbertos()) {
             diasComboBox.addItem(dia);
         }
+        diaSelecionado[0] = (Dias) diasComboBox.getSelectedItem();
+        getHoras(place, diaSelecionado[0], horasComboBox);
+
         diasComboBox.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 diaSelecionado[0] = (Dias) e.getItem();
+                horasComboBox.removeAllItems();
+                getHoras(place, (Dias) e.getItem(), horasComboBox);
             }
         });
-        conteudo.add(diasComboBox, BorderLayout.CENTER);
+        contentC.gridx = 1;
+        contentC.gridy = 0;
+        conteudo.add(diasComboBox, contentC);
 
         JLabel selecioneHora = new JLabel("Selecione a hora");
-        conteudo.add(selecioneHora, BorderLayout.WEST);
+        contentC.gridx = 0;
+        contentC.gridy = 1;
+        conteudo.add(selecioneHora, contentC);
 
-        JComboBox<String> horasComboBox = new JComboBox<>();
-        for (int i = place.getAbertura(); i < place.getFechamento(); i++) {
-            if (place.verifica(diaSelecionado[0], i)) horasComboBox.addItem(Integer.toString(i));
-        }
-        conteudo.add(horasComboBox, BorderLayout.CENTER);
+        contentC.gridx = 1;
+        contentC.gridy = 1;
+        conteudo.add(horasComboBox, contentC);
 
         JButton Agendar = new JButton("Agendar");
         Agendar.addActionListener(e -> {
             try {
                 place.marcarHorario(user.getEmail(), diaSelecionado[0], (String) horasComboBox.getSelectedItem());
+                JOptionPane.showMessageDialog(null, "Horário marcado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                compose(place);
             } catch (HorarioException horarioException) {
                 JOptionPane.showMessageDialog(null, "Horário inválido", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });
-        panel.add(horasComboBox, BorderLayout.SOUTH);
 
         JButton Voltar = new JButton("Voltar");
         Voltar.addActionListener(e -> compose(place));
-        conteudo.add(Voltar, BorderLayout.SOUTH);
 
-        panel.add(conteudo, BorderLayout.CENTER);
-        this.getContentPane().add(panel);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        buttonPanel.add(Agendar);
+        buttonPanel.add(Voltar);
+
+        contentC.gridx = 0;
+        contentC.gridy = 2;
+        contentC.gridwidth = 2;
+        conteudo.add(buttonPanel, contentC);
+
+        MainC.gridx = 0;
+        MainC.gridy = 1;
+        MainC.gridwidth = 2;
+        MainPanel.add(conteudo, MainC);
+
+        this.getContentPane().add(MainPanel);
         this.pack();
+    }
+
+    private void getHoras(Place place, Dias dia, JComboBox<String> horasComboBox) {
+        for (int i = place.getAbertura(); i < place.getFechamento(); i++) {
+            if (place.verifica(dia, i))
+                horasComboBox.addItem(i > 9 ? i + ":00" : "0" + i + ":00");
+        }
     }
 
     private void comprar(Place place) {
@@ -308,40 +381,77 @@ public class ClienteView extends UserView {
 
         this.getContentPane().add(MainPanel);
         this.pack();
-        //Implementar a tela de compra
-        //Deve conter uma lista de produtos, com a quantidade de cada produto
-        //botão pra voltar
-        //botão pra efetuar a compra
     }
 
     private void efetuarCompra(Place place, HashMap<Produto, Integer> produtos) {
         this.getContentPane().removeAll();
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        panel.setPreferredSize(preferredSize);
 
-        JPanel conteudo = new JPanel();
-        conteudo.setLayout(new GridLayout(3, 1, 10, 10));
+        JPanel MainPanel = new JPanel();
+        MainPanel.setLayout(new GridBagLayout());
+        GridBagConstraints MainC = new GridBagConstraints();
+        MainC.fill = GridBagConstraints.HORIZONTAL;
+        MainC.insets = new Insets(5, 10, 5, 10);
 
         JLabel titulo = new JLabel("Dados da compra");
-        conteudo.add(titulo, BorderLayout.NORTH);
+        MainC.gridx = 0;
+        MainC.gridy = 0;
+        MainPanel.add(titulo, MainC);
 
-        JTextArea dadosCompra = new JTextArea();
-        dadosCompra.setEditable(false);
-        dadosCompra.setText("Lava Jato: " + place.getName() + "\n" + "Produto: " + produtosComboBox.getSelectedItem() + "\n" + "Quantidade: " + quantidadeProd.getValue() + "\n" + "Valor Final: " + place.getProdutos().get(produtosComboBox.getSelectedIndex()).getPreco() * (int) quantidadeProd.getValue());
-        conteudo.add(dadosCompra, BorderLayout.CENTER);
+        JPanel conteudo = new JPanel();
+        conteudo.setLayout(new GridBagLayout());
+        GridBagConstraints contentC = new GridBagConstraints();
+        contentC.fill = GridBagConstraints.HORIZONTAL;
+        contentC.insets = new Insets(5, 10, 5, 10);
+
+        JTextArea dados = new JTextArea();
+        dados.setEditable(false);
+        dados.setText("Produtos:\n");
+        for (Produto produto : produtos.keySet()) {
+            dados.append(produto.getNome() + "  -  " + produtos.get(produto) + " * " + produto.getPreco() + "\n");
+        }
+        dados.append("\nValor total: R$");
+        double valorTotal = 0;
+        for (Produto produto : produtos.keySet()) {
+            valorTotal += produto.getPreco() * produtos.get(produto);
+        }
+        dados.append(String.valueOf(valorTotal));
+
+        contentC.gridx = 0;
+        contentC.gridy = 0;
+        conteudo.add(dados, contentC);
+
+        JPanel botoesPanel = new JPanel();
+        botoesPanel.setLayout(new GridBagLayout());
+        GridBagConstraints btnC = new GridBagConstraints();
+        btnC.fill = GridBagConstraints.HORIZONTAL;
+        btnC.insets = new Insets(5, 10, 5, 10);
 
         JButton Cancelar = new JButton("Cancelar");
         Cancelar.addActionListener(e -> comprar(place));
-        conteudo.add(Cancelar, BorderLayout.SOUTH);
+        btnC.gridx = 0;
+        btnC.gridy = 0;
+        botoesPanel.add(Cancelar, btnC);
 
         JButton Finalizar = new JButton("Finalizar");
-        Finalizar.addActionListener(e -> JOptionPane.showMessageDialog(null, "Compra realizada com sucesso!\n"));
-        conteudo.add(Finalizar, BorderLayout.SOUTH);
+        Finalizar.addActionListener(e -> {
+            for (Produto produto : produtos.keySet()) {
+                place.efetuarCompra(produto, produtos.get(produto));
+            }
+            JOptionPane.showMessageDialog(null, "Compra efetuada com sucesso!");
+            compose(place);
+        });
+        btnC.gridx = 1;
+        botoesPanel.add(Finalizar, btnC);
 
-        panel.add(conteudo, BorderLayout.CENTER);
-        this.getContentPane().add(panel);
+        contentC.gridx = 0;
+        contentC.gridy = 1;
+        conteudo.add(botoesPanel, contentC);
+
+        MainC.gridx = 0;
+        MainC.gridy = 1;
+        MainPanel.add(conteudo, MainC);
+
+        this.getContentPane().add(MainPanel);
         this.pack();
     }
 }

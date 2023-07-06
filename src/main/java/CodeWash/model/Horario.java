@@ -1,27 +1,9 @@
+// NOME: Gabriel de Oliveira Vieira                         MATRÍCULA: 202265029A
+// NOME: Ítalo de Almeida Ribeiro                           MATRÍCULA: 202176009
+// NOME: João Victor Pereira dos Anjos                      MATRÍCULA: 202176010
+// NOME: Lucas Henrique de Arruda Ferreira                  MATRÍCULA: 202165193AC
+
 package CodeWash.model;
 
-public class Horario {
-    private Dias dia;
-    private String hora;
-
-    public Horario(Dias dia, String hora) {
-        this.dia = dia;
-        this.hora = hora;
-    }
-
-    public Dias getDia() {
-        return dia;
-    }
-
-    public String getHora() {
-        return hora;
-    }
-
-    public void setDia(Dias dia) {
-        this.dia = dia;
-    }
-
-    public void setHora(String hora) {
-        this.hora = hora;
-    }
+public record Horario(Dias dia, String hora) {
 }

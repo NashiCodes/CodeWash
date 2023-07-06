@@ -1,3 +1,8 @@
+// NOME: Gabriel de Oliveira Vieira                       MATRÍCULA: 202265029A
+// NOME: Ítalo de Almeida Ribeiro                         MATRÍCULA: 202176009
+// NOME: João Victor Pereira dos Anjos                    MATRÍCULA: 202176010
+// NOME: Lucas Henrique de Arruda Ferreira                MATRÍCULA: 202165193AC
+
 package CodeWash.view;
 
 import CodeWash.controller.User.UserManager;
@@ -11,6 +16,7 @@ import java.util.List;
 
 //Classe que representa a tela do administrador e seus métodos
 public class AdmView extends UserView {
+    private final TelaInicial login;
     private final Dimension preferredSize = new Dimension(450, 400);
     private final Usuario user;
     private Place place;
@@ -22,9 +28,10 @@ public class AdmView extends UserView {
     private final List<Integer> horarios;
     private JList<Produto> Jprodutos;
 
-    public AdmView(Usuario user) {
+    public AdmView(Usuario user, TelaInicial login) {
         // Função que cria a tela do administrador
         super("Administrador"); // Título da tela
+        this.login = login; // Tela de login
         this.user = user; // Usuário que está logado
         this.dias = new ArrayList<>(); // Lista de dias
         this.horarios = new ArrayList<>(3); // Lista de horários
@@ -102,14 +109,17 @@ public class AdmView extends UserView {
         setTitle("Selecione os dias de funcionamento");
         setSize(preferredSize);
 
-        JPanel panel = new JPanel(new GridBagLayout());
+        JPanel MainPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints MainC = new GridBagConstraints();
+        MainC.fill = GridBagConstraints.HORIZONTAL;
+        MainC.insets = new Insets(5, 10, 5, 10);
 
         JPanel diasPanel = new JPanel(new GridBagLayout());
         diasPanel.setBorder(BorderFactory.createTitledBorder("Dias de funcionamento"));
-        diasPanel.setPreferredSize(new Dimension(300, 200));
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.insets = new Insets(5, 10, 5, 10);
+        diasPanel.setPreferredSize(new Dimension(400, 250));
+        GridBagConstraints DiasC = new GridBagConstraints();
+        DiasC.fill = GridBagConstraints.HORIZONTAL;
+        DiasC.insets = new Insets(5, 10, 5, 10);
 
         for (int i = 0; i < 7; i++) {
             JCheckBox check = new JCheckBox(Dias.values()[i].toString());
@@ -121,10 +131,20 @@ public class AdmView extends UserView {
                     dias.remove(Dias.values()[finalI]);
                 }
             });
-            constraints.gridx = 0;
-            constraints.gridy = i + 1;
-            diasPanel.add(check, constraints);
+            DiasC.gridx = 0;
+            DiasC.gridy = i;
+            diasPanel.add(check, DiasC);
         }
+
+        MainC.gridx = 0;
+        MainC.gridy = 0;
+        MainPanel.add(diasPanel, MainC);
+
+
+        JPanel btnPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints btnC = new GridBagConstraints();
+        btnC.fill = GridBagConstraints.HORIZONTAL;
+        btnC.insets = new Insets(5, 10, 5, 10);
 
         JButton submit = new JButton("Continuar");
         submit.addActionListener(e -> {
@@ -132,23 +152,24 @@ public class AdmView extends UserView {
             setHorarioFuncionamento();
         });
 
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        panel.add(diasPanel, constraints);
+        btnC.gridx = 0;
+        btnC.gridy = 0;
+        btnPanel.add(submit, btnC);
 
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        panel.add(submit, constraints);
+        MainC.gridx = 0;
+        MainC.gridy = 1;
+        MainPanel.add(btnPanel, MainC);
 
-        this.getContentPane().add(panel);
+        this.getContentPane().add(MainPanel);
         this.pack();
     }
 
     public void AreaAdmin() {
         this.getContentPane().removeAll();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Área Adminstrativa");
-        setSize(300, 150);
+        setTitle("Code Wash");
+        setSize(200, 100);
+        setLayout(new GridLayout(1, 1));
         setLocationRelativeTo(null);
 
         // horarios
@@ -157,8 +178,18 @@ public class AdmView extends UserView {
         // editar produtos
         JButton produtos = new JButton("Editar produtos");
         produtos.addActionListener(e -> EditaProdutos());
+        //Voltar para a tela de login
+        JButton btnVoltar = new JButton("Voltar");
+        btnVoltar.addActionListener(e -> {
+            this.dispose();
+            this.setEnabled(false);
+            login.setEnabled(true);
+            login.display();
+        });
 
         JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBorder(BorderFactory.createTitledBorder("Bem vindo de volta, " + user.getNome() + "!"));
+        panel.setPreferredSize(new Dimension(250, 150));
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.insets = new Insets(5, 10, 5, 10);
@@ -176,6 +207,10 @@ public class AdmView extends UserView {
         constraints.gridx = 0;
         constraints.gridy = 2;
         panel.add(produtos, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 3;
+        panel.add(btnVoltar, constraints);
 
         getContentPane().add(panel);
 
@@ -304,10 +339,16 @@ public class AdmView extends UserView {
         constraintsHorarios.fill = GridBagConstraints.HORIZONTAL;
         constraintsHorarios.insets = new Insets(5, 10, 5, 10);
 
+        JLabel lblHorario = new JLabel("Horário");
+        constraintsHorarios.gridx = 0;
+        constraintsHorarios.gridy = 0;
+        lblHorarios.add(lblHorario, constraintsHorarios);
+
         for (int i = place.getAbertura(); i < place.getFechamento(); i++) {
-            JLabel lblHorario = new JLabel(i >= 10 ? i + ":00" : "0" + i + ":00");
+            lblHorario = new JLabel(i >= 10 ? i + ":00" : "0" + i + ":00");
             constraintsHorarios.gridx = 0;
-            constraintsHorarios.gridy = i - place.getAbertura();
+            constraintsHorarios.gridy = i - place.getAbertura() + 1;
+            constraintsHorarios.weighty = 2;
             lblHorarios.add(lblHorario, constraintsHorarios);
         }
 
@@ -325,28 +366,32 @@ public class AdmView extends UserView {
             for (int i = place.getAbertura(); i < place.getFechamento(); i++) {
                 if (i == place.getIntervalo()) {
                     JLabel lblIntervalo = new JLabel("Intervalo");
-                    lblIntervalo.setBackground(Color.YELLOW);
-                    lblIntervalo.setForeground(Color.BLACK);
                     constraintsDias.gridx = dia.ordinal();
                     constraintsDias.gridy = i - place.getAbertura() + 1;
+                    constraintsDias.weighty = 2;
+                    constraintsDias.weightx = 6;
                     lblDias.add(lblIntervalo, constraintsDias);
                     continue;
                 }
-                if (this.place.getCont(dia, Integer.toString(i)) == 0) {
+                if (this.place.getCont(dia, i) != 0) {
                     final int hora = i;
-                    JButton reservado = new JButton("Reservado");
+                    JButton reservado = new JButton("agendado");
+//                    reservado.setFont(new Font("Arial", Font.PLAIN, 10));
                     reservado.addActionListener(e -> AgendaManager(dia, hora));
-                    reservado.setBackground(Color.RED);
-                    reservado.setForeground(Color.WHITE);
-                    reservado.setEnabled(false);
+                    reservado.setBackground(new Color(0, 0, 0, 0));
+                    reservado.setBorder(null);
+                    reservado.setForeground(Color.BLACK);
                     constraintsDias.gridx = dia.ordinal();
                     constraintsDias.gridy = i - place.getAbertura() + 1;
+                    constraintsDias.weighty = 2;
+                    constraintsDias.weightx = 6;
                     lblDias.add(reservado, constraintsDias);
                 } else {
                     JLabel lblVazio = new JLabel("Vazio");
-                    lblVazio.setBackground(new Color(0, 150, 0));
                     constraintsDias.gridx = dia.ordinal();
                     constraintsDias.gridy = i - place.getAbertura() + 1;
+                    constraintsDias.weighty = 2;
+                    constraintsDias.weightx = 6;
                     lblDias.add(lblVazio, constraintsDias);
                 }
             }
@@ -360,9 +405,29 @@ public class AdmView extends UserView {
         constraints.gridy = 0;
         Mainpanel.add(lblDias, constraints);
 
+        JPanel btnPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraintsBtn = new GridBagConstraints();
+        constraintsBtn.fill = GridBagConstraints.HORIZONTAL;
+        constraintsBtn.insets = new Insets(5, 10, 5, 10);
+
+        JButton btnVoltar = new JButton("Voltar");
+        btnVoltar.addActionListener(e -> {
+            this.getContentPane().removeAll();
+            this.AreaAdmin();
+        });
+
+        constraintsBtn.gridx = 0;
+        constraintsBtn.gridy = 0;
+        btnPanel.add(btnVoltar, constraintsBtn);
+
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        Mainpanel.add(btnPanel, constraints);
+
         this.getContentPane().add(Mainpanel);
         this.pack();
 
+        this.setLocationRelativeTo(null);
 
     }
 
@@ -392,7 +457,7 @@ public class AdmView extends UserView {
         constraintsClientes.fill = GridBagConstraints.HORIZONTAL;
         constraintsClientes.insets = new Insets(5, 10, 5, 10);
 
-        for (String cliente : this.place.getClientes(dia, Integer.toString(hora))) {
+        for (String cliente : this.place.getClientes(dia, hora)) {
             JCheckBox lblCliente = new JCheckBox(cliente);
             lblCliente.addActionListener(e -> {
                 if (lblCliente.isSelected()) {
@@ -402,7 +467,7 @@ public class AdmView extends UserView {
                 }
             });
             constraintsClientes.gridx = 0;
-            constraintsClientes.gridy = this.place.getClientes(dia, Integer.toString(hora)).indexOf(cliente);
+            constraintsClientes.gridy = this.place.getClientes(dia, hora).indexOf(cliente);
             lblClientes.add(lblCliente, constraintsClientes);
         }
 
@@ -446,6 +511,7 @@ public class AdmView extends UserView {
         desenhaFormulario();
 
         this.pack();
+        this.setLocationRelativeTo(null);
     }
 
     private void desenhaFormulario() {

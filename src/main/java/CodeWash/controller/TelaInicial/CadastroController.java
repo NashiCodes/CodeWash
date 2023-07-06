@@ -1,3 +1,8 @@
+// NOME: Gabriel de Oliveira Vieira                         MATRÍCULA: 202265029A
+// NOME: Ítalo de Almeida Ribeiro                           MATRÍCULA: 202176009
+// NOME: João Victor Pereira dos Anjos                      MATRÍCULA: 202176010
+// NOME: Lucas Henrique de Arruda Ferreira                  MATRÍCULA: 202165193AC
+
 package CodeWash.controller.TelaInicial;
 
 import CodeWash.view.TelaInicial;
@@ -18,10 +23,13 @@ public class CadastroController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) { // Método que será chamado quando o botão for clicado
-        if (handle){
+        if (handle) {
             tela.cadastro(frame); // Chama o método da tela que será executado
+        } else {
+            tela.dispose();
+            tela.setEnabled(false);
+            tela.telaCadastro(); // Chama o método da tela que será executado
         }
-        else tela.telaCadastro(); // Chama o método da tela que será executado
     }
 
 }
