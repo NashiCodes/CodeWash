@@ -1,1 +1,126 @@
-[{"name":"Code Wash","email":"teste@admin.com","produtos":[{"nome":"Sabão","preco":15.0,"quantidade":75},{"nome":"Pretin","preco":20.0,"quantidade":0}],"agenda":{"horarios":{}},"diasAbertos":["SEGUNDA","TERCA","QUARTA","QUINTA","SEXTA","SABADO"],"abertura":8,"fechamento":18,"intervalo":12}]
+[
+  {
+    "name": "Code Wash",
+    "email": "teste@admin.com",
+    "produtos": [
+      {
+        "nome": "Sabão",
+        "preco": 15.0,
+        "quantidade": 75
+      },
+      {
+        "nome": "Pretin",
+        "preco": 20.0,
+        "quantidade": 0
+      }
+    ],
+    "agenda": {
+      "horarios": {}
+    },
+    "diasAbertos": [
+      "SEGUNDA",
+      "TERCA",
+      "QUARTA",
+      "QUINTA",
+      "SEXTA",
+      "SABADO"
+    ],
+    "abertura": 8,
+    "fechamento": 18,
+    "intervalo": 12
+  },
+  {
+    "name": "Lava Jato do Zé",
+    "email": "lavaZe@gmail.com",
+    "produtos": [
+      {
+        "nome": "Sabão",
+        "preco": 15.0,
+        "quantidade": 72
+      },
+      {
+        "nome": "Pretin",
+        "preco": 20.0,
+        "quantidade": 39
+      },
+      {
+        "nome": "Limpa Pneu",
+        "preco": 10.0,
+        "quantidade": 78
+      },
+      {
+        "nome": "limpa vidro",
+        "preco": 29.3,
+        "quantidade": 98
+      },
+      {
+        "nome": "Cera",
+        "preco": 19.99,
+        "quantidade": 21
+      },
+      {
+        "nome": "Cheirinho",
+        "preco": 5.0,
+        "quantidade": 9
+      }
+    ],
+    "agenda": {
+      "horarios": {}
+    },
+    "diasAbertos": [
+      "SEGUNDA",
+      "QUARTA",
+      "QUINTA",
+      "SEXTA"
+    ],
+    "abertura": 10,
+    "fechamento": 20,
+    "intervalo": 15
+  },
+  {
+    "name": "Lava Jato Caquis",
+    "email": "caquis@jato.com",
+    "produtos": [
+      {
+        "nome": "Sabão",
+        "preco": 15.0,
+        "quantidade": 50
+      },
+      {
+        "nome": "Pretin",
+        "preco": 15.0,
+        "quantidade": 10
+      },
+      {
+        "nome": "Limpa Pneu",
+        "preco": 12.56,
+        "quantidade": 100
+      },
+      {
+        "nome": "limpa vidro - Brilhando",
+        "preco": 12.55,
+        "quantidade": 10
+      },
+      {
+        "nome": "Cera - Caquis",
+        "preco": 10.99,
+        "quantidade": 30
+      },
+      {
+        "nome": "Cheirinho",
+        "preco": 7.9,
+        "quantidade": 100
+      }
+    ],
+    "agenda": {
+      "horarios": {}
+    },
+    "diasAbertos": [
+      "SEGUNDA",
+      "TERCA"
+    ],
+    "abertura": 6,
+    "fechamento": 15,
+    "intervalo": 10
+  }
+]
