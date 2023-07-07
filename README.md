@@ -9,37 +9,40 @@
   </p>
 </p>
 
-![Contributors](https://img.shields.io/github/contributors/NashiCodes/CodeWash?color=dark-green) ![Issues](https://img.shields.io/github/issues/NashiCodes/CodeWash) ![License](https://img.shields.io/github/license/NashiCodes/CodeWash) 
+![Contributors](https://img.shields.io/github/contributors/NashiCodes/CodeWash?color=dark-green) ![Issues](https://img.shields.io/github/issues/NashiCodes/CodeWash) ![License](https://img.shields.io/github/license/NashiCodes/CodeWash)
 
 ## Sumario
 
 * [Sobre o Projeto](#sobre-o-projeto)
 * [Iniciando](#iniciando)
-  * [Prerequisitos](#prerequisitos)
-  * [Instalação e Execução](#instalacao-e-execucao)
+    * [Prerequisitos](#prerequisitos)
+    * [Instalação e Execução](#instalacao-e-execucao)
 * [Autores](#autores)
 
 ## Sobre o Projeto
-<div align="center"  >
 
-![Screen Shot](imgs/main.png)![cadastro](imgs/cadastro.png)
+![Screen Shot](imgs/main.png)
+![cadastro](imgs/cadastro.png)
 
-</div>
-
-O projeto está organizado em diferentes pacotes e classes, que são responsáveis por diferentes funcionalidades. A estrutura do projeto é a seguinte:
+O projeto está organizado em diferentes pacotes e classes, que são responsáveis por diferentes funcionalidades. A
+estrutura do projeto é a seguinte:
 
 - ### Controler
-- CodeWash.controller: Esse pacote contém as classes responsáveis pelo controle das telas iniciais do programa, como cadastro, login e gerenciamento da interface gráfica.
-- CodeWash.controller.User: Nesse pacote, estão as classes que controlam as ações relacionadas aos usuários na interface do sistema.
+- CodeWash.controller: Esse pacote contém as classes responsáveis pelo controle das telas iniciais do programa, como
+  cadastro, login e gerenciamento da interface gráfica.
+- CodeWash.controller.User: Nesse pacote, estão as classes que controlam as ações relacionadas aos usuários na interface
+  do sistema.
 
 - ### Models
-- Aqui estão as classes responsáveis pelos modelos de dados do sistema, como gerenciamento de horários disponíveis e informações sobre os lava-jatos.
+- Aqui estão as classes responsáveis pelos modelos de dados do sistema, como gerenciamento de horários disponíveis e
+  informações sobre os lava-jatos.
 
 - ### Persistence
--  Nesse pacote, estão as classes responsáveis pela persistência dos dados em arquivos, utilizando o formato JSON.
+- Nesse pacote, estão as classes responsáveis pela persistência dos dados em arquivos, utilizando o formato JSON.
 
 - ### View
--  Esse pacote contém as classes relacionadas às interfaces gráficas do sistema, tanto para os clientes quanto para os administradores.
+- Esse pacote contém as classes relacionadas às interfaces gráficas do sistema, tanto para os clientes quanto para os
+  administradores.
 
 ## Iniciando
 
@@ -53,19 +56,21 @@ Para executar o projeto CodeWash, siga as etapas abaixo:
 - ### Instalação e Execução
 
 - Faça o clone do repositório do projeto para o seu ambiente local.
-- Certifique-se de ter instalado o Java Development Kit (JDK) 19 e um ambiente de desenvolvimento integrado (IDE) compatível, como o Eclipse ou o IntelliJ.
+- Certifique-se de ter instalado o Java Development Kit (JDK) 19 e um ambiente de desenvolvimento integrado (IDE)
+  compatível, como o Eclipse ou o IntelliJ.
 - Importe o projeto para o seu IDE e aguarde a sincronização das dependências.
--  Certifique-se de estar na pasta raiz do projeto, onde se encontra o arquivo pom.xml e a pasta src.
+- Certifique-se de estar na pasta raiz do projeto, onde se encontra o arquivo pom.xml e a pasta src.
 - Execute o comando no terminal para compilar o código.
-``
-mvn clean install
-``
+  ``
+  mvn clean install
+  ``
 - Esse comando irá gerar o arquivo CodeWash-1.0-SNAPSHOT-jar-with-dependencies.jar, entre outros arquivos.
 - Execute o comando:
-``java -jar target/CodeWash-1.0-SNAPSHOT-jar-with-dependencies.jar
-``
-O sistema será executado e a interface gráfica será exibida.
-Siga as instruções apresentadas na interface gráfica para se cadastrar como cliente ou administrador, e utilize as funcionalidades disponíveis.
+  ``java -jar target/CodeWash-1.0-SNAPSHOT-jar-with-dependencies.jar
+  ``
+  O sistema será executado e a interface gráfica será exibida.
+  Siga as instruções apresentadas na interface gráfica para se cadastrar como cliente ou administrador, e utilize as
+  funcionalidades disponíveis.
 
 ## Autores
 
