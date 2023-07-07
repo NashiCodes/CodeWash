@@ -20,8 +20,11 @@
 * [Autores](#autores)
 
 ## Sobre o Projeto
+<div align="center"  >
 
-![Screen Shot](imgs/main.png)
+![Screen Shot](imgs/main.png)![cadastro](imgs/cadastro.png)
+
+</div>
 
 O projeto está organizado em diferentes pacotes e classes, que são responsáveis por diferentes funcionalidades. A estrutura do projeto é a seguinte:
 
